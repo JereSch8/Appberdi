@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "689582227122",
+    "project_id": "appberdi",
+    "storage_bucket": "appberdi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689582227122:android:a9748638050e0ffc3493ab",
+        "android_client_info": {
+          "package_name": "com.jackemate.appberdi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689582227122-b589forng08mo0idj7u8jog5o8ignur5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRqGSzpk5dtwxH60gy4D1faru6mmCNXC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689582227122-b589forng08mo0idj7u8jog5o8ignur5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
