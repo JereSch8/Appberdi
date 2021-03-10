@@ -1,14 +1,17 @@
-package com.jackemate.appberdi.ui.viewModels
+package com.jackemate.appberdi.ui.map
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.data.SiteRepository
-import com.jackemate.appberdi.models.Site
+import com.jackemate.appberdi.domain.entities.Site
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MapViewModel : ViewModel() {
     private val repo = SiteRepository()
 
     private val _sites : MutableLiveData<List<Site>> = MutableLiveData()
