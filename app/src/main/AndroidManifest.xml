@@ -31,7 +31,8 @@
 
         <activity
             android:name=".ui.map.MapsActivity"
-            android:label="@string/title_activity_maps"/>
+            android:label="@string/title_activity_maps"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
