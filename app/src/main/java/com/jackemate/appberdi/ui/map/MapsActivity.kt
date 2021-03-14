@@ -1,8 +1,10 @@
 package com.jackemate.appberdi.ui.map
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -10,12 +12,14 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.GeoPoint
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMapsBinding
+import com.jackemate.appberdi.ui.sites.ContentSite
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private val viewModel by viewModels<MapViewModel>()
     private lateinit var mMap: GoogleMap
@@ -33,11 +37,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         binding.btnIndications.setOnClickListener{
-            Log.e( "onCreate: ", "PRESS")
+            Log.e("onCreate: ", "PRESS")
         }
 
         binding.btnBack.setOnClickListener {
-            Log.e( "onCreate: ", "back")
+            Log.e("onCreate: ", "back")
         }
 
     }
@@ -45,6 +49,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.uiSettings.isMapToolbarEnabled = false
+        mMap.uiSettings.isMyLocationButtonEnabled = false
 
         viewModel.sites.observe(this) {
             it.forEach { site ->
@@ -59,5 +65,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Actualizamos
         viewModel.getSites()
 
+        mMap.setOnMarkerClickListener(this)
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val intent = Intent(this, ContentSite::class.java)
+        intent.putExtra("idSite", marker.title)
+        startActivity(intent)
+        return false
     }
 }

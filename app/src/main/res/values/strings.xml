@@ -2,4 +2,5 @@
     <string name="app_name">AppBerdi</string>
     <string name="title_activity_maps">Map</string>
     <string name="indicaciones">Indicaciones</string>
+    <string name="est_s_en">Estás en:</string>
 </resources>

@@ -33,6 +33,7 @@
             android:name=".ui.map.MapsActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
+
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +41,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.sites.ContentSite"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
+
+
     </application>
 
 </manifest>
