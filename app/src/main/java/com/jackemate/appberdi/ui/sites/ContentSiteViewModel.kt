@@ -85,7 +85,6 @@ class ContentSiteViewModel : ViewModel() {
 
 
     fun getDurationMedia() =  convertFormat(mediaPlayer.duration.toLong())
-    fun getCurrentMedia() =  convertFormat(mediaPlayer.currentPosition.toLong())
 
 
     fun setMediaPlayerSeekTo(progress : Int) { mediaPlayer.seekTo(progress) }
@@ -100,7 +99,7 @@ class ContentSiteViewModel : ViewModel() {
                 handler.postDelayed(this, 500)
             }
         }
-        if (mediaPlayer.isPlaying)
+        if (!mediaPlayer.isPlaying)
             handler.removeCallbacks(runnable)
         else
             handler.postDelayed(runnable,0)

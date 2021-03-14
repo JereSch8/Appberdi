@@ -14,19 +14,19 @@ import kotlin.random.Random
 class ContentSite : AppCompatActivity() {
 
     private lateinit var viewModel: ContentSiteViewModel
-    private lateinit var urlAudio: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding  = ContentSiteFragmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this).get(ContentSiteViewModel::class.java)
+
         binding.btnPlay.isEnabled = false
         binding.btnPlay.setOnClickListener {
             if(binding.btnPlay.isEnabled) {
                 viewModel.startAudio(binding.btnPlay)
                 binding.tvDurationAudio.text = viewModel.getDurationMedia()
-                binding.tvCurrentAudio.text = viewModel.getCurrentMedia()
                 viewModel.updateProgressAudio(binding.sbProgress, binding.tvCurrentAudio)
             }
             else
@@ -51,10 +51,6 @@ class ContentSite : AppCompatActivity() {
             }
         })
 
-
-
-        viewModel = ViewModelProvider(this).get(ContentSiteViewModel::class.java)
-
         val idSite : String = intent.getStringExtra("idSite").toString()
 
         binding.tvNameSite.text = idSite
@@ -63,15 +59,13 @@ class ContentSite : AppCompatActivity() {
         viewModel.images.observe(this) {
             if(!it.isNullOrEmpty()){
                 val urlImage : String = it[Random.nextInt(it.size)].href
-                Log.e("Image: ", "href: $urlImage")
                 viewModel.printImage(this, urlImage, binding.imgSite)
             }
         }
 
         viewModel.audios.observe(this) {
             if(!it.isNullOrEmpty()){
-                Log.e("Audio: ", "href: ${it[Random.nextInt(it.size)].href}")
-                urlAudio = it[Random.nextInt(it.size)].href
+                val urlAudio = it[Random.nextInt(it.size)].href
                 viewModel.preStartAudio(urlAudio, binding.btnPlay)
                 binding.tvTitleAudio.text = it[Random.nextInt(it.size)].title
             }
