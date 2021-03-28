@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
+    // Firebase
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
@@ -56,6 +57,7 @@ dependencies {
 
     //Coroutinas
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.3'
 
     //Navigation Components
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
@@ -64,9 +66,14 @@ dependencies {
 
     //MAPS
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     //Glide
     implementation "com.github.bumptech.glide:glide:4.11.0"
+
+    // Preferences
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'com.github.ibrahimsn98:live-preferences:1.9'
 
     implementation project(':data')
     implementation project(':domain')
@@ -74,6 +81,7 @@ dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    // Testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.data.SiteRepository
 import com.jackemate.appberdi.domain.entities.Site
+import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,9 +27,5 @@ class MapViewModel : ViewModel() {
             }
             _sites.value = value!!.mapNotNull { it.toObject() }
         }
-    }
-
-    companion object {
-        const val TAG = "MainActivityViewModel"
     }
 }
