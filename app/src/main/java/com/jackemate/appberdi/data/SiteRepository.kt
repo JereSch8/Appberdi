@@ -17,7 +17,4 @@ class SiteRepository {
     fun getContentImageWhere(idSite : String) = getContentWhere(idSite,"image")
     fun getContentGifWhere(idSite : String) = getContentWhere(idSite,"gif")
 
-    companion object {
-        const val TAG: String = "LocationRepository"
-    }
 }

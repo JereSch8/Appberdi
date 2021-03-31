@@ -1,11 +1,11 @@
 package com.jackemate.appberdi.domain.entities
 
 data class Site(
-    val description : String = "" ,
-    val latlong : Any = "" ,
+    var id: String = "",
+    val description : String = "",
+    val latlong : Any = Any(),
     val name : String = ""
 )
-
 
 data class ContentAudio(
     val title: String = "",
@@ -44,4 +44,11 @@ data class ContentText(
     val site: String = "",
     val type: String = "",
     val description: String = ""
+)
+
+enum class TourTransition { ENTER, EXIT }
+
+data class TourEvent(
+    val site: String,
+    val transition: TourTransition
 )
