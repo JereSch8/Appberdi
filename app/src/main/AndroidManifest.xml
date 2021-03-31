@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jackemate.appberdi">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -36,19 +35,22 @@
         <activity
             android:name=".ui.map.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
-
-        <activity android:name=".ui.main.MainActivity">
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+        <activity  android:name=".ui.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.sites.ContentSite"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
-
-
+        <activity
+            android:name=".ui.mediateca.Mediateca"
+            android:label="@string/title_activity_mediateca"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.sites.ContentSite"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
     </application>
 
 </manifest>

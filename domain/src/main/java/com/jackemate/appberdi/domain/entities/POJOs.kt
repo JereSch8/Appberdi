@@ -30,6 +30,22 @@ data class ContentGif(
     val description: String = ""
 )
 
+data class ContentVideo(
+    val title: String = "",
+    val href: String = "",
+    val site: String = "",
+    val type: String = "",
+    val description: String = "",
+    val subtitle : String = ""
+)
+
+data class ContentText(
+    val title: String = "",
+    val site: String = "",
+    val type: String = "",
+    val description: String = ""
+)
+
 enum class TourTransition { ENTER, EXIT }
 
 data class TourEvent(
