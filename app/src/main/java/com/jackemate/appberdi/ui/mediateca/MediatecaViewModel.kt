@@ -7,9 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.data.ContentRepository
-import com.jackemate.appberdi.data.SiteRepository
 import com.jackemate.appberdi.domain.entities.*
-import com.jackemate.appberdi.ui.map.MapViewModel
+import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -33,7 +32,7 @@ class MediatecaViewModel : ViewModel() {
     fun getImages(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentImageWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
-                Log.w(MapViewModel.TAG, "Listen failed.", e)
+                Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
             _images.value = value!!.mapNotNull { it.toObject() }
@@ -43,7 +42,7 @@ class MediatecaViewModel : ViewModel() {
     fun getAudios(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentAudioWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
-                Log.w(MapViewModel.TAG, "Listen failed.", e)
+                Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
             _audios.value = value!!.mapNotNull { it.toObject() }
@@ -53,7 +52,7 @@ class MediatecaViewModel : ViewModel() {
     fun getGifs(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentGifWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
-                Log.w(MapViewModel.TAG, "Listen failed.", e)
+                Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
             _gifs.value = value!!.mapNotNull { it.toObject() }
@@ -63,7 +62,7 @@ class MediatecaViewModel : ViewModel() {
     fun getVideos(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentVideoWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
-                Log.w(MapViewModel.TAG, "Listen failed.", e)
+                Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
             _videos.value = value!!.mapNotNull { it.toObject() }
@@ -73,7 +72,7 @@ class MediatecaViewModel : ViewModel() {
     fun getText(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentTextWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
-                Log.w(MapViewModel.TAG, "Listen failed.", e)
+                Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
             _texts.value = value!!.mapNotNull { it.toObject() }

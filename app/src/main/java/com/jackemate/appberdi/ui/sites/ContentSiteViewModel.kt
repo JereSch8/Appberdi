@@ -18,7 +18,7 @@ import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.SiteRepository
 import com.jackemate.appberdi.domain.entities.ContentAudio
 import com.jackemate.appberdi.domain.entities.ContentImage
-import com.jackemate.appberdi.ui.map.MapViewModel
+import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -108,7 +108,7 @@ class ContentSiteViewModel : ViewModel() {
     fun getContentImageWhere(idSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repo.getContentImageWhere(idSite).addSnapshotListener { value, e ->
             if (e != null) {
-                Log.w(MapViewModel.TAG, "Listen failed.", e)
+                Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
             _images.value = value!!.mapNotNull { it.toObject() }
@@ -118,7 +118,7 @@ class ContentSiteViewModel : ViewModel() {
     fun getContentAudioWhere(idSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repo.getContentAudioWhere(idSite).addSnapshotListener { value, e ->
             if (e != null) {
-                Log.w(MapViewModel.TAG, "Listen failed.", e)
+                Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
             _audios.value = value!!.mapNotNull { it.toObject() }
