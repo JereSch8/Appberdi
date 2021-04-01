@@ -16,7 +16,9 @@ import com.google.firebase.firestore.GeoPoint
 import com.jackemate.appberdi.databinding.ActivityMainBinding
 import com.jackemate.appberdi.domain.entities.Site
 import com.jackemate.appberdi.services.GeofenceBroadcastReceiver
+import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
+import com.jackemate.appberdi.ui.mediateca.Mediateca
 import com.jackemate.appberdi.utils.Constants
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe
@@ -51,15 +53,21 @@ class MainActivity : RequesterPermissionsActivity() {
             Log.e(TAG, "Hubo un cambio para el tour!!: $it")
         }
 
-        binding.tourBottom.setOnClickListener {
+        binding.launchTour.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
 
-        binding.sitesBottom.setOnClickListener {
+        binding.launchSites.setOnClickListener {
         }
 
-        binding.atractionsBottom
+        binding.launchAttractions.setOnClickListener {
+            startActivity(Intent(this, AttractionActivity::class.java))
+        }
+
+        binding.launchMediateca.setOnClickListener {
+            startActivity(Intent(this, Mediateca::class.java))
+        }
     }
 
     @SuppressLint("MissingPermission")

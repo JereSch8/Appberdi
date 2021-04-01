@@ -52,3 +52,13 @@ data class TourEvent(
     val site: String,
     val transition: TourTransition
 )
+
+data class Link(val href: String = "", val rel: String = "")
+
+data class Attraction(
+    val name: String = "",
+    val description: String = "",
+    val links: List<Link> = emptyList(),
+    val site: String? = null,
+    val horarios: Any = Any()
+)

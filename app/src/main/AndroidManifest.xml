@@ -16,8 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:fullBackupContent="false"
         android:theme="@style/AppTheme">
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -30,13 +30,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <receiver android:name=".services.GeofenceBroadcastReceiver"/>
+        <receiver android:name=".services.GeofenceBroadcastReceiver" />
 
         <activity
             android:name=".ui.map.MapsActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-        <activity  android:name=".ui.main.MainActivity"
+        <activity
+            android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,10 +48,11 @@
         <activity
             android:name=".ui.mediateca.Mediateca"
             android:label="@string/title_activity_mediateca"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.sites.ContentSite"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+        <activity android:name=".ui.attractions.AttractionActivity" />
     </application>
 
 </manifest>
