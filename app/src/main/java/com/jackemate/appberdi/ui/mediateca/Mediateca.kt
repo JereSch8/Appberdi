@@ -1,17 +1,13 @@
 package com.jackemate.appberdi.ui.mediateca
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaBinding
 import com.jackemate.appberdi.domain.entities.*
@@ -56,13 +52,13 @@ class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListene
             binding.toolbarLayout.title = "${it.size} archivos encontrados."
         }
 
-        setupRecyclerView(this)
+        setupRecyclerView()
     }
 
-    private fun setupRecyclerView(context : Context){
-        binding.contentRecycler.recycler.layoutManager = LinearLayoutManager(context)
+    private fun setupRecyclerView(){
+        binding.contentRecycler.recycler.layoutManager = LinearLayoutManager(this)
         binding.contentRecycler.recycler .addItemDecoration(
-            DividerItemDecoration(context,
+            DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL)
         )
     }

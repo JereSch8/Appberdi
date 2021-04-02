@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -8,4 +8,32 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.Welcome"  parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@android:color/holo_blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@android:color/holo_blue_dark</item>
+        <item name="colorSecondaryVariant">@android:color/holo_blue_light</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="CustomOutlinedButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:paddingLeft">@dimen/mtrl_btn_text_btn_padding_left</item>
+        <item name="android:paddingRight">@dimen/mtrl_btn_text_btn_padding_right</item>
+        <item name="iconTint">@color/mtrl_text_btn_text_color_selector</item>
+        <item name="iconPadding">@dimen/mtrl_btn_text_btn_icon_padding</item>
+        <item name="backgroundTint">#00000008</item>
+        <item name="rippleColor">@color/white</item>
+        <item name="strokeColor">@color/white</item>
+        <item name="strokeWidth">@dimen/mtrl_btn_stroke_size</item>
+    </style>
+
 </resources>
