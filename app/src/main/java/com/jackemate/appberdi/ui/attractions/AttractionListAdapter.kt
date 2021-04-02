@@ -35,6 +35,7 @@ class AttractionListAdapter constructor(
         fun bind(item: Attraction) {
             itemView.findViewById<TextView>(R.id.title).text = item.name
             itemView.findViewById<TextView>(R.id.description).text = item.description
+            itemView.findViewById<TextView>(R.id.next_open).text = item.getProxHorario().toString()
             itemView.setOnClickListener { onClick(item) }
         }
     }

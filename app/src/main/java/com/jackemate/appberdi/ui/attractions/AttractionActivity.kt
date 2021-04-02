@@ -32,5 +32,6 @@ class AttractionActivity : AppCompatActivity() {
 
     private fun onSelect(item: Attraction) {
         Log.i(TAG, "Seleccionado: $item")
+        Log.i(TAG, "    Siguiente horario: ${item.getProxHorario()}")
     }
 }

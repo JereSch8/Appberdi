@@ -13,9 +13,7 @@ class AttractionViewModel(app: Application) : AndroidViewModel(app) {
 
     fun getAttractions() = liveData {
         val docs = attractionRepo.getAttractions().get().await()
-        val list = docs.documents.mapNotNull {
-            return@mapNotNull it.toObject<Attraction?>()
-        }
+        val list = docs.documents.mapNotNull { it.toObject<Attraction?>() }
         emit(list)
     }
 }
