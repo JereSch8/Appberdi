@@ -39,11 +39,6 @@ class WelcomeViewModel : ViewModel() {
                 description = "Descubrí todas las atracciones que tiene el barrio para vos."
             )
         )
-
-
-
-
-
     }
 
 

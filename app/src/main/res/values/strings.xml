@@ -110,4 +110,7 @@
     <string name="action_settings">Settings</string>
     <string name="sitios">Sitios:</string>
     <string name="tag">Tag</string>
+    <string name="input_name">Ingresa tu nombre</string>
+    <string name="guardar">Guardar</string>
+    <string name="finalizar">Finalizar</string>
 </resources>
