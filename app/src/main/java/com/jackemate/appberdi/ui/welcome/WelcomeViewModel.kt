@@ -23,8 +23,8 @@ class WelcomeViewModel : ViewModel() {
             Board(
                 background = R.drawable.gradient_background,
                 animation = R.raw.tour_virtual,
-                title = "Recorrido Virtual",
-                description = "Si no estás en el lugar, no te preocupes, tenemos un recorrido virtual para que lo conozcas."
+                title = "Lugares",
+                description = "Si no estás en el lugar, no te preocupes, podes acceder a el desde donde te estés."
             ),
             Board(
                 background = R.drawable.gradient_background,
