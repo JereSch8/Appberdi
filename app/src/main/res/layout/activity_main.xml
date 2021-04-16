@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.100000024"
+        android:importantForAccessibility="no"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -31,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/tour_bottom"
+        android:id="@+id/launch_tour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Iniciar recorrido"
@@ -43,22 +44,33 @@
         app:layout_constraintVertical_bias="0.63" />
 
     <Button
-        android:id="@+id/sites_bottom"
+        android:id="@+id/launch_sites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lugares"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tour_bottom" />
+        app:layout_constraintTop_toBottomOf="@+id/launch_tour" />
 
     <Button
-        android:id="@+id/atractions_bottom"
+        android:id="@+id/launch_attractions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="atracciones"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sites_bottom" />
+        app:layout_constraintTop_toBottomOf="@+id/launch_sites" />
+
+    <Button
+        android:id="@+id/launch_mediateca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mediateca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/launch_attractions" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
