@@ -20,6 +20,7 @@ import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
 import com.jackemate.appberdi.ui.mediateca.Mediateca
 import com.jackemate.appberdi.utils.Constants
+import com.jackemate.appberdi.utils.LocalInfo
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe
 
