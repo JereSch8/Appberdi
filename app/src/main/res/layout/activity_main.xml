@@ -7,29 +7,32 @@
     tools:context=".ui.main.MainActivity">
 
 
-    <ImageView
-        android:id="@+id/imageView"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation"
         android:layout_width="220dp"
-        android:layout_height="246dp"
+        android:layout_height="220dp"
+        app:lottie_rawRes="@raw/smiling_dog"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.100000024"
-        android:importantForAccessibility="no"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:importantForAccessibility="no" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/msgWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:textSize="16sp"
         android:layout_marginTop="16dp"
-        android:text="Hola, soy Albi.  ¡Vamos a recorrer el barrio! "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/animation" />
 
     <Button
         android:id="@+id/launch_tour"

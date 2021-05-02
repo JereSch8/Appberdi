@@ -19,10 +19,7 @@ import com.jackemate.appberdi.services.GeofenceBroadcastReceiver
 import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
 import com.jackemate.appberdi.ui.mediateca.Mediateca
-import com.jackemate.appberdi.utils.Constants
-import com.jackemate.appberdi.utils.LocalInfo
-import com.jackemate.appberdi.utils.TAG
-import com.jackemate.appberdi.utils.observe
+import com.jackemate.appberdi.utils.*
 
 class MainActivity : RequesterPermissionsActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -39,6 +36,9 @@ class MainActivity : RequesterPermissionsActivity() {
         setContentView(binding.root)
 
         geofencingClient = LocationServices.getGeofencingClient(this)
+
+        val name : String = LocalInfo(this).getUserName()
+        binding.msgWelcome.text = "Hola $name, soy Albi.  ¡Vamos a recorrer el barrio!"
 
         // Pedimos el permiso de GPS
         withPermissions(gpsPermissions()) {

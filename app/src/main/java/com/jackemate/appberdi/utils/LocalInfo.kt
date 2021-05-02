@@ -10,6 +10,15 @@ class LocalInfo(context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val editor = prefs.edit()
 
+    private fun setDataString(ubication: String, value : String){
+        editor.putString(ubication, value)
+        editor.apply()
+    }
+
+    private fun getDataString(ubication: String): String {
+        return prefs.getString(ubication, "none").toString()
+    }
+
     private fun setDataBoolean(ubication: String, value : Boolean){
         editor.putBoolean(ubication, value)
         editor.apply()
@@ -19,10 +28,15 @@ class LocalInfo(context: Context) {
         return prefs.getBoolean(ubication, false)
     }
 
-    fun isntFirstUsage(): Boolean { //"isnt porque por defecto la variable se inicializa en false y queda mal si se llama "is"
-        return getDataBoolean("Welcome")
-    }
-    fun setFirstUsage() {
-        setDataBoolean("Welcome", true)
-    }
+    //"isnt porque por defecto la variable se inicializa en false y queda mal si se llama "is"
+    fun isntFirstUsage(): Boolean = getDataBoolean("Welcome")
+
+    fun setFirstUsage() = setDataBoolean("Welcome", true)
+
+    fun getUserName() : String = getDataString("UserName")
+
+
+    fun setUserName(name : String) = setDataString("UserName", name)
+
+
 }
