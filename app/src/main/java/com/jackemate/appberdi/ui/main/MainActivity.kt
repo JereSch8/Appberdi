@@ -19,6 +19,7 @@ import com.jackemate.appberdi.services.GeofenceBroadcastReceiver
 import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
 import com.jackemate.appberdi.ui.mediateca.Mediateca
+import com.jackemate.appberdi.ui.preferences.PreferencesActivity
 import com.jackemate.appberdi.utils.*
 
 class MainActivity : RequesterPermissionsActivity() {
@@ -38,7 +39,7 @@ class MainActivity : RequesterPermissionsActivity() {
         geofencingClient = LocationServices.getGeofencingClient(this)
 
         val name : String = LocalInfo(this).getUserName()
-        binding.msgWelcome.text = "Hola $name, soy Albi.  ¡Vamos a recorrer el barrio!"
+        binding.msgWelcome.text = "Hola $name, soy Albi.\n¡Vamos a recorrer el barrio!"
 
         // Pedimos el permiso de GPS
         withPermissions(gpsPermissions()) {
@@ -59,7 +60,8 @@ class MainActivity : RequesterPermissionsActivity() {
             startActivity(intent)
         }
 
-        binding.launchSites.setOnClickListener {
+        binding.launchPreferences.setOnClickListener {
+            startActivity(Intent(this, PreferencesActivity::class.java))
         }
 
         binding.launchAttractions.setOnClickListener {

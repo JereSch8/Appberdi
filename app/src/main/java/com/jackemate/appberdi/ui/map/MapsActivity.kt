@@ -40,9 +40,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             Log.e("onCreate: ", "PRESS")
         }
 
-        binding.btnBack.setOnClickListener {
-            Log.e("onCreate: ", "back")
-        }
 
     }
 

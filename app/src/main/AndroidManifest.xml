@@ -59,6 +59,7 @@
         <activity
             android:name=".ui.attractions.AttractionDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.preferences.PreferencesActivity" />
     </application>
 
 </manifest>

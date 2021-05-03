@@ -4,7 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/background"
     android:padding="16dp">
 
 
@@ -24,7 +24,7 @@
         android:id="@+id/textView_titulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-thin"
+        android:fontFamily="@font/lobstertwo_regular"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="40sp"
@@ -43,7 +43,7 @@
         android:layout_marginBottom="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:fontFamily="sans-serif-thin"
+        android:fontFamily="@font/montserrat_regular"
         android:textAlignment="center"
         android:textColor="@color/white"
 

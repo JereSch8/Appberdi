@@ -86,6 +86,12 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
+    //StepView
+    implementation 'com.shuhart.stepview:stepview:1.5.1'
+
+    //ProgressBard
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
+
     // Testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

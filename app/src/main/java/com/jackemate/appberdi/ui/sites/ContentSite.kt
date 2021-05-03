@@ -1,5 +1,7 @@
 package com.jackemate.appberdi.ui.sites
 
+import android.graphics.Color
+import android.graphics.Insets.add
 import android.os.Bundle
 import android.util.Log
 import android.widget.SeekBar
@@ -14,6 +16,7 @@ import kotlin.random.Random
 class ContentSite : AppCompatActivity() {
 
     private lateinit var viewModel: ContentSiteViewModel
+    private var step : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,11 @@ class ContentSite : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this).get(ContentSiteViewModel::class.java)
+
+        binding.steps.state.steps( listOf("Historia", "video", "audio", "anécdota") ).commit()
+
+        binding.btnNext.setOnClickListener { binding.steps.go(++step, true) }
+        binding.btnBack.setOnClickListener { binding.steps.go(--step, true) }
 
         binding.btnPlay.isEnabled = false
         binding.btnPlay.setOnClickListener {
