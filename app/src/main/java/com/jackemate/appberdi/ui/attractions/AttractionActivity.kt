@@ -1,12 +1,14 @@
 package com.jackemate.appberdi.ui.attractions
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jackemate.appberdi.databinding.ActivityAttractionsBinding
-import com.jackemate.appberdi.domain.entities.Attraction
+import com.jackemate.appberdi.entities.Attraction
+import com.jackemate.appberdi.ui.attractions.AttractionDetailActivity.Companion.ID_ATTRACTION
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe
 
@@ -20,8 +22,8 @@ class AttractionActivity : AppCompatActivity() {
         setupRecyclerView(binding)
 
         observe(viewModel.getAttractions()) {
-            (binding.attractionList.adapter as AttractionListAdapter).update(it)
             Log.i(TAG, "Lista de atracciones: $it")
+            (binding.attractionList.adapter as AttractionListAdapter).update(it)
         }
     }
 
@@ -32,6 +34,8 @@ class AttractionActivity : AppCompatActivity() {
 
     private fun onSelect(item: Attraction) {
         Log.i(TAG, "Seleccionado: $item")
-        Log.i(TAG, "    Siguiente horario: ${item.getProxHorario()}")
+        startActivity(Intent(this, AttractionDetailActivity::class.java).apply {
+            putExtra(ID_ATTRACTION, item.id)
+        })
     }
 }
