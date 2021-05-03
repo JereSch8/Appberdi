@@ -19,10 +19,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 val Any.TAG: String
@@ -107,6 +108,16 @@ fun String.toDate(fmt: String): Date? {
     } catch (e: ParseException) {
         null
     }
+}
+
+fun String.upper() : String = this.toUpperCase(Locale("es"))
+
+fun LocalDateTime.eeeeHmm(): String {
+    return this.format(DateTimeFormatter.ofPattern("eeee 'a las' H:mm", Locale("es")))
+}
+
+fun LocalDateTime.Hmm(): String {
+    return this.format(DateTimeFormatter.ofPattern("H:mm", Locale("es")))
 }
 
 fun Date.ddMM(): String = SimpleDateFormat("dd/MM", Locale.getDefault()).format(this)
