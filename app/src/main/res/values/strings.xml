@@ -113,4 +113,15 @@
     <string name="input_name">Ingresa tu nombre</string>
     <string name="guardar">Guardar</string>
     <string name="finalizar">Finalizar</string>
+    <string name="entrar">entrar</string>
+    <string name="progreso">Progreso</string>
+    <string name="sitios_recorridos">Sitios recorridos</string>
+    <string name="reproducci_n_autom_tica_de_audio">Reproducción automática de audio</string>
+    <string name="reproducci_n_autom_tica_de_video">Reproducción automática de video</string>
+    <string name="l_mite_de_almacenamiento_sin_l_mite">Límite de almacenamiento: Sin límite</string>
+    <string name="l_mite_de_datos_sin_l_mite">Límite de datos: Sin límite</string>
+    <string name="limit_storage">Establecer un límite de almacenamiento muy pequeño no es recomendable ya que no se podrán almacenar los datos obtenido de la nube y se volverán a descargar cada vez que vuelvas a visitar un sitio.</string>
+    <string name="limit_data">Establecer un límite de datos muy pequeño no es recomendable ya que es posible que no puedas obtener los recursos multimedia necesarios para navegar sobre los distintos sitios de Alberdi.</string>
+    <string name="uso_de_datos">Uso de datos:</string>
+    <string name="borrar">Borrar</string>
 </resources>

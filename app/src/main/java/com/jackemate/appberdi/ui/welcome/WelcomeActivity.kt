@@ -40,7 +40,7 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected  {
             dialog.setText("Bienvenida/o a AppBerdi")
             dialog.getSave().setOnClickListener{
                 val name : String = dialog.getInput()
-                if(name.length in 4..15){
+                if(name.length in 3..15){
                     LocalInfo(this).setUserName(name)
                     LocalInfo(this).setFirstUsage()
                     Toast.makeText(this, "Bienvenida/o $name", Toast.LENGTH_SHORT).show()
