@@ -10,4 +10,5 @@
     android:paddingHorizontal="16dp"
     android:textAlignment="textStart"
     android:textAllCaps="false"
+    android:textColor="#FFF"
     tools:text="Facebook" />

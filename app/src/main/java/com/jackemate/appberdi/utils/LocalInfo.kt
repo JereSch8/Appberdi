@@ -1,10 +1,8 @@
 package com.jackemate.appberdi.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import me.ibrahimsn.library.LiveSharedPreferences
-import java.util.*
+import java.time.LocalDateTime
 
 class LocalInfo(context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
@@ -36,6 +34,16 @@ class LocalInfo(context: Context) {
     private fun getDataBoolean(ubication: String): Boolean {
         return prefs.getBoolean(ubication, false)
     }
+
+    private fun setDataLong(key: String, value : Long){
+        editor.putLong(key, value)
+        editor.apply()
+    }
+
+    private fun getDataLong(key: String): Long {
+        return prefs.getLong(key, 0)
+    }
+
 
     //"isnt porque por defecto la variable se inicializa en false y queda mal si se llama "is"
     fun isntFirstUsage(): Boolean = getDataBoolean("Welcome")
@@ -70,4 +78,6 @@ class LocalInfo(context: Context) {
 
     fun getAutoPlayVideo() : Boolean = getDataBoolean("autoPlayVideo")
 
+    fun getLastAdTimestamp() = getDataString("AdTimestamp")
+    fun updateAdTimestamp() = setDataString("AdTimestamp", LocalDateTime.now().toString())
 }
