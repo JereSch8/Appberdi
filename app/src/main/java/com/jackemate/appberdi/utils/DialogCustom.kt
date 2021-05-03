@@ -36,7 +36,7 @@ class DialogCustom(){
 
     fun setText(text : String) { binding.title.text = text }
 
-
+    fun setHintText(text: String) { binding.inputName.hint = text }
 
 
 

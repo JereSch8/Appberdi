@@ -28,12 +28,17 @@
         <item name="android:textColor">@color/blue</item>
         <item name="android:paddingLeft">@dimen/mtrl_btn_text_btn_padding_left</item>
         <item name="android:paddingRight">@dimen/mtrl_btn_text_btn_padding_right</item>
-        <item name="iconTint">@color/mtrl_text_btn_text_color_selector</item>
+        <item name="iconTint">@color/blue</item>
         <item name="iconPadding">@dimen/mtrl_btn_text_btn_icon_padding</item>
         <item name="backgroundTint">#00000008</item>
         <item name="rippleColor">@color/white</item>
         <item name="strokeColor">@color/white</item>
         <item name="strokeWidth">@dimen/mtrl_btn_stroke_size</item>
+    </style>
+
+    <style name="CustomNonlinedButton" parent="CustomOutlinedButton">
+        <item name="iconTint">@color/white</item>
+        <item name="strokeWidth">0dp</item>
     </style>
 
 </resources>

@@ -73,7 +73,6 @@
                 app:boxCornerRadiusTopStart="20dp"
                 app:endIconDrawable="@drawable/ic_people"
                 app:endIconMode="custom"
-                app:helperText="@string/input_name"
                 app:helperTextTextColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

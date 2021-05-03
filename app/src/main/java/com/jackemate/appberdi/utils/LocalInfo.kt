@@ -19,6 +19,15 @@ class LocalInfo(context: Context) {
         return prefs.getString(ubication, "none").toString()
     }
 
+    private fun setDataInt(ubication: String, value : Int){
+        editor.putInt(ubication, value)
+        editor.apply()
+    }
+
+    private fun getDataInt(ubication: String): Int {
+        return prefs.getInt(ubication, -8)
+    }
+
     private fun setDataBoolean(ubication: String, value : Boolean){
         editor.putBoolean(ubication, value)
         editor.apply()
@@ -35,8 +44,30 @@ class LocalInfo(context: Context) {
 
     fun getUserName() : String = getDataString("UserName")
 
-
     fun setUserName(name : String) = setDataString("UserName", name)
 
+    fun getLimitStorage() : Int = getDataInt("limiteStorage")          //limites en MB
+
+    fun setLimitStorage(limit : Int) = setDataInt("limiteStorage", limit)//limites en MB
+
+    fun getLimitMovil() : Int = getDataInt("limiteMovil")          //limites en MB
+
+    fun setLimitMovil(limit : Int) = setDataInt("limiteMovil", limit)//limites en MB
+
+    fun getProgressSite() : Int = getDataInt("progressSite")
+
+    fun setProgressSite(progress : Int) = setDataInt("progressSite", progress)
+
+    fun getProgressTreasure() : Int = getDataInt("progressTreasure")
+
+    fun setProgressTreasure(progress : Int) = setDataInt("progressTreasure", progress)
+
+    fun setAutoPlayAudio(b : Boolean) = setDataBoolean("autoPlayAudio", b)
+
+    fun getAutoPlayAudio() : Boolean = getDataBoolean("autoPlayAudio")
+
+    fun setAutoPlayVideo(b : Boolean) = setDataBoolean("autoPlayVideo", b)
+
+    fun getAutoPlayVideo() : Boolean = getDataBoolean("autoPlayVideo")
 
 }
