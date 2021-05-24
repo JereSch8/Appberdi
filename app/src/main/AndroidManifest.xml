@@ -31,7 +31,8 @@
 
         <activity
             android:name=".ui.welcome.WelcomeActivity"
-            android:theme="@style/Theme.Welcome">
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -40,7 +41,7 @@
         <activity
             android:name=".ui.map.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.mediateca.Mediateca"
             android:label="@string/title_activity_mediateca"

@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="cab100">#21D7F7</color>
+    <color name="cab200">#19C3F4</color>
+    <color name="cab300">#0AB0F1</color>
+    <color name="cab400">#0991DB</color>
 
-    <color name="black">#000</color>
-    <color name="greyLight">#D86C6B6B</color>
-    <color name="white">#fff</color>
-    <color name="white60">#CCFFFFFF</color>
-    <color name="blue">#2196F3</color>
+    <!-- 80%, 10%  -->
+    <color name="black">#D8000000</color>
+    <color name="black10">#33000000</color>
+
+    <!-- 99%, 77%, 10% -->
+    <color name="white">#FCFFFFFF</color>
+    <color name="white70">#B2FFFFFF</color>
+    <color name="white10">#33FFFFFF</color>
 
 </resources>

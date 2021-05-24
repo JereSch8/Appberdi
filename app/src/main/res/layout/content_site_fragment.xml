@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.sites.ContentSite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,53 +15,30 @@
             android:id="@+id/cv_header"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:alpha="0.4"
-                    android:rotation="343"
-                    android:src="@drawable/ic_anchor"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/btn_back"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:alpha="0.6"
-                    android:rotation="343"
-                    android:src="@drawable/ic_timon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/steps"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription" />
-
                 <Button
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:id="@+id/btn_back"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     app:icon="@drawable/ic_back"
                     app:iconTint="@color/black"
-                    app:strokeWidth="0dp"
-                    app:rippleColor="@color/greyLight"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.1" />
+                    app:layout_constraintVertical_bias="0.1"
+                    app:strokeWidth="0dp" />
 
 
                 <com.shuhart.stepview.StepView
@@ -89,20 +66,19 @@
                     app:sv_stepViewStyle="@style/StepView" />
 
                 <Button
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:id="@+id/btn_next"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     app:icon="@drawable/ic_next"
                     app:iconTint="@color/black"
-                    app:strokeWidth="0dp"
-                    app:rippleColor="@color/greyLight"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.1" />
+                    app:layout_constraintVertical_bias="0.1"
+                    app:strokeWidth="0dp" />
 
                 <TextView
                     android:id="@+id/tv_nameSite"
@@ -149,8 +125,8 @@
             android:id="@+id/cv_footer"
             android:layout_width="0dp"
             android:layout_height="250dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -159,66 +135,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:alpha="0.54"
-                    android:src="@drawable/ic_timon"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_rewind"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_forward"
-                    app:layout_constraintHorizontal_bias="0.275"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_currentAudio"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:alpha="0.6"
-                    android:rotation="62"
-                    android:src="@drawable/ic_anchor"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_forward"
-                    app:layout_constraintTop_toTopOf="@+id/tv_titleAudio"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription,MissingConstraints" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="40dp"
-                    android:alpha="0.4"
-                    android:rotation="343"
-                    android:src="@drawable/ic_anchor"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_forward"
-                    app:layout_constraintHorizontal_bias="0.77"
-                    app:layout_constraintStart_toStartOf="@+id/btn_play"
-                    app:layout_constraintTop_toTopOf="@+id/btn_play"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:alpha="0.4"
-                    android:rotation="343"
-                    android:src="@drawable/ic_timon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/sb_progress"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/btn_forward"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_forward"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription" />
-
                 <TextView
                     android:id="@+id/season"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/opensans_regular"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
                     android:text="Capitulo 1"
@@ -252,8 +174,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
-                    android:thumbTint="@color/white"
                     android:progressTint="@color/black"
+                    android:thumbTint="@color/white"
                     app:layout_constraintEnd_toEndOf="@+id/tv_titleAudio"
                     app:layout_constraintStart_toStartOf="@+id/tv_titleAudio"
                     app:layout_constraintTop_toBottomOf="@+id/tv_titleAudio" />
@@ -280,7 +202,6 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_pause"
-                    android:tint="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -289,11 +210,10 @@
 
                 <ImageButton
                     android:id="@+id/btn_rewind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_rewind"
-                    android:tint="@color/black"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/ic_rewind"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_play"
                     app:layout_constraintStart_toStartOf="parent"
@@ -302,11 +222,10 @@
 
                 <ImageButton
                     android:id="@+id/btn_forward"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_forward"
-                    android:tint="@color/black"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/ic_forward"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btn_play"

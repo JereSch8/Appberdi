@@ -19,7 +19,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.GeoPoint
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -184,4 +186,8 @@ fun View.showSnackbar(
         }
     }
     snackbar.show()
+}
+
+fun LatLng.fromGeo(geoPoint: GeoPoint): LatLng {
+    return LatLng(this.latitude, this.longitude)
 }

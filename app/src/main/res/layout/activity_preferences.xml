@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,6 +11,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -21,12 +21,12 @@
                 android:layout_height="160dp"
                 app:cardCornerRadius="90dp"
                 app:cardElevation="8dp"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintVertical_bias="0.05"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05">
 
                 <ImageView
                     android:id="@+id/imgUser"
@@ -39,16 +39,16 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                style="@style/CustomNonlinedButton"
                 android:id="@+id/nameUser"
+                style="@style/AppWidget.IconButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:fontFamily="@font/lobstertwo_regular"
-                android:textSize="24sp"
-                android:textColor="@color/black"
                 android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="24sp"
                 app:icon="@drawable/ic_edit"
                 app:iconTint="@color/black"
                 app:layout_constraintEnd_toEndOf="@+id/containerImgUser"
@@ -73,11 +73,11 @@
 
             <Button
                 android:id="@+id/clearProgressSite"
-                style="@style/CustomOutlinedButton"
+                style="@style/AppWidget.IconButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:icon="@drawable/ic_clean_data"
-                app:iconTint="@color/white"
+                app:iconTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/progress_site"
@@ -101,8 +101,8 @@
                 app:cpb_background_progressbar_color="@color/black"
                 app:cpb_background_progressbar_width="5dp"
                 app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color_direction="left_to_right"
                 app:cpb_progressbar_color="@color/white"
+                app:cpb_progressbar_color_direction="left_to_right"
                 app:cpb_progressbar_width="12dp"
                 app:cpb_round_border="true"
                 app:layout_constraintBottom_toBottomOf="@+id/containerImgUser"
@@ -115,11 +115,11 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/lobstertwo_regular"
                 android:text="8/12"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:layout_marginBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/progress_site"
                 app:layout_constraintEnd_toEndOf="@+id/progress_site"
                 app:layout_constraintStart_toStartOf="@+id/progress_site"
@@ -139,12 +139,12 @@
                 android:id="@+id/titleProgressTreasure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="Tesoros encontrados"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="@+id/progress_site"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/progress_site"
@@ -158,8 +158,8 @@
                 app:cpb_background_progressbar_color="@color/black"
                 app:cpb_background_progressbar_width="14dp"
                 app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color_direction="left_to_right"
                 app:cpb_progressbar_color="#FFEB3B"
+                app:cpb_progressbar_color_direction="left_to_right"
                 app:cpb_progressbar_width="8dp"
                 app:cpb_round_border="true"
                 app:layout_constraintBottom_toBottomOf="@+id/containerImgUser"
@@ -172,11 +172,11 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/lobstertwo_regular"
                 android:text="14/32"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:layout_marginBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/progress_treasure"
                 app:layout_constraintEnd_toEndOf="@+id/progress_treasure"
                 app:layout_constraintStart_toStartOf="@+id/progress_treasure"
@@ -185,8 +185,8 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_bottle"
                 android:rotation="25"
+                android:src="@drawable/ic_bottle"
                 app:layout_constraintEnd_toEndOf="@+id/textView8"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
@@ -207,11 +207,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/reproducci_n_autom_tica_de_audio"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/titleProgressTreasure"
                 app:layout_constraintStart_toStartOf="@+id/nameUser"
-                android:text="@string/reproducci_n_autom_tica_de_audio"
-                android:fontFamily="@font/montserrat_regular"
-                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
@@ -219,19 +219,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/reproducci_n_autom_tica_de_video"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/titleProgressTreasure"
                 app:layout_constraintStart_toStartOf="@+id/nameUser"
-                android:text="@string/reproducci_n_autom_tica_de_video"
-                android:fontFamily="@font/montserrat_regular"
-                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/autoPlayAudio" />
 
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/white"
                 android:layout_marginTop="8dp"
+                android:background="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/autoPlayVideo" />
@@ -252,12 +252,11 @@
 
             <Button
                 android:id="@+id/setLimitStorage"
-                style="@style/CustomOutlinedButton"
+                style="@style/AppWidget.IconButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="@string/l_mite_de_almacenamiento_sin_l_mite"
-                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/titleProgressTreasure"
                 app:layout_constraintStart_toStartOf="@+id/nameUser"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -300,12 +299,11 @@
 
             <Button
                 android:id="@+id/setLimitMovil"
-                style="@style/CustomOutlinedButton"
+                style="@style/AppWidget.IconButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="@string/l_mite_de_datos_sin_l_mite"
-                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/titleProgressTreasure"
                 app:layout_constraintStart_toStartOf="@+id/nameUser"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -326,7 +324,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

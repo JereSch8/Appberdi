@@ -1,11 +1,12 @@
 package com.jackemate.appberdi.ui.main
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.liveData
 import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.data.SiteRepository
 import com.jackemate.appberdi.data.TourRepository
-import com.jackemate.appberdi.domain.entities.Site
+import com.jackemate.appberdi.entities.Site
 import kotlinx.coroutines.tasks.await
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {

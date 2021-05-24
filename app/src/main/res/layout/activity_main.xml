@@ -7,151 +7,47 @@
     android:background="@drawable/background"
     tools:context=".ui.main.MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="24dp"
-        android:alpha="0.6"
-        android:src="@drawable/ic_anchor"
-        app:layout_constraintEnd_toStartOf="@+id/animation"
-        app:layout_constraintTop_toTopOf="@+id/animation"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:alpha="0.4"
-        android:src="@drawable/ic_timon"
-        app:layout_constraintBottom_toTopOf="@+id/animation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:alpha="0.45"
-        android:rotation="340"
-        android:src="@drawable/ic_anchor"
-        app:layout_constraintEnd_toEndOf="@+id/animation"
-        app:layout_constraintTop_toBottomOf="@+id/animation"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:alpha="0.25"
-        android:rotation="300"
-        android:src="@drawable/ic_anchor"
-        app:layout_constraintBottom_toTopOf="@+id/launch_tour"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="56dp"
-        android:alpha="0.35"
-        android:src="@drawable/ic_timon"
-        app:layout_constraintBottom_toBottomOf="@+id/launch_preferences"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.508"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:alpha="0.6"
-        android:src="@drawable/ic_anchor"
-        app:layout_constraintBottom_toBottomOf="@+id/launch_attractions"
-        app:layout_constraintEnd_toEndOf="@+id/launch_preferences"
-        app:layout_constraintHorizontal_bias="0.408"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/launch_tour"
-        app:layout_constraintVertical_bias="1.0"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:alpha="0.3"
-        android:src="@drawable/ic_timon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/launch_mediateca"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:layout_width="190dp"
-        android:layout_height="190dp"
-        android:alpha="0.3"
-        android:rotation="30"
-        android:src="@drawable/ic_anchor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/launch_mediateca"
-        app:layout_constraintTop_toBottomOf="@+id/launch_attractions"
-        app:tint="@color/white"
-        tools:ignore="ContentDescription" />
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation"
         android:layout_width="220dp"
         android:layout_height="220dp"
-        app:lottie_rawRes="@raw/smiling_dog"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.100000024"
-        android:importantForAccessibility="no" />
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/smiling_dog" />
 
     <TextView
         android:id="@+id/msgWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/lobstertwo_regular"
         android:padding="16dp"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:fontFamily="@font/lobstertwo_regular"
         android:textSize="32sp"
-        android:layout_marginTop="16dp"
+        tools:text="Hola amego!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/animation" />
 
     <Button
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        app:icon="@drawable/ic_start_24"
         android:id="@+id/launch_tour"
+        style="@style/AppWidget.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Iniciar recorrido"
         android:backgroundTint="@color/black"
+        android:text="Iniciar recorrido"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_play"
+        app:rippleColor="@color/white10"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -160,42 +56,40 @@
         app:layout_constraintVertical_bias="0.63" />
 
     <Button
-        style="@style/CustomOutlinedButton"
-        app:icon="@drawable/ic_settings"
-        android:id="@+id/launch_preferences"
+        android:id="@+id/launch_mediateca"
+        style="@style/AppWidget.IconButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Preferencias"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
+        android:text="mediateca"
+        app:icon="@drawable/ic_galery"
+        app:iconTint="@color/cab200"
         app:layout_constraintEnd_toEndOf="@+id/launch_tour"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/launch_tour"
         app:layout_constraintTop_toBottomOf="@+id/launch_tour" />
 
     <Button
-        style="@style/CustomOutlinedButton"
-        app:icon="@drawable/ic_attraction"
         android:id="@+id/launch_attractions"
+        style="@style/AppWidget.IconButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="atracciones"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
+        app:icon="@drawable/ic_map"
+        app:iconTint="@color/cab200"
         app:layout_constraintEnd_toEndOf="@+id/launch_tour"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/launch_tour"
-        app:layout_constraintTop_toBottomOf="@+id/launch_preferences" />
+        app:layout_constraintTop_toBottomOf="@+id/launch_mediateca" />
+
 
     <Button
-        style="@style/CustomOutlinedButton"
-        app:icon="@drawable/ic_mediateca"
-        android:id="@+id/launch_mediateca"
+        android:id="@+id/launch_preferences"
+        style="@style/AppWidget.IconButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="mediateca"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
+        android:text="Preferencias"
+        app:icon="@drawable/ic_settings"
+        app:iconTint="@color/cab400"
         app:layout_constraintEnd_toEndOf="@+id/launch_tour"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/launch_tour"
@@ -203,16 +97,14 @@
 
     <Button
         android:id="@+id/information"
-        style="@style/CustomNonlinedButton"
+        style="@style/AppWidget.IconButton.Unelevated"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Quienes somos"
-        android:textColor="@color/white"
         app:icon="@drawable/ic_info"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/launch_tour"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/launch_tour"
-        app:layout_constraintTop_toBottomOf="@+id/launch_mediateca" />
+        app:layout_constraintTop_toBottomOf="@+id/launch_preferences" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
