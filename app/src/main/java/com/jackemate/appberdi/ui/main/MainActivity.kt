@@ -79,7 +79,7 @@ class MainActivity : RequesterPermissionsActivity() {
     @SuppressLint("MissingPermission")
     private fun setupGeofence(sites: List<Site>) {
         val geofenceList = sites.map {
-            val geoPoint: GeoPoint = it.latlong as GeoPoint
+            val geoPoint: GeoPoint = it.pos as GeoPoint
             Geofence.Builder()
                 // Set the request ID of the geofence. This is a string to identify this geofence.
                 .setRequestId(it.id)

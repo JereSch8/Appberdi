@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -70,7 +71,7 @@ fun Activity.hideKeyboard() {
     }
 }
 
-fun  FragmentActivity.showDialogFragment(
+fun FragmentActivity.showDialogFragment(
     fragment: DialogFragment,
     tag: String,
     vararg pairs: Pair<String, Any?>
@@ -96,6 +97,18 @@ fun EditText.onTextChanged(onTextChanged: (CharSequence) -> Unit) {
     })
 }
 
+fun SeekBar.onSeekBarChanged(onSeekbarChanged: (progress: Int, fromUser: Boolean) -> Unit) {
+    this.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        override fun onStopTrackingTouch(seekBar: SeekBar) {}
+
+        override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+            onSeekbarChanged(progress, fromUser)
+        }
+    })
+}
+
 fun Double.toRoundString(): String {
     return "%.2f".format(this)
 }
@@ -112,7 +125,7 @@ fun String.toDate(fmt: String): Date? {
     }
 }
 
-fun String.upper() : String = this.toUpperCase(Locale("es"))
+fun String.upper(): String = this.toUpperCase(Locale("es"))
 
 fun LocalDateTime.eeeeHmm(): String {
     return this.format(DateTimeFormatter.ofPattern("eeee 'a las' H:mm", Locale("es")))
@@ -126,10 +139,12 @@ fun Date.ddMM(): String = SimpleDateFormat("dd/MM", Locale.getDefault()).format(
 fun Date.ddMMHHmm(): String = SimpleDateFormat("dd/MM HH:mm", Locale.US).format(this)
 fun Date.ddMMyyyy(): String = SimpleDateFormat("dd/MM/yyyy", Locale.US).format(this)
 fun Date.ddMMyyyyHHmm(): String = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US).format(this)
-fun Date.ddMMyyyyHHmmh(): String = SimpleDateFormat("dd/MM/yyyy HH:mm'h'", Locale.US).format(this)
+fun Date.ddMMyyyyHHmmh(): String =
+    SimpleDateFormat("dd/MM/yyyy HH:mm'h'", Locale.US).format(this)
 
 fun Date.yyyyMMdd(): String = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(this)
-fun Date.yyyyMMddHHmmss(): String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(this)
+fun Date.yyyyMMddHHmmss(): String =
+    SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(this)
 
 fun Date.kkmm(): String = SimpleDateFormat("kk:mm", Locale.US).format(this)
 fun Date.kkmmh(): String = SimpleDateFormat("kk:mm'h'", Locale.US).format(this)

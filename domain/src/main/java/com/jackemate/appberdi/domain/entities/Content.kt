@@ -1,40 +1,33 @@
 package com.jackemate.appberdi.domain.entities
 
-data class ContentAudio(
+sealed class Content(
+    val type: String = "",
+    val tag: String = "",
     val title: String = "",
-    val href: String = "",
-    val site: String = "",
-    val type: String = "",
-    val subtitle: String = ""
-)
+    val site: String = ""
+) {
+    class Audio(
+        val href: String = "",
+        val subtitle: String = "",
+    ) : Content()
 
-data class ContentImage(
-    val href: String = "",
-    val site: String = "",
-    val type: String = "",
-    val description: String = ""
-)
+    class Image(
+        val href: String = "",
+        val description: String = "",
+    ) : Content()
 
-data class ContentGif(
-    val title: String = "",
-    val href: String = "",
-    val site: String = "",
-    val type: String = "",
-    val description: String = ""
-)
+    class Gif(
+        val href: String = "",
+        val description: String = "",
+    ) : Content()
 
-data class ContentVideo(
-    val title: String = "",
-    val href: String = "",
-    val site: String = "",
-    val type: String = "",
-    val description: String = "",
-    val subtitle : String = ""
-)
+    class Video(
+        val href: String = "",
+        val description: String = "",
+        val subtitle: String = "",
+    ) : Content()
 
-data class ContentText(
-    val title: String = "",
-    val site: String = "",
-    val type: String = "",
-    val description: String = ""
-)
+    class Text(
+        val description: String = "",
+    ) : Content()
+}

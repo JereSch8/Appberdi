@@ -23,6 +23,22 @@
         <item name="shapeAppearanceOverlay">@style/AppShapeAppearance</item>
     </style>
 
+    <style name="AppWidget.IconOnly" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconTint">@color/white</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">@color/white10</item>
+        <item name="shapeAppearanceOverlay">@style/AppShapeAppearance</item>
+    </style>
+
     <style name="AppShapeAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">24dp</item>

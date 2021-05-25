@@ -12,7 +12,7 @@ class SiteMarker(
     constructor(s: Site, visited: Boolean) : this(
         s.id,
         s.name,
-        LatLng(s.latlong!!.latitude, s.latlong.longitude),
+        LatLng(s.pos!!.latitude, s.pos.longitude),
         visited
     )
 }

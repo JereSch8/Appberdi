@@ -17,7 +17,7 @@ import com.google.maps.android.SphericalUtil
 import com.google.maps.android.ui.IconGenerator
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMapsBinding
-import com.jackemate.appberdi.ui.sites.ContentSite
+import com.jackemate.appberdi.ui.sites.ContentSiteActivity
 import com.jackemate.appberdi.utils.Constants
 import com.jackemate.appberdi.utils.TAG
 import kotlin.math.roundToInt
@@ -63,6 +63,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         }
 
         binding.btnEnter.setOnClickListener {
+            Log.i(TAG, "btnEnter: $status")
             when (val stat = status) {
                 is TourMapStatus.Navigating -> {
                     computeBestSite()?.let {
@@ -205,7 +206,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     private fun openSite(id: String) {
-        val intent = Intent(this, ContentSite::class.java)
+        Log.i(TAG, "openSite: $id")
+        val intent = Intent(this, ContentSiteActivity::class.java)
         intent.putExtra("idSite", id)
         startActivity(intent)
     }

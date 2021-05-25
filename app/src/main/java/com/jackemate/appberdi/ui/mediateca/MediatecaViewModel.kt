@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.data.ContentRepository
-import com.jackemate.appberdi.domain.entities.*
+import com.jackemate.appberdi.domain.entities.Content
 import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,16 +18,16 @@ class MediatecaViewModel : ViewModel() {
     val nameSites: List<String> = repoContent.getSites()
     val tags: List<String> = repoContent.getTags()
 
-    private val _audios : MutableLiveData<List<ContentAudio>> = MutableLiveData()
-    val audios: LiveData<List<ContentAudio>> = _audios
-    private val _images : MutableLiveData<List<ContentImage>> = MutableLiveData()
-    val images: LiveData<List<ContentImage>> = _images
-    private val _gifs : MutableLiveData<List<ContentGif>> = MutableLiveData()
-    val gifs: LiveData<List<ContentGif>> = _gifs
-    private val _videos : MutableLiveData<List<ContentVideo>> = MutableLiveData()
-    val videos: LiveData<List<ContentVideo>> = _videos
-    private val _texts : MutableLiveData<List<ContentText>> = MutableLiveData()
-    val texts: LiveData<List<ContentText>> = _texts
+    private val _audios : MutableLiveData<List<Content.Audio>> = MutableLiveData()
+    val audios: LiveData<List<Content.Audio>> = _audios
+    private val _images : MutableLiveData<List<Content.Image>> = MutableLiveData()
+    val images: LiveData<List<Content.Image>> = _images
+    private val _gifs : MutableLiveData<List<Content.Gif>> = MutableLiveData()
+    val gifs: LiveData<List<Content.Gif>> = _gifs
+    private val _videos : MutableLiveData<List<Content.Video>> = MutableLiveData()
+    val videos: LiveData<List<Content.Video>> = _videos
+    private val _texts : MutableLiveData<List<Content.Text>> = MutableLiveData()
+    val texts: LiveData<List<Content.Text>> = _texts
 
     fun getImages(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentImageWhere(nameSite).addSnapshotListener { value, e ->
