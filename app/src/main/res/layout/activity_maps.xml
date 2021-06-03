@@ -13,45 +13,51 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/cv_header"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/tv_nextStop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <LinearLayout
-        android:id="@+id/cv_header"
+    <TextView
+        android:id="@+id/tv_nextStop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:fontFamily="@font/montserrat_medium"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_nameSite"
+        tools:text="Sitio más cercano:" />
 
-        <TextView
-            android:id="@+id/tv_nextStop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_medium"
-            tools:text="Sitio más cercano:"
-            android:textSize="14sp" />
+    <TextView
+        android:id="@+id/tv_nameSite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lobstertwo_bold"
+        android:paddingHorizontal="16dp"
+        android:text="Pensando..."
+        android:textSize="28sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toTopOf="@+id/tv_distance"
+        app:layout_constraintEnd_toStartOf="@+id/btn_accessible"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Cerveceria abandonada tsrarstarars" />
 
-        <TextView
-            android:id="@+id/tv_nameSite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lobstertwo_bold"
-            android:text="Pensando..."
-            tools:text="Cerveceria abandonada"
-            android:textSize="28sp" />
-
-        <TextView
-            android:id="@+id/tv_distance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/montserrat"
-            tools:text="Estás como a 130 metros."
-            android:textSize="12sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Estás como a 130 metros." />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_enter"
@@ -65,11 +71,19 @@
         android:textColor="@color/white"
         app:icon="@drawable/ic_send"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/cv_header"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cv_header"
+        app:layout_constraintTop_toBottomOf="@+id/map"
         app:layout_constraintVertical_bias="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_accessible"
+        style="@style/AppWidget.IconOnly"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:icon="@drawable/ic_accessible"
+        app:layout_constraintBottom_toTopOf="@+id/tv_distance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nextStop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

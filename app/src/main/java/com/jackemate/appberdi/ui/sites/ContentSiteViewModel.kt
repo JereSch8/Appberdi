@@ -15,6 +15,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.ContentRepository
 import com.jackemate.appberdi.data.SiteRepository
+import com.jackemate.appberdi.entities.ContentSite
 import com.jackemate.appberdi.entities.Site
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.TimeUnit

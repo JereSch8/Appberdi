@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,6 +21,7 @@ import com.jackemate.appberdi.databinding.ActivityMapsBinding
 import com.jackemate.appberdi.ui.sites.ContentSiteActivity
 import com.jackemate.appberdi.utils.Constants
 import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.visible
 import kotlin.math.roundToInt
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -138,6 +140,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                     binding.tvNameSite.text = best.title
                     binding.tvDistance.text = "Estás masomenos a $distance metros"
                     polyline.points = listOf(currentPos, best.pos)
+                    binding.btnAccessible.visible(best.accessible)
                 }
 
                 if (best != null && distanceTo(best.pos) < Constants.GEOFENCE_RADIUS_IN_METERS) {
@@ -153,6 +156,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 binding.tvDistance.text = "Estás a $distance metros masomono."
                 polyline.points = listOf(currentPos, stat.site.pos)
                 binding.btnEnter.show()
+                binding.btnAccessible.visible(stat.site.accessible)
+//                binding.btnAccessible.icon = ContextCompat.getDrawable(this, R.drawable.ic_accessible)
             }
         }
 
@@ -179,9 +184,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 val iconFactory = IconGenerator(this)
                 val marker = mMap.addMarker(
                     MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(site.title)))
+//                        .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(site.title)))
                         .position(site.pos)
-                        .anchor(iconFactory.anchorU, iconFactory.anchorV)
+//                        .anchor(iconFactory.anchorU, iconFactory.anchorV)
                 )
                 marker.tag = site
                 marker.showInfoWindow()

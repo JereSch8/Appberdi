@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ContentSiteFragmentBinding
 import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.entities.ContentSite
 import com.jackemate.appberdi.utils.*
 
 
