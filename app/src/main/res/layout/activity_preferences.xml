@@ -112,7 +112,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/txtProgressSite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -130,9 +130,9 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_map_pirate"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="@+id/txtProgressSite"
+                app:layout_constraintStart_toStartOf="@+id/txtProgressSite"
+                app:layout_constraintTop_toBottomOf="@+id/txtProgressSite"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -169,7 +169,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/txtProgressTreasure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -187,9 +187,9 @@
                 android:layout_height="20dp"
                 android:rotation="25"
                 android:src="@drawable/ic_bottle"
-                app:layout_constraintEnd_toEndOf="@+id/textView8"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="@+id/txtProgressTreasure"
+                app:layout_constraintStart_toStartOf="@+id/txtProgressTreasure"
+                app:layout_constraintTop_toBottomOf="@+id/txtProgressTreasure"
                 tools:ignore="ContentDescription" />
 
             <View

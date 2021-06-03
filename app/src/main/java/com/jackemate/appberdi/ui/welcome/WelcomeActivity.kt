@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
 import com.jackemate.appberdi.ui.main.MainActivity
-import com.jackemate.appberdi.utils.DialogCustom
+import com.jackemate.appberdi.utils.dialogs.DialogCustom
 import com.jackemate.appberdi.utils.LocalInfo
 import com.jackemate.appberdi.utils.onTextChanged
 import com.jackemate.appberdi.utils.visible

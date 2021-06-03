@@ -124,4 +124,6 @@
     <string name="limit_data">Establecer un límite de datos muy pequeño no es recomendable ya que es posible que no puedas obtener los recursos multimedia necesarios para navegar sobre los distintos sitios de Alberdi.</string>
     <string name="uso_de_datos">Uso de datos:</string>
     <string name="borrar">Borrar</string>
+    <string name="seleccionar">Seleccionar</string>
+    <string name="avatar">Avatar</string>
 </resources>

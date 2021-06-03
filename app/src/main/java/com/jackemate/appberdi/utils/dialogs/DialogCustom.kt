@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.utils
+package com.jackemate.appberdi.utils.dialogs
 
 import android.app.Activity
 import android.app.Dialog
@@ -27,6 +27,7 @@ class DialogCustom(){
         dialog.setContentView(binding.root)
         dialog.show()
     }
+
     fun cancel() = dialog.cancel()
 
     fun getEditText() = binding.inputName.editText
@@ -40,9 +41,4 @@ class DialogCustom(){
     fun setText(text : String) { binding.title.text = text }
 
     fun setHintText(text: String) { binding.inputName.hint = text }
-
-
-
 }
-
-

@@ -1,21 +1,15 @@
 package com.jackemate.appberdi.ui.preferences
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityPreferencesBinding
-import com.jackemate.appberdi.ui.attractions.AttractionListAdapter
 import com.jackemate.appberdi.ui.attractions.AttractionViewModel
-import com.jackemate.appberdi.utils.DialogCustom
+import com.jackemate.appberdi.utils.dialogs.DialogCustom
 import com.jackemate.appberdi.utils.LocalInfo
-import com.jackemate.appberdi.utils.TAG
-import com.jackemate.appberdi.utils.observe
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
 
 class PreferencesActivity : AppCompatActivity() {
     private val viewModel: AttractionViewModel by viewModels()
@@ -33,10 +27,14 @@ class PreferencesActivity : AppCompatActivity() {
         if (limitMovil != -8)
             binding.setLimitStorage.text = "Límite de datos: $limitMovil MB."
 
+        val progressSite = if (LocalInfo(this).getProgressSite() == -8 ) 0 else LocalInfo(this).getProgressSite()
+
         binding.progressSite.apply {
             setProgressWithAnimation(8f, 3000) // =3s
             progressMax = 12f
         }
+
+        val progressTrasure : Int = if (LocalInfo(this).getProgressTreasure() == -8 ) 0 else LocalInfo(this).getProgressTreasure()
 
         binding.progressTreasure.apply {
             setProgressWithAnimation(14f, 3000) // =3s
@@ -126,6 +124,7 @@ class PreferencesActivity : AppCompatActivity() {
             if(input.equals("si")){
                 LocalInfo(this).setProgressSite(0)
                 binding.progressSite.apply {
+                    binding.txtProgressSite.text = "0/12"
                     setProgressWithAnimation(0.1f, 3000) // =3s
                     progressMax = 12f
                 }
