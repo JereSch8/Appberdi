@@ -1,11 +1,13 @@
 package com.jackemate.appberdi.domain.entities
 
+import java.io.Serializable
+
 sealed class Content(
     val type: String = "",
     val tag: String = "",
     val title: String = "",
     val site: String = ""
-) {
+): Serializable {
     class Audio(
         val href: String = "",
         val subtitle: String = "",

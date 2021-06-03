@@ -7,7 +7,6 @@ import android.os.Looper
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,7 +17,7 @@ import com.google.maps.android.SphericalUtil
 import com.google.maps.android.ui.IconGenerator
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMapsBinding
-import com.jackemate.appberdi.ui.sites.ContentSiteActivity
+import com.jackemate.appberdi.ui.sites.SiteActivity
 import com.jackemate.appberdi.utils.Constants
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.visible
@@ -212,7 +211,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun openSite(id: String) {
         Log.i(TAG, "openSite: $id")
-        val intent = Intent(this, ContentSiteActivity::class.java)
+        val intent = Intent(this, SiteActivity::class.java)
         intent.putExtra("idSite", id)
         startActivity(intent)
     }

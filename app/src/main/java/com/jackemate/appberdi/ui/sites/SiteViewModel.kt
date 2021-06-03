@@ -1,7 +1,5 @@
 package com.jackemate.appberdi.ui.sites
 
-//import com.jackemate.appberdi.domain.entities.ContentAudio
-//import com.jackemate.appberdi.domain.entities.ContentImage
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Handler
@@ -20,7 +18,7 @@ import com.jackemate.appberdi.entities.Site
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.TimeUnit
 
-class ContentSiteViewModel : ViewModel() {
+class SiteViewModel : ViewModel() {
     private val siteRepo = SiteRepository()
     private val contentRepo = ContentRepository()
 
@@ -37,17 +35,6 @@ class ContentSiteViewModel : ViewModel() {
             emit(ContentSite(site, contents))
         }
     }
-
-    fun printImage(context: Context, url: String, image: ImageView) {
-        Glide.with(context)
-            .load(url)
-            .error(R.drawable.no_image)
-            .placeholder(R.drawable.loading)
-            .centerCrop()
-            .into(image)
-
-    }
-
 
     fun preStartAudio(url: String, prepared: () -> Unit) {
         mediaPlayer.setDataSource(url)
