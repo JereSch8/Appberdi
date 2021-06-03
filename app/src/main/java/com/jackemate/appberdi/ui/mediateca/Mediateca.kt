@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaBinding
-import com.jackemate.appberdi.domain.entities.*
+import com.jackemate.appberdi.domain.entities.Content
 
 class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListener {
 
@@ -144,11 +144,11 @@ class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListene
 
     override fun onMultimediaClick(multimedia: Any) {
         when(multimedia){
-            is ContentImage -> Toast.makeText(baseContext, "Es una imagen ${multimedia.site}", Toast.LENGTH_LONG ).show()
-            is ContentGif -> Toast.makeText(baseContext, "Es un gif ${multimedia.site}", Toast.LENGTH_LONG ).show()
-            is ContentVideo -> Toast.makeText(baseContext, "Es un video ${multimedia.title}", Toast.LENGTH_LONG ).show()
-            is ContentText -> Toast.makeText(baseContext, "Es un texto ${multimedia.title}", Toast.LENGTH_LONG ).show()
-            is ContentAudio -> Toast.makeText(baseContext, "Es un audio ${multimedia.title}", Toast.LENGTH_LONG ).show()
+            is Content.Image -> Toast.makeText(baseContext, "Es una imagen ${multimedia.site}", Toast.LENGTH_LONG ).show()
+            is Content.Gif -> Toast.makeText(baseContext, "Es un gif ${multimedia.site}", Toast.LENGTH_LONG ).show()
+            is Content.Video -> Toast.makeText(baseContext, "Es un video ${multimedia.title}", Toast.LENGTH_LONG ).show()
+            is Content.Text -> Toast.makeText(baseContext, "Es un texto ${multimedia.title}", Toast.LENGTH_LONG ).show()
+            is Content.Audio -> Toast.makeText(baseContext, "Es un audio ${multimedia.title}", Toast.LENGTH_LONG ).show()
         }
     }
 }

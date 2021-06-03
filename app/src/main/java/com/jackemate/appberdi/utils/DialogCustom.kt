@@ -5,8 +5,8 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.ViewGroup.LayoutParams
 import android.widget.Button
 import com.jackemate.appberdi.databinding.DialogCustomBinding
 
@@ -20,6 +20,7 @@ class DialogCustom(){
         binding = DialogCustomBinding.inflate(inflater)
         dialog = Dialog(activity)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
 
     fun make(){
@@ -27,6 +28,8 @@ class DialogCustom(){
         dialog.show()
     }
     fun cancel() = dialog.cancel()
+
+    fun getEditText() = binding.inputName.editText
 
     fun getInput() : String = binding.inputName.editText?.text.toString()
 

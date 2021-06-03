@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:padding="16dp">
+    android:background="@drawable/background">
 
 
     <com.airbnb.lottie.LottieAnimationView
@@ -18,19 +18,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+        app:lottie_loop="true" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView_titulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:fontFamily="@font/lobstertwo_regular"
         android:textAlignment="center"
-        android:textColor="@color/white"
         android:textSize="40sp"
-        android:textStyle="bold"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        tools:text="Hola"
         app:layout_constraintBottom_toTopOf="@+id/textView_descripcion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,13 +38,11 @@
         android:id="@+id/textView_descripcion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:fontFamily="@font/montserrat_regular"
         android:textAlignment="center"
         android:textColor="@color/white"
-
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,19 +52,17 @@
 
     <Button
         android:id="@+id/button_siguiente"
-        style="@style/CustomOutlinedButton"
+        style="@style/AppWidget.IconButton.Unelevated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SIGUIENTE"
-        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"
+        android:text="Siguiente"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView_descripcion"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_descripcion"
-        app:layout_constraintVertical_bias="1.0"
-        app:strokeColor="@color/white"
-        app:strokeWidth="0dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.jackemate.appberdi.R
-import com.jackemate.appberdi.domain.entities.*
+import com.jackemate.appberdi.domain.entities.Content
 
 class MediatecaAdapter(private val context: Context, private val listMultimedia: List<Any>,
                        private val itemClickListener: OnMultimediaClickListener) :
@@ -33,27 +33,27 @@ class MediatecaAdapter(private val context: Context, private val listMultimedia:
     inner class MultiMediaViewHolder(itemView: View): BaseViewHolder<Any>(itemView){
         override fun bind(item: Any) {
             when(item){
-                is ContentAudio -> {
+                is Content.Audio -> {
                     itemView.findViewById<TextView>(R.id.title).text = item.title
                     itemView.findViewById<LottieAnimationView>(R.id.typeData).setAnimation(R.raw.audio)
                     itemView.findViewById<TextView>(R.id.description).text = item.subtitle
                 }
-                is ContentVideo -> {
+                is Content.Video -> {
                     itemView.findViewById<TextView>(R.id.title).text = item.title
                     itemView.findViewById<LottieAnimationView>(R.id.typeData).setAnimation(R.raw.video)
                     itemView.findViewById<TextView>(R.id.description).text = item.description
                 }
-                is ContentGif -> {
+                is Content.Gif -> {
                     itemView.findViewById<TextView>(R.id.title).text = item.title
                     itemView.findViewById<LottieAnimationView>(R.id.typeData).setAnimation(R.raw.video)
                     itemView.findViewById<TextView>(R.id.description).text = item.description
                 }
-                is ContentImage -> {
+                is Content.Image -> {
                     itemView.findViewById<TextView>(R.id.title).text = item.site
                     itemView.findViewById<LottieAnimationView>(R.id.typeData).setAnimation(R.raw.image)
                     itemView.findViewById<TextView>(R.id.description).text = item.description
                 }
-                is ContentText -> {
+                is Content.Text -> {
                     itemView.findViewById<TextView>(R.id.title).text = item.site
                     itemView.findViewById<LottieAnimationView>(R.id.typeData).setAnimation(R.raw.text)
                     itemView.findViewById<TextView>(R.id.description).text = item.description
