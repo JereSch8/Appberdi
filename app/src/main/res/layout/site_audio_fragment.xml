@@ -128,6 +128,8 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Este marginTop rarisimo tiene una razón de ser
+    Ver [ContentPageFragment.kt]. -->
     <TextView
         android:id="@+id/description_title"
         style="@style/TextAppearance.MaterialComponents.Overline"
@@ -145,5 +147,18 @@
         android:layout_marginTop="8dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="false" />
+        app:cardPreventCornerOverlap="false">
+
+        <TextView
+            android:id="@+id/transcription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="16sp"
+            tools:text="@tools:sample/lorem/random"/>
+
+    </androidx.cardview.widget.CardView>
+
 </LinearLayout>

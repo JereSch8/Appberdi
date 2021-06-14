@@ -1,19 +1,18 @@
 package com.jackemate.appberdi.ui.sites
 
-import android.content.Context
-import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import android.widget.LinearLayout
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
 import com.jackemate.appberdi.domain.entities.Content
-import com.jackemate.appberdi.entities.ContentSite
-import com.jackemate.appberdi.utils.*
+import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.invisible
+import com.jackemate.appberdi.utils.onSeekBarChanged
+import com.jackemate.appberdi.utils.visible
 
 
 class SiteAudioFragment : ContentPageFragment() {
@@ -62,7 +61,9 @@ class SiteAudioFragment : ContentPageFragment() {
             binding.btnRewind.visible(true)
             binding.btnForward.visible(true)
         }
+
         binding.title.text = content.title
+        binding.transcription.text = content.subtitle
 
         binding.btnPlay.setOnClickListener {
             val playing = viewModel.playPauseAudio()

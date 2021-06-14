@@ -8,7 +8,6 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.domain.entities.Content
-import com.jackemate.appberdi.entities.ContentSite
 import com.jackemate.appberdi.utils.TAG
 
 const val ARG_CONTENT = "content"
@@ -45,7 +44,7 @@ open class ContentPageFragment : Fragment() {
     // Tal vez haya una mejor forma de hacer esto
     // https://stackoverflow.com/a/25533409
     private fun changeHeight(layout: ViewGroup, inset: Int) {
-        Log.v(TAG, "changeHeight: !!!!!!!!!!!!!!!!!!!")
+        Log.v(TAG, "changeHeight!!!")
         val wm: WindowManager = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display: Display = wm.defaultDisplay
         val point = Point()

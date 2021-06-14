@@ -1,21 +1,14 @@
 package com.jackemate.appberdi.ui.sites
 
-import android.content.Context
-import android.graphics.Point
 import android.os.Bundle
-import android.util.Log
-import android.view.*
-import android.widget.LinearLayout
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
-import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
 import com.jackemate.appberdi.databinding.SiteImageFragmentBinding
 import com.jackemate.appberdi.domain.entities.Content
-import com.jackemate.appberdi.entities.ContentSite
-import com.jackemate.appberdi.utils.*
 
 
 class SiteImageFragment : ContentPageFragment() {
@@ -28,7 +21,7 @@ class SiteImageFragment : ContentPageFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = SiteImageFragmentBinding.inflate(layoutInflater)
+        binding = SiteImageFragmentBinding.inflate(layoutInflater).also { binding = it }
         return binding.root
     }
 
@@ -43,6 +36,7 @@ class SiteImageFragment : ContentPageFragment() {
 
     private fun initImage(content: Content.Image) {
         binding.title.text = content.title
+        binding.transcription.text = content.description
 
         Glide.with(requireContext())
             .load(content.href)
