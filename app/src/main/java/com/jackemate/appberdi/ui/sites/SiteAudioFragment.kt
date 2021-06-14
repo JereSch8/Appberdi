@@ -9,10 +9,7 @@ import androidx.fragment.app.viewModels
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
 import com.jackemate.appberdi.domain.entities.Content
-import com.jackemate.appberdi.utils.TAG
-import com.jackemate.appberdi.utils.invisible
-import com.jackemate.appberdi.utils.onSeekBarChanged
-import com.jackemate.appberdi.utils.visible
+import com.jackemate.appberdi.utils.*
 
 
 class SiteAudioFragment : ContentPageFragment() {
@@ -64,6 +61,10 @@ class SiteAudioFragment : ContentPageFragment() {
 
         binding.title.text = content.title
         binding.transcription.text = content.subtitle
+
+        binding.btnShare.setOnClickListener {
+            share(content.title, content.href)
+        }
 
         binding.btnPlay.setOnClickListener {
             val playing = viewModel.playPauseAudio()

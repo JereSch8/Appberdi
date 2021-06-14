@@ -52,7 +52,7 @@
             app:layout_constraintTop_toTopOf="@+id/btn_share"
             tools:text="Titulo de la imagen" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_share"
             style="@style/AppWidget.IconOnly"
             android:layout_marginEnd="16dp"

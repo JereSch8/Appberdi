@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteImageFragmentBinding
 import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.utils.share
 
 
 class SiteImageFragment : ContentPageFragment() {
@@ -21,7 +22,7 @@ class SiteImageFragment : ContentPageFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = SiteImageFragmentBinding.inflate(layoutInflater).also { binding = it }
+        binding = SiteImageFragmentBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -38,6 +39,10 @@ class SiteImageFragment : ContentPageFragment() {
         binding.title.text = content.title
         binding.transcription.text = content.description
 
+        binding.btnShare.setOnClickListener {
+            share(content.title, content.href)
+        }
+
         Glide.with(requireContext())
             .load(content.href)
             .error(R.drawable.no_image)
@@ -45,10 +50,4 @@ class SiteImageFragment : ContentPageFragment() {
             .centerCrop()
             .into(binding.img)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onDisconnect()
-    }
-
 }

@@ -1,36 +1,25 @@
 package com.jackemate.appberdi.ui.sites
 
-import android.content.Context
-import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
-import android.view.Display
-import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.activity.viewModels
-import androidx.appcompat.widget.ContentFrameLayout
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivitySiteBinding
 import com.jackemate.appberdi.domain.entities.Content
 import com.jackemate.appberdi.entities.ContentSite
-import com.jackemate.appberdi.entities.Site
-import com.jackemate.appberdi.utils.*
+import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.observe
 
 
 class SiteActivity : FragmentActivity() {
 
     private val viewModel: SiteViewModel by viewModels()
-    private var currentStep: Int = 0
     private lateinit var binding: ActivitySiteBinding
     private lateinit var site: ContentSite
 
-    private lateinit var contentAdapter: ContentPagerAdapter
     private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +33,7 @@ class SiteActivity : FragmentActivity() {
             site = contentSite
             binding.tvNameSite.text = contentSite.name
 
-            Log.i(TAG, "site contents size: ${site.contents.size}")
+            Log.i(TAG, "site contentSite size: ${site.contents.size}")
             val tags = site.contents.map { it.tag }
             binding.steps.setSteps(tags)
 
@@ -123,7 +112,11 @@ class SiteActivity : FragmentActivity() {
             val fragment = when (content) {
                 is Content.Audio -> SiteAudioFragment()
                 is Content.Image -> SiteImageFragment()
-                else -> ContentPageFragment()
+                is Content.Video -> SiteVideoFragment()
+                else -> {
+                    Log.e(TAG, "createFragment: $content no implementado!")
+                    ContentPageFragment()
+                }
             }
 
             fragment.arguments = Bundle().apply {
@@ -133,5 +126,4 @@ class SiteActivity : FragmentActivity() {
             return fragment
         }
     }
-
 }
