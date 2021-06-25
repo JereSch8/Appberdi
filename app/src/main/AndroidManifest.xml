@@ -47,7 +47,7 @@
             android:label="@string/title_activity_mediateca"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.sites.ContentSiteActivity"
+            android:name=".ui.sites.SiteActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.attractions.AttractionActivity"

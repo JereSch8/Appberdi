@@ -2,6 +2,7 @@ package com.jackemate.appberdi.ui.map
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -17,9 +18,10 @@ import com.google.maps.android.SphericalUtil
 import com.google.maps.android.ui.IconGenerator
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMapsBinding
-import com.jackemate.appberdi.ui.sites.ContentSiteActivity
+import com.jackemate.appberdi.ui.sites.SiteActivity
 import com.jackemate.appberdi.utils.Constants
 import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.visible
 import kotlin.math.roundToInt
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -30,6 +32,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
 
+    // Tuve varios NPE por esta variable, debería guardarla en el ViewModel?
     private var currentPos: LatLng? = null
     private var currentSites: List<SiteMarker>? = null
     private lateinit var binding: ActivityMapsBinding
@@ -111,6 +114,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     private fun distanceTo(latLng: LatLng): Double {
+        if (currentPos == null) {
+            // No debería pasar
+            return Double.MAX_VALUE
+        }
         return SphericalUtil.computeDistanceBetween(latLng, currentPos)
     }
 
@@ -127,17 +134,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         Log.d(TAG, "currentSites: ${currentSites?.size}")
         Log.d(TAG, "currentLoc: $currentPos")
 
+        if (currentPos == null) {
+            // No hacer nada aún
+            return
+        }
+
         when (val stat = status) {
             is TourMapStatus.Navigating -> {
                 val best = computeBestSite()
 
                 Log.d(TAG, "best: $best")
-                best?.let {
+                best?.pos?.let {
                     val distance = distanceTo(best.pos).roundToInt()
                     binding.tvNextStop.text = "Sitio más cercano:"
                     binding.tvNameSite.text = best.title
                     binding.tvDistance.text = "Estás masomenos a $distance metros"
                     polyline.points = listOf(currentPos, best.pos)
+                    binding.btnAccessible.visible(best.accessible)
                 }
 
                 if (best != null && distanceTo(best.pos) < Constants.GEOFENCE_RADIUS_IN_METERS) {
@@ -153,6 +166,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 binding.tvDistance.text = "Estás a $distance metros masomono."
                 polyline.points = listOf(currentPos, stat.site.pos)
                 binding.btnEnter.show()
+                binding.btnAccessible.visible(stat.site.accessible)
+//                binding.btnAccessible.icon = ContextCompat.getDrawable(this, R.drawable.ic_accessible)
             }
         }
 
@@ -170,7 +185,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             updateUI()
         }
 
-        polyline = mMap.addPolyline(PolylineOptions().geodesic(true))
+        polyline = mMap.addPolyline(
+            PolylineOptions()
+                .color(Color.BLACK)
+                .width(20f)
+                .pattern(listOf(Dot(), Gap(15f)))
+                .jointType(JointType.ROUND)
+                .geodesic(false) // Lineas curvas o no por la proyección del planeta
+        )
 
         viewModel.sites.observe(this) {
             currentSites = it
@@ -179,9 +201,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 val iconFactory = IconGenerator(this)
                 val marker = mMap.addMarker(
                     MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(site.title)))
+//                        .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(site.title)))
                         .position(site.pos)
-                        .anchor(iconFactory.anchorU, iconFactory.anchorV)
+//                        .anchor(iconFactory.anchorU, iconFactory.anchorV)
                 )
                 marker.tag = site
                 marker.showInfoWindow()
@@ -207,7 +229,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun openSite(id: String) {
         Log.i(TAG, "openSite: $id")
-        val intent = Intent(this, ContentSiteActivity::class.java)
+        val intent = Intent(this, SiteActivity::class.java)
         intent.putExtra("idSite", id)
         startActivity(intent)
     }

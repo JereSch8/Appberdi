@@ -1,10 +1,12 @@
 package com.jackemate.appberdi.data
 
+import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.utils.TAG
 
 class ContentRepository {
     private val db = Firebase.firestore
@@ -17,7 +19,10 @@ class ContentRepository {
             "audio" -> doc.toObject<Content.Audio>()
             "video" -> doc.toObject<Content.Video>()
             "text" -> doc.toObject<Content.Text>()
-            else -> null
+            else -> {
+                Log.w(TAG, "fromDoc: type desconocido: $doc")
+                null
+            }
         }
     }
 

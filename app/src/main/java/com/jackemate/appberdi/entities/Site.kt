@@ -10,5 +10,6 @@ data class Site(
     val description: String = "",
     val pos: GeoPoint? = null,
     val name: String = "",
+    val accessible: Boolean = false,
     val tour: List<DocumentReference> = emptyList()
 )

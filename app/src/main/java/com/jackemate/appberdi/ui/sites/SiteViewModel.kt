@@ -1,25 +1,22 @@
 package com.jackemate.appberdi.ui.sites
 
-//import com.jackemate.appberdi.domain.entities.ContentAudio
-//import com.jackemate.appberdi.domain.entities.ContentImage
-import android.content.Context
 import android.media.MediaPlayer
 import android.os.Handler
-import android.widget.ImageView
+import android.util.Log
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.toObject
-import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.ContentRepository
 import com.jackemate.appberdi.data.SiteRepository
+import com.jackemate.appberdi.entities.ContentSite
 import com.jackemate.appberdi.entities.Site
+import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.TimeUnit
 
-class ContentSiteViewModel : ViewModel() {
+class SiteViewModel : ViewModel() {
     private val siteRepo = SiteRepository()
     private val contentRepo = ContentRepository()
 
@@ -30,23 +27,14 @@ class ContentSiteViewModel : ViewModel() {
         val site = doc.toObject<Site?>()
 
         site?.let {
+            Log.i(TAG, "site tour size: ${site.tour.size}")
             val contents = site.tour.mapNotNull {
                 contentRepo.fromDoc(it.get().await())
             }
+            Log.i(TAG, "site parsed contents size: ${contents.size}")
             emit(ContentSite(site, contents))
         }
     }
-
-    fun printImage(context: Context, url: String, image: ImageView) {
-        Glide.with(context)
-            .load(url)
-            .error(R.drawable.no_image)
-            .placeholder(R.drawable.loading)
-            .centerCrop()
-            .into(image)
-
-    }
-
 
     fun preStartAudio(url: String, prepared: () -> Unit) {
         mediaPlayer.setDataSource(url)

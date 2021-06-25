@@ -3,7 +3,9 @@ package com.jackemate.appberdi.utils
 import android.Manifest
 import android.app.Activity
 import android.app.ActivityManager
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.text.Editable
@@ -17,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -81,6 +84,18 @@ fun FragmentActivity.showDialogFragment(
     }
     fragment.arguments = bundleOf(*pairs)
     fragment.show(supportFragmentManager, tag)
+}
+
+fun Fragment.share(subject: String, text: String) {
+    try {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+        startActivity(Intent.createChooser(shareIntent, "¿A quién se lo compartís?"))
+    } catch (e: ActivityNotFoundException) {
+        e.printStackTrace()
+    }
 }
 
 fun EditText.onTextChanged(onTextChanged: (CharSequence) -> Unit) {
