@@ -22,6 +22,13 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
         setTheme(R.style.AppTheme_Welcome)
         super.onCreate(savedInstanceState)
 
+        val limitStorage = LocalInfo(this).getLimitStorage()
+        val limitMovil = LocalInfo(this).getLimitMovil()
+        if (limitStorage == -8)
+            LocalInfo(this).setLimitStorage(150)
+        if (limitMovil != -8)
+            LocalInfo(this).setLimitMovil(150)
+
         if (LocalInfo(this).isntFirstUsage()) goMain()
 
         binding = ActivityWelcomeBinding.inflate(layoutInflater)

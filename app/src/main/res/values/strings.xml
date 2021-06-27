@@ -126,4 +126,10 @@
     <string name="borrar">Borrar</string>
     <string name="seleccionar">Seleccionar</string>
     <string name="avatar">Avatar</string>
+    <string name="str_clear_data">Borrar los datos almacenados implica que cuando vuelvas a visitar un sitio éstos deberán ser descargados nuevamente, lo cual significa que se volverán a consumir sus datos móviles. Puede seleccionar que dato borrar.</string>
+    <string name="borrar_datos_almacenados">Borrar datos almacenados</string>
+    <string name="eliminar_imagenes">Eliminar imagenes</string>
+    <string name="eliminar_videos">Eliminar videos</string>
+    <string name="eliminar_audios">Eliminar audios</string>
+    <string name="_0_00_mb_ser_n_eliminados_perderas_los_contenidos_y_deber_s_volver_a_descargarlos">0.00 [MB] serán eliminados. Perderas los contenidos y deberás volver a descargarlos</string>
 </resources>

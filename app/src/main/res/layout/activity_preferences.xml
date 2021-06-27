@@ -273,6 +273,30 @@
                 app:layout_constraintStart_toStartOf="@+id/nameUser"
                 app:layout_constraintTop_toBottomOf="@+id/setLimitStorage" />
 
+            <Button
+                android:id="@+id/cleanStorage"
+                style="@style/AppWidget.IconButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/borrar_datos_almacenados"
+                app:layout_constraintEnd_toEndOf="@+id/titleProgressTreasure"
+                app:layout_constraintStart_toStartOf="@+id/nameUser"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/tvDescriptionClean"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/str_clear_data"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/titleProgressTreasure"
+                app:layout_constraintStart_toStartOf="@+id/nameUser"
+                app:layout_constraintTop_toBottomOf="@+id/cleanStorage" />
+
             <View
                 android:id="@+id/view3"
                 android:layout_width="match_parent"
@@ -281,7 +305,7 @@
                 android:background="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionClean" />
 
 
             <TextView
