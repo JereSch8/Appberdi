@@ -88,4 +88,8 @@ class LocalInfo(context: Context) {
 
     fun getLastAdTimestamp() = getDataString("AdTimestamp")
     fun updateAdTimestamp() = setDataString("AdTimestamp", LocalDateTime.now().toString())
+
+    fun getAvatar() : Int = getDataInt("selectedAvatar")
+
+    fun setAvatar(resource : Int) = setDataInt("selectedAvatar", resource)
 }

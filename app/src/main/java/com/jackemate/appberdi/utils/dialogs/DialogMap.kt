@@ -13,8 +13,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.DialogMapBinding
 import com.jackemate.appberdi.entities.Attraction
+import com.jackemate.appberdi.utils.LocalInfo
 
 
 class DialogMap(){
@@ -32,6 +34,11 @@ class DialogMap(){
 
         dialog.window!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
+        if(LocalInfo(context).getAvatar() != -8)
+            setAnimation(LocalInfo(context).getAvatar() )
+        else
+            setAnimation(R.raw.astronaut_dog)
+
         val mMapView = binding.mapView
         MapsInitializer.initialize(activity)
 
@@ -47,11 +54,11 @@ class DialogMap(){
         }
     }
 
-    fun make(){
+    fun show(){
         dialog.setContentView(binding.root)
         dialog.show()
     }
 
-//    fun setAnimation(rawRes: Int) = binding.animation.setAnimation(rawRes)
+    private fun setAnimation(rawRes: Int) = binding.animation.setAnimation(rawRes)
 
 }

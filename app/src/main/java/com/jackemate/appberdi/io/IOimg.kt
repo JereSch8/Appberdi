@@ -1,11 +1,13 @@
 package com.jackemate.appberdi.io
 
-import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaScannerConnection
 import android.util.Log
+import com.jackemate.appberdi.io.BasicIO.makeDir
+import com.jackemate.appberdi.io.BasicIO.urlImg
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -21,9 +23,9 @@ fun saveImage(context: Context, img: Bitmap, nameImg: String) {
         fOut.close()
         checkFile(context, file)
     } catch (e: FileNotFoundException) {
-        Log.e(ContentValues.TAG, "SaveImage: FilenotFoundException", e.cause)
+        Log.e(TAG, "SaveImage: FilenotFoundException", e.cause)
     } catch (e: IOException) {
-        Log.e(ContentValues.TAG, "SaveImage: IOException", e.cause)
+        Log.e(TAG, "SaveImage: IOException", e.cause)
     }
 }
 
@@ -33,7 +35,7 @@ fun getBitmapFromURL(strURL: String?): Bitmap? {
         val url = URL(strURL)
         BitmapFactory.decodeStream(url.openConnection().getInputStream())
     } catch (e: IOException) {
-        System.out.println(e)
+        Log.e(TAG, "getBitmapFromURL: ${e.message}" )
         null
     }
 }

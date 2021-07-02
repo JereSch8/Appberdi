@@ -2,43 +2,87 @@ package com.jackemate.appberdi.utils.dialogs
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.InputType
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup.LayoutParams
-import android.widget.Button
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.DialogCustomBinding
+import com.jackemate.appberdi.utils.LocalInfo
+import com.jackemate.appberdi.utils.onTextChanged
 
-class DialogCustom(){
+class DialogCustom(val activity: Activity){
+    private var binding : DialogCustomBinding
+    private var dialog : Dialog
+    private val localInfo: LocalInfo = LocalInfo(activity.baseContext)
 
-    private lateinit var binding : DialogCustomBinding
-    private lateinit var dialog : Dialog
-
-    constructor(context: Context, activity: Activity) : this(){
-        val inflater : LayoutInflater = LayoutInflater.from(context)
+    init {
+        val inflater : LayoutInflater = LayoutInflater.from(activity)
         binding = DialogCustomBinding.inflate(inflater)
         dialog = Dialog(activity)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        if(localInfo.getAvatar() != -8)
+            setAnimation(localInfo.getAvatar())
+        else
+            setAnimation(R.raw.astronaut_dog)
     }
 
-    fun make(){
+    fun show() {
         dialog.setContentView(binding.root)
         dialog.show()
     }
 
     fun cancel() = dialog.cancel()
 
-    fun getEditText() = binding.inputName.editText
+    fun setInputTypeNumber() : DialogCustom{
+        setInputType(InputType.TYPE_CLASS_NUMBER)
+        return this
+    }
+
+    fun setInputTypeText() : DialogCustom{
+        setInputType(InputType.TYPE_CLASS_TEXT)
+        return this
+    }
+
+    private fun setInputType(inputType : Int){
+        binding.inputName.visibility = View.VISIBLE
+        binding.inputName.editText?.inputType = inputType
+    }
 
     fun getInput() : String = binding.inputName.editText?.text.toString()
 
-    fun getSave() : Button = binding.save
+    fun setInputListener( listener:(DialogCustom, CharSequence)-> Unit) : DialogCustom{
+        binding.inputName.editText?.onTextChanged {
+            listener(this, it )
+        }
+        return this
+    }
 
-    fun setAnimation(rawRes : Int) = binding.animation.setAnimation(rawRes)
+    fun setSaveEnabled( isEnabled : Boolean) : DialogCustom{
+        binding.save.isEnabled = isEnabled
+        return this
+    }
 
-    fun setText(text : String) { binding.title.text = text }
+    fun setSaveListener( dialog:(DialogCustom)-> Unit) : DialogCustom{
+        binding.save.setOnClickListener { dialog(this) }
+        return this
+    }
 
-    fun setHintText(text: String) { binding.inputName.hint = text }
+    private fun setAnimation(rawRes : Int) : DialogCustom {
+        binding.animation.setAnimation(rawRes)
+        return this
+    }
+
+    fun setText(text : String) : DialogCustom {
+        binding.title.text = text
+        return this
+    }
+
+    fun setHintText(text: String) : DialogCustom {
+        binding.inputName.hint = text
+        return this
+    }
 }

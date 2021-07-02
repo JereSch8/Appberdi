@@ -10,8 +10,6 @@ import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
 import com.jackemate.appberdi.ui.main.MainActivity
 import com.jackemate.appberdi.utils.dialogs.DialogCustom
 import com.jackemate.appberdi.utils.LocalInfo
-import com.jackemate.appberdi.utils.onTextChanged
-import com.jackemate.appberdi.utils.visible
 
 class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
     private lateinit var viewModel: WelcomeViewModel
@@ -44,24 +42,21 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
 
     override fun onClickListener(position: Int) {
         if (position == (viewModel.getListBoard().size - 1)) {
-            val dialog = DialogCustom(this, this)
-
-            dialog.setText("¿Cómo querés que te llamemos?")
-            dialog.getEditText()?.onTextChanged {
-                dialog.getSave().visible(it.length in 3..15)
-                dialog.getSave().isEnabled = it.length in 3..15
-            }
-
-            dialog.getSave().setOnClickListener {
+            DialogCustom(this)
+                .setSaveEnabled(false)
+                .setInputTypeText()
+                .setText("¿Cómo querés que te llamemos?")
+                .setInputListener { dialog, input ->
+                    dialog.setSaveEnabled(input.length in 3..15)
+                }
+            .setSaveListener { dialog ->
                 val name: String = dialog.getInput()
                 LocalInfo(this).setUserName(name)
                 LocalInfo(this).setFirstUsage()
                 dialog.cancel()
                 goMain()
             }
-            dialog.setAnimation(R.raw.astronaut_dog)
-            dialog.getSave().visible(false)
-            dialog.make()
+            .show()
         } else
             viewPager.setCurrentItem((position + 1), true)
     }

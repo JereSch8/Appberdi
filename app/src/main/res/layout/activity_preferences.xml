@@ -28,12 +28,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.05">
 
-                <ImageView
-                    android:id="@+id/imgUser"
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/avatarUser"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
-                    android:background="@drawable/ic_launcher_background"
-                    android:src="@drawable/ic_launcher_foreground"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/astronaut_dog"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.cardview.widget.CardView>

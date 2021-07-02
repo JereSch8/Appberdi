@@ -3,7 +3,7 @@ package com.jackemate.appberdi.ui.preferences
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.jackemate.appberdi.io.sizeStorage
+import com.jackemate.appberdi.io.BasicIO.sizeStorage
 import com.jackemate.appberdi.utils.LocalInfo
 
 @SuppressLint("StaticFieldLeak")
@@ -35,5 +35,7 @@ class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
 
     fun getAutoPlayVideo() = LocalInfo(context).getAutoPlayVideo()
     fun setAutoPlayVideo(isChecked : Boolean) = LocalInfo(context).setAutoPlayVideo(isChecked)
+
+    fun getAvatarResource() = LocalInfo(context).getAvatar()
 
 }

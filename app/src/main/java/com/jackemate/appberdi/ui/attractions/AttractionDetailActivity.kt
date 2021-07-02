@@ -44,7 +44,7 @@ class AttractionDetailActivity : AppCompatActivity() {
 
             if(it.pos != null) {
                 binding.howToGet.setOnClickListener { _ ->
-                    DialogMap(this,this, it).make()
+                    DialogMap(this,this, it).show()
                 }
             }
             else

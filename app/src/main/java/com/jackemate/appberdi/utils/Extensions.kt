@@ -124,6 +124,9 @@ fun SeekBar.onSeekBarChanged(onSeekbarChanged: (progress: Int, fromUser: Boolean
     })
 }
 
+fun Boolean.toInt() : Int = if(this) 1 else -1
+
+
 fun Double.toRoundString(): String {
     return "%.2f".format(this)
 }
