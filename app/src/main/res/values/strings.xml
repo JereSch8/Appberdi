@@ -132,4 +132,7 @@
     <string name="eliminar_videos">Eliminar videos</string>
     <string name="eliminar_audios">Eliminar audios</string>
     <string name="_0_00_mb_ser_n_eliminados_perderas_los_contenidos_y_deber_s_volver_a_descargarlos">0.00 [MB] serán eliminados. Perderas los contenidos y deberás volver a descargarlos</string>
+    <string name="howToGet">¿Cómo llegar?</string>
+    <string name="horarios">Horarios:</string>
+    <string name="redes_sociales">Redes sociales:</string>
 </resources>

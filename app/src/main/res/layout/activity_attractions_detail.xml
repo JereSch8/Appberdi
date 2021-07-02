@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:paddingHorizontal="16dp"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <TextView
@@ -35,7 +36,21 @@
             tools:text="@tools:sample/lorem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:paddingHorizontal="16dp" />
+
+        <TextView
+            android:id="@+id/howToGet"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:elevation="10dp"
+            android:textColor="@color/material_on_background_emphasis_medium"
+            android:maxLines="2"
+            android:paddingHorizontal="16dp"
+            android:text="@string/howToGet" />
 
         <TextView
             style="@style/TextAppearance.MaterialComponents.Subtitle2"
@@ -45,7 +60,8 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:paddingHorizontal="16dp"
-            android:text="Horarios:" />
+            android:textColor="@color/white"
+            android:text="@string/horarios" />
 
         <TextView
             android:id="@+id/horarios"
@@ -54,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:textColor="@color/white"
             android:paddingHorizontal="16dp" />
 
         <TextView
@@ -64,7 +81,8 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:paddingHorizontal="16dp"
-            android:text="Redes sociales:" />
+            android:textColor="@color/white"
+            android:text="@string/redes_sociales" />
 
         <LinearLayout
             android:id="@+id/social_list"

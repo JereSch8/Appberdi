@@ -53,6 +53,17 @@
             android:ellipsize="end"
             tools:text="bla" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_accessible"
+            style="@style/AppWidget.IconOnly"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            app:iconTint="@color/cab400"
+            app:icon="@drawable/ic_accessible"
+            app:layout_constraintBottom_toTopOf="@+id/tv_distance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nextStop" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
