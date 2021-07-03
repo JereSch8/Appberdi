@@ -1,6 +1,7 @@
 package com.jackemate.appberdi.entities
 
 import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.GeoPoint
 import com.jackemate.appberdi.domain.entities.Link
 import com.jackemate.appberdi.domain.shared.logger
 import java.time.DayOfWeek
@@ -16,8 +17,11 @@ data class Attraction(
     val links: List<Link> = emptyList(),
     val site: String? = null,
     val coverUrl: String? = null,
-    val horarios: BusinessHours? = null
+    val horarios: BusinessHours? = null,
+    val accessible: Boolean = false,
+    val pos: GeoPoint? = null
 ) {
+
     private val log by logger()
 
     fun getParsedHorarios(): List<Horario> {

@@ -1,141 +1,193 @@
 package com.jackemate.appberdi.ui.preferences
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
-import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityPreferencesBinding
-import com.jackemate.appberdi.ui.attractions.AttractionViewModel
-import com.jackemate.appberdi.utils.dialogs.DialogCustom
-import com.jackemate.appberdi.utils.LocalInfo
+import com.jackemate.appberdi.utils.dialogs.BasicDialog
+import com.jackemate.appberdi.utils.dialogs.DialogAvatars
+import com.jackemate.appberdi.utils.dialogs.DialogClearStorage
+import com.jackemate.appberdi.utils.toRoundString
 
+@SuppressLint("SetTextI18n")
 class PreferencesActivity : AppCompatActivity() {
-    private val viewModel: AttractionViewModel by viewModels()
+    private val viewModel: PreferencesViewModel by viewModels()
+    private lateinit var binding: ActivityPreferencesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityPreferencesBinding.inflate(layoutInflater)
+        binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.nameUser.text = LocalInfo(this).getUserName()
-        val limitStorage = LocalInfo(this).getLimitStorage()
-        val limitMovil = LocalInfo(this).getLimitMovil()
-        if (limitStorage != -8)
-            binding.setLimitStorage.text = "Límite de almacenamiento: $limitStorage MB."
-        if (limitMovil != -8)
-            binding.setLimitStorage.text = "Límite de datos: $limitMovil MB."
+        binding.nameUser.text = viewModel.getName()
 
-        val progressSite = if (LocalInfo(this).getProgressSite() == -8 ) 0 else LocalInfo(this).getProgressSite()
+        if (viewModel.getLimitStorage() != -8)
+            binding.setLimitStorage.text =
+                "Límite de almacenamiento: ${viewModel.getLimitStorage()} MB."
+        if (viewModel.getLimitMovil() != -8)
+            binding.setLimitMovil.text = "Límite de datos: ${viewModel.getLimitMovil()} MB."
 
-        binding.progressSite.apply {
-            setProgressWithAnimation(8f, 3000) // =3s
-            progressMax = 12f
+        if (viewModel.getAvatarResource() != -8)
+            binding.avatarUser.setAnimation(viewModel.getAvatarResource())
+
+        binding.avatarUser.setOnClickListener {
+            DialogAvatars(this)
+                .setText("Selecciona el avatar que más te guste!")
+                .setOnDismissListener {
+                    binding.avatarUser.setAnimation(viewModel.getAvatarResource())
+                    binding.avatarUser.playAnimation()
+                }
+                .show()
         }
 
-        val progressTrasure : Int = if (LocalInfo(this).getProgressTreasure() == -8 ) 0 else LocalInfo(this).getProgressTreasure()
+        binding.cleanStorage.text = "Borrar datos almacenados: ${viewModel.getSizeStorage()} MB."
+
+        binding.progressSite.apply {
+            setProgressWithAnimation(viewModel.getProgressSite(), 3000) // =3s
+            progressMax = viewModel.getAmountSites()
+            binding.txtProgressSite.text =
+                "${viewModel.getProgressSite().toInt()}/${progressMax.toInt()}"
+        }
 
         binding.progressTreasure.apply {
-            setProgressWithAnimation(14f, 3000) // =3s
-            progressMax = 32f
+            setProgressWithAnimation(viewModel.getProgressTreasure(), 3000) // =3s
+            progressMax = viewModel.getAmountTreasure()
+            binding.txtProgressTreasure.text =
+                "${viewModel.getProgressTreasure().toInt()}/${progressMax.toInt()}"
         }
 
         binding.nameUser.setOnClickListener { createDialogChangeName(binding) }
 
         binding.setLimitStorage.setOnClickListener { createDialogLimit(binding, true) }
+
+        binding.cleanStorage.setOnClickListener { createClearStorageDialog(binding) }
+
         binding.setLimitMovil.setOnClickListener { createDialogLimit(binding, false) }
 
-        binding.clearProgressSite.setOnClickListener { createDialogDelete(binding)  }
+        binding.clearProgressSite.setOnClickListener { createDialogDelete(binding) }
 
-        binding.autoPlayAudio.isChecked = LocalInfo(this).getAutoPlayAudio()
-        binding.autoPlayVideo.isChecked = LocalInfo(this).getAutoPlayVideo()
+        binding.autoPlayAudio.isChecked = viewModel.getAutoPlayAudio()
+        binding.autoPlayVideo.isChecked = viewModel.getAutoPlayVideo()
 
-        binding.autoPlayAudio.setOnCheckedChangeListener { buttonView, isChecked ->
-            LocalInfo(this).setAutoPlayAudio(isChecked)
+        binding.autoPlayAudio.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setAutoPlayAudio(isChecked)
             if (isChecked)
-                Toast.makeText(this,"Se habilitó la reproducción automatica de audio.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Se habilitó la reproducción automatica de audio.",
+                    Toast.LENGTH_SHORT
+                ).show()
             else
-                Toast.makeText(this,"Se deshabilitó la reproducción automatica de audio.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Se deshabilitó la reproducción automatica de audio.",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
-        binding.autoPlayVideo.setOnCheckedChangeListener { buttonView, isChecked ->
-            LocalInfo(this).setAutoPlayVideo(isChecked)
+        binding.autoPlayVideo.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setAutoPlayVideo(isChecked)
             if (isChecked)
-                Toast.makeText(this,"Se habilitó la reproducción automatica de video.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Se habilitó la reproducción automatica de video.",
+                    Toast.LENGTH_SHORT
+                ).show()
             else
-                Toast.makeText(this,"Se deshabilitó la reproducción automatica de video.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Se deshabilitó la reproducción automatica de video.",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
-
     }
 
-
-    private fun createDialogChangeName(binding : ActivityPreferencesBinding){
-        val dialog = DialogCustom(this, this)
-
-        dialog.setText("Cambiar nombre")
-        dialog.getSave().setOnClickListener{
-            val name : String = dialog.getInput()
-            if(name.length in 3..15){
-                LocalInfo(this).setUserName(name)
-                binding.nameUser.text = name
-                Toast.makeText(this, "Genial tu nuevo nombre $name !!!", Toast.LENGTH_SHORT).show()
-                dialog.cancel()
+    private fun createDialogChangeName(binding: ActivityPreferencesBinding) {
+        BasicDialog(this)
+            .setInputTypeText()
+            .setText("Cambiar nombre")
+            .setSaveListener { dialog ->
+                val name: String = dialog.getInput()
+                if (name.length in 3..15) {
+                    viewModel.setName(name)
+                    binding.nameUser.text = name
+                    Toast.makeText(this, "Genial tu nuevo nombre $name !!!", Toast.LENGTH_SHORT)
+                        .show()
+                    dialog.cancel()
+                } else
+                    Toast.makeText(
+                        this,
+                        "Debes Ingresar un nombre válido, entre 3 y 15 caracteres.",
+                        Toast.LENGTH_SHORT
+                    ).show()
             }
-            else
-                Toast.makeText(this,"Debes Ingresar un nombre válido, entre 3 y 15 caracteres.", Toast.LENGTH_SHORT).show()
-        }
-        dialog.setAnimation(R.raw.astronaut_dog)
-        dialog.make()
+            .show()
     }
 
-    private fun createDialogLimit(binding : ActivityPreferencesBinding, isStorage : Boolean){
-        val dialog = DialogCustom(this, this)
-        val text : String = ("Establecer limite de " + (if (isStorage) "almacenamiento, " else "datos, ") + "en MB (MegaBytes).")
-        dialog.setText(text)
-        dialog.setHintText("Límite de "+if (isStorage) "almacenamiento." else "datos.")
-        dialog.getSave().setOnClickListener{
-            val limit = if (dialog.getInput().isNotBlank()) dialog.getInput() else " "
-            if (limit.isDigitsOnly() && limit.toInt()>20 ){
-                if (isStorage){
-                    LocalInfo(this).setLimitStorage(limit.toInt())
-                    binding.setLimitStorage.text = "Límite de almacenamiento: $limit MB."
-                    Toast.makeText(this, "Ahora la aplicacion solo puede almacenar $limit MB.", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    LocalInfo(this).setLimitMovil(limit.toInt())
-                    binding.setLimitStorage.text = "Límite de datos: $limit MB."
-                    Toast.makeText(this, "Ahora la aplicacion solo puede descargar $limit MB.", Toast.LENGTH_SHORT).show()
-                }
-                dialog.cancel()
+    private fun createDialogLimit(binding: ActivityPreferencesBinding, isStorage: Boolean) {
+        val text: String =
+            ("Establecer limite de " + (if (isStorage) "almacenamiento, " else "datos, ") + "en MB (MegaBytes).")
+        BasicDialog(this)
+            .setText(text)
+            .setHintText("Límite de " + if (isStorage) "almacenamiento." else "datos.")
+            .setInputTypeNumber()
+            .setSaveListener { dialog ->
+                val limit = if (dialog.getInput().isNotBlank()) dialog.getInput() else " "
+                if (limit.isDigitsOnly() && limit.toInt() > 20) {
+                    if (isStorage) {
+                        viewModel.setLimitStorage(limit.toInt())
+                        binding.setLimitStorage.text = "Límite de almacenamiento: $limit MB."
+                        Toast.makeText(
+                            this,
+                            "Ahora la aplicacion solo puede almacenar $limit MB.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        viewModel.setLimitMovil(limit.toInt())
+                        binding.setLimitMovil.text = "Límite de datos: $limit MB."
+                        Toast.makeText(
+                            this,
+                            "Ahora la aplicacion solo puede descargar $limit MB.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    dialog.cancel()
+                } else
+                    Toast.makeText(
+                        this,
+                        "$limit debe ser un número mayor a 20 MB.",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
             }
-            else
-                Toast.makeText(this, "$limit debe ser un número mayor a 20 MB.", Toast.LENGTH_SHORT).show()
-        }
-        dialog.setAnimation(R.raw.astronaut_dog)
-        dialog.make()
+            .show()
     }
 
-    private fun createDialogDelete(binding : ActivityPreferencesBinding){
-        val dialog = DialogCustom(this, this)
-        dialog.setText("Estas a punto de borrar tu progreso. Ecribe 'si' (sin ') si estas segura/o de volver a comenzar.")
-        dialog.setHintText("Estás segura/o?")
-        dialog.getSave().setOnClickListener{
-            val input : String = dialog.getInput()
-            if(input.equals("si")){
-                LocalInfo(this).setProgressSite(0)
+    private fun createDialogDelete(binding: ActivityPreferencesBinding) {
+        BasicDialog(this)
+            .setText("Estas a punto de borrar tu progreso. Deberás volver a comenzar.")
+            .setSaveListener { dialog ->
+                viewModel.setProgressSite(-8)
                 binding.progressSite.apply {
-                    binding.txtProgressSite.text = "0/12"
                     setProgressWithAnimation(0.1f, 3000) // =3s
-                    progressMax = 12f
+                    progressMax = viewModel.getAmountSites()
+                    binding.txtProgressSite.text = "0/${progressMax.toInt()}"
                 }
                 Toast.makeText(this, "Tu progreso volvió a 0", Toast.LENGTH_SHORT).show()
                 dialog.cancel()
             }
-            else
-                Toast.makeText(this,"Debes Ingresar 'si' para eliminar los datos. (sin las ') ", Toast.LENGTH_LONG).show()
-        }
-        dialog.setAnimation(R.raw.astronaut_dog)
-        dialog.make()
+            .show()
     }
 
+
+    private fun createClearStorageDialog(binding: ActivityPreferencesBinding) {
+        DialogClearStorage(this)
+            .setOnDismissListener {
+                binding.cleanStorage.text =
+                    "Borrar datos almacenados: ${viewModel.getSizeStorage().toRoundString()} MB."
+            }
+            .show()
+    }
 }

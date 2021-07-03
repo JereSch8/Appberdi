@@ -62,9 +62,17 @@ class LocalInfo(context: Context) {
 
     fun setLimitMovil(limit : Int) = setDataInt("limiteMovil", limit)//limites en MB
 
+    fun getAmountSites() : Int = getDataInt("amountSite")           //Cantidad de sitios obtenidos en DB
+
+    fun setAmountSites(amount : Int) = setDataInt("amountSite", amount)
+
     fun getProgressSite() : Int = getDataInt("progressSite")
 
     fun setProgressSite(progress : Int) = setDataInt("progressSite", progress)
+
+    fun getAmountTreasures() : Int = getDataInt("amountTreasure")    //Cantidad de tesoros obtenidos en DB
+
+    fun setAmountTreasures(amount : Int) = setDataInt("amountTreasure", amount)
 
     fun getProgressTreasure() : Int = getDataInt("progressTreasure")
 
@@ -80,4 +88,8 @@ class LocalInfo(context: Context) {
 
     fun getLastAdTimestamp() = getDataString("AdTimestamp")
     fun updateAdTimestamp() = setDataString("AdTimestamp", LocalDateTime.now().toString())
+
+    fun getAvatar() : Int = getDataInt("selectedAvatar")
+
+    fun setAvatar(resource : Int) = setDataInt("selectedAvatar", resource)
 }

@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/cab200</item>
         <item name="colorPrimaryVariant">@color/cab200</item>
         <item name="colorPrimaryDark">@color/cab300</item>
-        <item name="colorOnPrimary">@color/white10</item>
+        <item name="colorOnPrimary">@color/white20</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/black</item>

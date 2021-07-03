@@ -8,10 +8,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
 import com.jackemate.appberdi.ui.main.MainActivity
-import com.jackemate.appberdi.utils.dialogs.DialogCustom
 import com.jackemate.appberdi.utils.LocalInfo
-import com.jackemate.appberdi.utils.onTextChanged
-import com.jackemate.appberdi.utils.visible
+import com.jackemate.appberdi.utils.dialogs.BasicDialog
 
 class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
     private lateinit var viewModel: WelcomeViewModel
@@ -21,6 +19,13 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_Welcome)
         super.onCreate(savedInstanceState)
+
+        val limitStorage = LocalInfo(this).getLimitStorage()
+        val limitMovil = LocalInfo(this).getLimitMovil()
+        if (limitStorage == -8)
+            LocalInfo(this).setLimitStorage(150)
+        if (limitMovil != -8)
+            LocalInfo(this).setLimitMovil(150)
 
         if (LocalInfo(this).isntFirstUsage()) goMain()
 
@@ -37,24 +42,21 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
 
     override fun onClickListener(position: Int) {
         if (position == (viewModel.getListBoard().size - 1)) {
-            val dialog = DialogCustom(this, this)
-
-            dialog.setText("¿Cómo querés que te llamemos?")
-            dialog.getEditText()?.onTextChanged {
-                dialog.getSave().visible(it.length in 3..15)
-                dialog.getSave().isEnabled = it.length in 3..15
-            }
-
-            dialog.getSave().setOnClickListener {
-                val name: String = dialog.getInput()
-                LocalInfo(this).setUserName(name)
-                LocalInfo(this).setFirstUsage()
-                dialog.cancel()
-                goMain()
-            }
-            dialog.setAnimation(R.raw.astronaut_dog)
-            dialog.getSave().visible(false)
-            dialog.make()
+            BasicDialog(this)
+                .setSaveEnabled(false)
+                .setInputTypeText()
+                .setText("¿Cómo querés que te llamemos?")
+                .setInputListener { dialog, input ->
+                    dialog.setSaveEnabled(input.length in 3..15)
+                }
+                .setSaveListener { dialog ->
+                    val name: String = dialog.getInput()
+                    LocalInfo(this).setUserName(name)
+                    LocalInfo(this).setFirstUsage()
+                    dialog.cancel()
+                    goMain()
+                }
+                .show()
         } else
             viewPager.setCurrentItem((position + 1), true)
     }

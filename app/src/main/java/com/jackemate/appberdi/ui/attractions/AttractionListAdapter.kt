@@ -33,9 +33,7 @@ class AttractionListAdapter constructor(
         holder.bind(list[position])
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount(): Int { return list.size }
 
     fun update(list: List<Attraction>) {
         this.list = list
@@ -49,6 +47,7 @@ class AttractionListAdapter constructor(
 
             v.description.visible(item.description.isNotEmpty())
             v.description.text = item.description
+            v.btnAccessible.visible(item.accessible)
 
             Glide.with(v.root)
                 .load(item.coverUrl)
@@ -63,14 +62,12 @@ class AttractionListAdapter constructor(
                 val next = now.with(TemporalAdjusters.nextOrSame(it.day))
 
                 if (it.isNowOpen()) {
-                    v.horario.append(SpannableString("Ahora mismo".upper()).nowStyle())
+                    v.horario.text = (SpannableString("Ahora mismo".upper()).nowStyle())
                     v.horario.append(" • Cierra a las ${next.with(it.close).Hmm()}".upper())
                 } else {
-                    v.horario.append("Abre el ${next.with(it.open).eeeeHmm()}".upper())
+                    v.horario.text = ("Abre el ${next.with(it.open).eeeeHmm()}".upper())
                 }
             }
-
-
 
             v.root.setOnClickListener { onClick(item) }
         }

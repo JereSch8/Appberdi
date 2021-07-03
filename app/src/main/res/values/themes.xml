@@ -19,7 +19,17 @@
         <item name="android:textColor">@color/white</item>
         <item name="iconTint">@color/white</item>
         <item name="backgroundTint">@android:color/transparent</item>
-        <item name="rippleColor">@color/white10</item>
+        <item name="rippleColor">@color/white20</item>
+        <item name="shapeAppearanceOverlay">@style/AppShapeAppearance</item>
+    </style>
+
+    <style name="AppWidget.IconButton.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">@color/white20</item>
         <item name="shapeAppearanceOverlay">@style/AppShapeAppearance</item>
     </style>
 
@@ -35,7 +45,7 @@
         <item name="iconPadding">0dp</item>
         <item name="iconTint">@color/white</item>
         <item name="backgroundTint">@android:color/transparent</item>
-        <item name="rippleColor">@color/white10</item>
+        <item name="rippleColor">@color/white20</item>
         <item name="shapeAppearanceOverlay">@style/AppShapeAppearance</item>
     </style>
 

@@ -116,14 +116,23 @@
     <string name="entrar">entrar</string>
     <string name="progreso">Progreso</string>
     <string name="sitios_recorridos">Sitios recorridos</string>
-    <string name="reproducci_n_autom_tica_de_audio">Reproducción automática de audio</string>
-    <string name="reproducci_n_autom_tica_de_video">Reproducción automática de video</string>
+    <string name="reproducci_n_autom_tica_de_audio">Reproducir audio al toque</string>
+    <string name="reproducci_n_autom_tica_de_video">Reproducir vídeo al toque</string>
     <string name="l_mite_de_almacenamiento_sin_l_mite">Límite de almacenamiento: Sin límite</string>
     <string name="l_mite_de_datos_sin_l_mite">Límite de datos: Sin límite</string>
     <string name="limit_storage">Establecer un límite de almacenamiento muy pequeño no es recomendable ya que no se podrán almacenar los datos obtenido de la nube y se volverán a descargar cada vez que vuelvas a visitar un sitio.</string>
     <string name="limit_data">Establecer un límite de datos muy pequeño no es recomendable ya que es posible que no puedas obtener los recursos multimedia necesarios para navegar sobre los distintos sitios de Alberdi.</string>
-    <string name="uso_de_datos">Uso de datos:</string>
+    <string name="uso_de_datos">Uso de datos</string>
     <string name="borrar">Borrar</string>
     <string name="seleccionar">Seleccionar</string>
     <string name="avatar">Avatar</string>
+    <string name="str_clear_data">Borrar los datos almacenados implica que cuando vuelvas a visitar un sitio éstos deberán ser descargados nuevamente, lo cual significa que se volverán a consumir sus datos móviles. Puede seleccionar que dato borrar.</string>
+    <string name="borrar_datos_almacenados">Borrar datos almacenados</string>
+    <string name="eliminar_imagenes">Eliminar imagenes</string>
+    <string name="eliminar_videos">Eliminar videos</string>
+    <string name="eliminar_audios">Eliminar audios</string>
+    <string name="_0_00_mb_ser_n_eliminados_perderas_los_contenidos_y_deber_s_volver_a_descargarlos">0.00 [MB] serán eliminados. Perderas los contenidos y deberás volver a descargarlos</string>
+    <string name="howToGet">¿Cómo llegar?</string>
+    <string name="horarios">Horarios:</string>
+    <string name="redes_sociales">Redes sociales:</string>
 </resources>
