@@ -10,12 +10,13 @@ import com.jackemate.appberdi.databinding.ActivityAttractionsBinding
 import com.jackemate.appberdi.entities.Attraction
 import com.jackemate.appberdi.ui.attractions.AttractionDetailActivity.Companion.ID_ATTRACTION
 import com.jackemate.appberdi.utils.observe
+import com.jackemate.appberdi.utils.setQueryListener
 import com.jackemate.appberdi.utils.upper
 
 class AttractionActivity : AppCompatActivity() {
     private val viewModel: AttractionViewModel by viewModels()
     private lateinit var binding: ActivityAttractionsBinding
-    private lateinit var listAttraction : List<Attraction>
+    private lateinit var listAttraction: List<Attraction>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttractionsBinding.inflate(layoutInflater)
@@ -29,7 +30,7 @@ class AttractionActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerView(binding: ActivityAttractionsBinding){
+    private fun setupRecyclerView(binding: ActivityAttractionsBinding) {
         binding.attractionList.layoutManager = LinearLayoutManager(this)
         binding.attractionList.adapter = AttractionListAdapter(emptyList(), ::onSelect)
     }
@@ -40,18 +41,14 @@ class AttractionActivity : AppCompatActivity() {
         })
     }
 
-    private fun onCreateOptionsMenu(searchView: SearchView){
+    private fun onCreateOptionsMenu(searchView: SearchView) {
         searchView.queryHint = "Ingrese título o descripción"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean { return false }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                (binding.attractionList.adapter as AttractionListAdapter).update(
-                    listAttraction.filter { at ->
-                        at.description.upper().contains(newText!!.upper()) ||
-                                at.name.upper().contains(newText.upper())})
-                return true
-            }
-        })
+        searchView.setQueryListener { query ->
+            (binding.attractionList.adapter as AttractionListAdapter)
+                .update(listAttraction.filter {
+                    it.description.upper().contains(query.upper())
+                            || it.name.upper().contains(query.upper())
+                })
+        }
     }
 }

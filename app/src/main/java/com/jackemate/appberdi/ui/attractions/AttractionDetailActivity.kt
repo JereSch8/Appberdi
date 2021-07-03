@@ -3,7 +3,6 @@ package com.jackemate.appberdi.ui.attractions
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -11,6 +10,7 @@ import com.jackemate.appberdi.databinding.ActivityAttractionsDetailBinding
 import com.jackemate.appberdi.entities.BusinessHours
 import com.jackemate.appberdi.utils.dialogs.DialogMap
 import com.jackemate.appberdi.utils.observe
+import com.jackemate.appberdi.utils.visible
 
 
 class AttractionDetailActivity : AppCompatActivity() {
@@ -42,13 +42,13 @@ class AttractionDetailActivity : AppCompatActivity() {
                 binding.socialList.addView(b)
             }
 
-            if(it.pos != null) {
+            binding.howToGet.visible(it.pos != null)
+
+            it.pos?.let { _ ->
                 binding.howToGet.setOnClickListener { _ ->
-                    DialogMap(this,this, it).show()
+                    DialogMap(this, it).show()
                 }
             }
-            else
-                binding.howToGet.visibility = View.GONE
         }
     }
 

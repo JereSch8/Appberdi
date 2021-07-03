@@ -7,9 +7,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import com.jackemate.appberdi.databinding.ActivityPreferencesBinding
+import com.jackemate.appberdi.utils.dialogs.BasicDialog
 import com.jackemate.appberdi.utils.dialogs.DialogAvatars
 import com.jackemate.appberdi.utils.dialogs.DialogClearStorage
-import com.jackemate.appberdi.utils.dialogs.DialogCustom
 import com.jackemate.appberdi.utils.toRoundString
 
 @SuppressLint("SetTextI18n")
@@ -36,7 +36,7 @@ class PreferencesActivity : AppCompatActivity() {
         binding.avatarUser.setOnClickListener {
             DialogAvatars(this)
                 .setText("Selecciona el avatar que más te guste!")
-                .setOnDismiss {
+                .setOnDismissListener {
                     binding.avatarUser.setAnimation(viewModel.getAvatarResource())
                     binding.avatarUser.playAnimation()
                 }
@@ -105,7 +105,7 @@ class PreferencesActivity : AppCompatActivity() {
     }
 
     private fun createDialogChangeName(binding: ActivityPreferencesBinding) {
-        DialogCustom(this)
+        BasicDialog(this)
             .setInputTypeText()
             .setText("Cambiar nombre")
             .setSaveListener { dialog ->
@@ -129,7 +129,7 @@ class PreferencesActivity : AppCompatActivity() {
     private fun createDialogLimit(binding: ActivityPreferencesBinding, isStorage: Boolean) {
         val text: String =
             ("Establecer limite de " + (if (isStorage) "almacenamiento, " else "datos, ") + "en MB (MegaBytes).")
-        DialogCustom(this)
+        BasicDialog(this)
             .setText(text)
             .setHintText("Límite de " + if (isStorage) "almacenamiento." else "datos.")
             .setInputTypeNumber()
@@ -166,7 +166,7 @@ class PreferencesActivity : AppCompatActivity() {
     }
 
     private fun createDialogDelete(binding: ActivityPreferencesBinding) {
-        DialogCustom(this)
+        BasicDialog(this)
             .setText("Estas a punto de borrar tu progreso. Deberás volver a comenzar.")
             .setSaveListener { dialog ->
                 viewModel.setProgressSite(-8)
@@ -181,14 +181,13 @@ class PreferencesActivity : AppCompatActivity() {
             .show()
     }
 
+
     private fun createClearStorageDialog(binding: ActivityPreferencesBinding) {
         DialogClearStorage(this)
-            .setOnDismiss {
+            .setOnDismissListener {
                 binding.cleanStorage.text =
                     "Borrar datos almacenados: ${viewModel.getSizeStorage().toRoundString()} MB."
             }
             .show()
     }
-
-
 }

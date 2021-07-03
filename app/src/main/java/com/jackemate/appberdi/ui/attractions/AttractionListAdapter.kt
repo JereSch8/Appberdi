@@ -6,7 +6,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -48,7 +47,7 @@ class AttractionListAdapter constructor(
 
             v.description.visible(item.description.isNotEmpty())
             v.description.text = item.description
-            v.btnAccessible.visibility = if(item.accessible) View.VISIBLE else View.GONE
+            v.btnAccessible.visible(item.accessible)
 
             Glide.with(v.root)
                 .load(item.coverUrl)

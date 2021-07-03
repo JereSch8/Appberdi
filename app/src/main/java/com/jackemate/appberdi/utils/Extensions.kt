@@ -13,6 +13,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.SearchView
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -96,6 +97,19 @@ fun Fragment.share(subject: String, text: String) {
     } catch (e: ActivityNotFoundException) {
         e.printStackTrace()
     }
+}
+
+fun SearchView.setQueryListener(listener: (String) -> Unit) {
+    this.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String): Boolean {
+            return false
+        }
+
+        override fun onQueryTextChange(newText: String): Boolean {
+            listener(newText)
+            return true
+        }
+    })
 }
 
 fun EditText.onTextChanged(onTextChanged: (CharSequence) -> Unit) {

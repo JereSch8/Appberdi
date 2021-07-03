@@ -5,13 +5,20 @@
     <color name="cab300">#0AB0F1</color>
     <color name="cab400">#0991DB</color>
 
+    <color name="red">#FF0000</color>
+
     <!-- 80%, 10%  -->
     <color name="black">#D8000000</color>
     <color name="black10">#33000000</color>
 
     <!-- 99%, 77%, 10% -->
     <color name="white">#FCFFFFFF</color>
+    <color name="white90">#E6FFFFFF</color>
+    <color name="white80">#CCFFFFFF</color>
     <color name="white70">#B2FFFFFF</color>
-    <color name="white10">#33FFFFFF</color>
+    <color name="white50">#80FFFFFF</color>
+    <color name="white40">#66FFFFFF</color>
+    <color name="white30">#4DFFFFFF</color>
+    <color name="white20">#33FFFFFF</color>
 
 </resources>

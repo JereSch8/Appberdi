@@ -8,8 +8,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
 import com.jackemate.appberdi.ui.main.MainActivity
-import com.jackemate.appberdi.utils.dialogs.DialogCustom
 import com.jackemate.appberdi.utils.LocalInfo
+import com.jackemate.appberdi.utils.dialogs.BasicDialog
 
 class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
     private lateinit var viewModel: WelcomeViewModel
@@ -42,21 +42,21 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
 
     override fun onClickListener(position: Int) {
         if (position == (viewModel.getListBoard().size - 1)) {
-            DialogCustom(this)
+            BasicDialog(this)
                 .setSaveEnabled(false)
                 .setInputTypeText()
                 .setText("¿Cómo querés que te llamemos?")
                 .setInputListener { dialog, input ->
                     dialog.setSaveEnabled(input.length in 3..15)
                 }
-            .setSaveListener { dialog ->
-                val name: String = dialog.getInput()
-                LocalInfo(this).setUserName(name)
-                LocalInfo(this).setFirstUsage()
-                dialog.cancel()
-                goMain()
-            }
-            .show()
+                .setSaveListener { dialog ->
+                    val name: String = dialog.getInput()
+                    LocalInfo(this).setUserName(name)
+                    LocalInfo(this).setFirstUsage()
+                    dialog.cancel()
+                    goMain()
+                }
+                .show()
         } else
             viewPager.setCurrentItem((position + 1), true)
     }
