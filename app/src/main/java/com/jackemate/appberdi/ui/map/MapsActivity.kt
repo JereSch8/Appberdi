@@ -21,6 +21,7 @@ import com.jackemate.appberdi.databinding.ActivityMapsBinding
 import com.jackemate.appberdi.ui.sites.SiteActivity
 import com.jackemate.appberdi.utils.Constants
 import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.transparentStatusBar
 import com.jackemate.appberdi.utils.visible
 import kotlin.math.roundToInt
 
@@ -47,6 +48,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        transparentStatusBar()
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

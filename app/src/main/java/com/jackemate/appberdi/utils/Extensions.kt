@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -66,6 +67,15 @@ fun View.invisible(isInvisible: Boolean) {
 
 inline fun <T> LifecycleOwner.observe(liveData: LiveData<T>, crossinline body: (T) -> Unit) {
     liveData.observe(this, { body.invoke(it) })
+}
+
+
+fun Activity.transparentStatusBar() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    } else {
+        window.setDecorFitsSystemWindows(false)
+    }
 }
 
 fun Activity.hideKeyboard() {

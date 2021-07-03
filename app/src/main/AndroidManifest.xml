@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.Splash">
         <!--
              The API key for Google Maps-based APIs hardcoded.
              Note that the API key is linked to the encryption key used to sign the APK.
@@ -29,15 +29,18 @@
             android:value="AIzaSyAMoZ4t6dtiy1oaVAwl7GOFAs6B5gFebBc" />
 
         <receiver android:name=".services.GeofenceBroadcastReceiver" />
-
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.Splash">
         </activity>
         <activity
             android:name=".ui.map.MapsActivity"
@@ -52,9 +55,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.attractions.AttractionActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.attractions.AttractionDetailActivity"

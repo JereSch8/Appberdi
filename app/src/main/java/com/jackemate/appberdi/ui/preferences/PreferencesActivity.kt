@@ -1,6 +1,5 @@
 package com.jackemate.appberdi.ui.preferences
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -11,14 +10,15 @@ import com.jackemate.appberdi.utils.dialogs.BasicDialog
 import com.jackemate.appberdi.utils.dialogs.DialogAvatars
 import com.jackemate.appberdi.utils.dialogs.DialogClearStorage
 import com.jackemate.appberdi.utils.toRoundString
+import com.jackemate.appberdi.utils.transparentStatusBar
 
-@SuppressLint("SetTextI18n")
 class PreferencesActivity : AppCompatActivity() {
     private val viewModel: PreferencesViewModel by viewModels()
     private lateinit var binding: ActivityPreferencesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        transparentStatusBar()
         binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

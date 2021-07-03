@@ -5,11 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
-import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
 import com.jackemate.appberdi.ui.main.MainActivity
 import com.jackemate.appberdi.utils.LocalInfo
 import com.jackemate.appberdi.utils.dialogs.BasicDialog
+import com.jackemate.appberdi.utils.transparentStatusBar
 
 class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
     private lateinit var viewModel: WelcomeViewModel
@@ -17,8 +17,8 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
     private lateinit var binding: ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme_Welcome)
         super.onCreate(savedInstanceState)
+        transparentStatusBar()
 
         val limitStorage = LocalInfo(this).getLimitStorage()
         val limitMovil = LocalInfo(this).getLimitMovil()
@@ -26,8 +26,6 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
             LocalInfo(this).setLimitStorage(150)
         if (limitMovil != -8)
             LocalInfo(this).setLimitMovil(150)
-
-        if (LocalInfo(this).isntFirstUsage()) goMain()
 
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
