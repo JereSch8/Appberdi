@@ -3,28 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
-    android:scrollbars="none"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
+        android:paddingVertical="16dp"
         tools:background="@drawable/background">
-
-        <TextView
-            android:id="@+id/site_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/lobstertwo_bold"
-            android:textSize="30sp"
-            android:text="em "
-            tools:text="Escuela Manuel Belgrano" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/player_container"
@@ -147,8 +135,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Este marginTop rarisimo tiene una razón de ser
-        Ver [ContentPageFragment.kt]. -->
         <TextView
             android:id="@+id/description_title"
             style="@style/TextAppearance.MaterialComponents.Overline"

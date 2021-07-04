@@ -26,7 +26,7 @@ sealed class Content(
     class Video(
         val href: String = "",
         val description: String = "",
-        val subtitle: String = "",
+        val duration: String = "",
     ) : Content()
 
     class Text(

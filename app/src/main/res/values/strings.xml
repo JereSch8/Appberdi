@@ -135,4 +135,5 @@
     <string name="howToGet">¿Cómo llegar?</string>
     <string name="horarios">Horarios:</string>
     <string name="redes_sociales">Redes sociales:</string>
+    <string name="site_video_duration">%1$s minutos de duración</string>
 </resources>

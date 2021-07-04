@@ -24,11 +24,11 @@ class AttractionActivity : AppCompatActivity() {
         binding = ActivityAttractionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupRecyclerView(binding)
-        onCreateOptionsMenu(binding.searchView)
 
         observe(viewModel.getAttractions()) {
             listAttraction = it
             (binding.attractionList.adapter as AttractionListAdapter).update(it)
+            onCreateOptionsMenu(binding.searchView)
         }
     }
 

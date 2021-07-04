@@ -33,7 +33,7 @@ class SiteActivity : FragmentActivity() {
 
         observe(viewModel.getSite(idSite)) { contentSite ->
             site = contentSite
-//            binding.tvNameSite.text = contentSite.name
+            binding.siteName.text = contentSite.name
 
             Log.i(TAG, "site contentSite size: ${site.contents.size}")
             val tags = site.contents.map { it.tag }

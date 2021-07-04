@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.fragment.app.viewModels
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
@@ -25,18 +24,14 @@ class SiteAudioFragment : ContentPageFragment() {
     ): View {
         binding = SiteAudioFragmentBinding.inflate(layoutInflater)
 
-        binding.scrollView.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                val lp: ViewGroup.LayoutParams = binding.playerContainer.layoutParams
-                lp.height = binding.scrollView.height - binding.siteName.height * 2
-
-                Log.w(TAG, "scrollview height: ${binding.scrollView.height}")
-                Log.w(TAG, "set height: ${lp.height}")
-                binding.playerContainer.layoutParams = lp
-                binding.scrollView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-            }
-        })
+        // Setear el alto del playerContainer del mismo alto
+        // que el scrollView, menos un pequeño offset (el alto del title)
+        binding.scrollView.post {
+            val layout = binding.playerContainer.layoutParams
+            layout.height = binding.scrollView.height - binding.title.height * 2
+            binding.playerContainer.layoutParams = layout
+            Log.w(TAG, "set height: ${layout.height}")
+        }
 
         return binding.root
     }
@@ -47,7 +42,7 @@ class SiteAudioFragment : ContentPageFragment() {
         binding.btnPlay.isEnabled = false
         binding.btnRewind.invisible(true)
         binding.btnForward.invisible(true)
-        binding.siteName.text = content.site
+//        binding.siteName.text = content.site
 
         val c = content
         if (c is Content.Audio) {

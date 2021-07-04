@@ -9,6 +9,21 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.sites.SiteActivity">
 
+    <TextView
+        android:id="@+id/site_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lobstertwo_bold"
+        android:text=""
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Escuela Manuel Belgrano" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_back"
         style="@style/AppWidget.IconOnly"
@@ -27,7 +42,7 @@
         android:padding="16dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_next"
         app:layout_constraintStart_toEndOf="@+id/btn_back"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/site_name"
         app:sv_animationType="All"
         app:sv_doneCircleColor="@color/black"
         app:sv_doneStepLineColor="@color/black"
