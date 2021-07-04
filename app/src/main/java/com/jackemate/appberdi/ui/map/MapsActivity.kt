@@ -19,21 +19,24 @@ import com.google.maps.android.ui.IconGenerator
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMapsBinding
 import com.jackemate.appberdi.ui.sites.SiteActivity
-import com.jackemate.appberdi.utils.Constants
-import com.jackemate.appberdi.utils.TAG
-import com.jackemate.appberdi.utils.transparentStatusBar
-import com.jackemate.appberdi.utils.visible
+import com.jackemate.appberdi.utils.*
 import kotlin.math.roundToInt
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private val viewModel by viewModels<MapViewModel>()
-    private lateinit var mMap: GoogleMap
+    private lateinit var map: GoogleMap
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationCallback: LocationCallback
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult?) {
+            locationResult ?: return
+            val loc = locationResult.locations.first()
+            currentPos = LatLng(loc.latitude, loc.longitude)
+            updateUI()
+        }
+    }
 
-    // Tuve varios NPE por esta variable, debería guardarla en el ViewModel?
     private var currentPos: LatLng? = null
     private var currentSites: List<SiteMarker>? = null
     private lateinit var binding: ActivityMapsBinding
@@ -42,8 +45,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private var status: TourMapStatus = TourMapStatus.Navigating
 
     sealed class TourMapStatus {
-        object Navigating: TourMapStatus()
-        class SiteSelected(val site: SiteMarker): TourMapStatus()
+        object Navigating : TourMapStatus()
+        class SiteSelected(val site: SiteMarker) : TourMapStatus()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,15 +60,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
-                locationResult ?: return
-                val loc = locationResult.locations.first()
-                currentPos = LatLng(loc.latitude, loc.longitude)
-                updateUI()
-            }
-        }
 
         binding.btnEnter.setOnClickListener {
             Log.i(TAG, "btnEnter: $status")
@@ -83,6 +77,87 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     }
 
+    @SuppressLint("PotentialBehaviorOverride")
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        initMap()
+        initPolyline()
+
+        observe(viewModel.getSites()) { sitesMarkers ->
+            Log.d(TAG, "sitesMarkers: $sitesMarkers")
+            currentSites = sitesMarkers
+            initMarkers()
+            updateUI()
+        }
+    }
+
+    private fun initMarkers() {
+        val sites = currentSites ?: return
+        sites.forEach { site ->
+            addSiteMarker(site)
+        }
+        moveCameraByBounds(sites)
+    }
+
+    private fun moveCameraByBounds(sites: List<SiteMarker>) {
+        val bounds = getBoundsBy(sites)
+        Log.d(TAG, "moveCamera: ${binding.map.width}")
+
+        // En este punto es posible que el mapa sepa sus dimensiones
+        // Por lo que se los tengo que pasar a manopla
+        map.moveCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds.build(),
+                binding.map.width,
+                binding.map.height,
+                100
+            )
+        )
+    }
+
+    private fun getBoundsBy(sitesMarkers: List<SiteMarker>): LatLngBounds.Builder {
+        val bounds = LatLngBounds.Builder()
+        sitesMarkers.forEach {
+            bounds.include(it.pos)
+        }
+        return bounds
+    }
+
+    private fun addSiteMarker(site: SiteMarker) {
+        // https://github.com/googlemaps/android-maps-utils/blob/main/demo/src/gms/java/com/google/maps/android/utils/demo/IconGeneratorDemoActivity.java
+        val iconFactory = IconGenerator(this)
+        val marker = map.addMarker(
+            MarkerOptions()
+                //.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(site.title)))
+                .position(site.pos)
+                //.anchor(iconFactory.anchorU, iconFactory.anchorV)
+        )
+        marker.tag = site
+        marker.showInfoWindow()
+    }
+
+    private fun initPolyline() {
+        polyline = map.addPolyline(
+            PolylineOptions()
+                .color(Color.BLACK)
+                .width(20f)
+                .pattern(listOf(Dot(), Gap(15f)))
+                .jointType(JointType.ROUND)
+                .geodesic(false) // Lineas curvas o no por la proyección del planeta
+        )
+    }
+
+    private fun initMap() {
+        map.uiSettings.isMapToolbarEnabled = false
+        map.uiSettings.isMyLocationButtonEnabled = false
+        map.isMyLocationEnabled = true
+        map.setOnMarkerClickListener(this)
+        map.setOnMapClickListener {
+            status = TourMapStatus.Navigating
+            updateUI()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         startLocationUpdates()
@@ -98,7 +173,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             interval = 20000
             // Es poco tiempo pero para las pruebas se ve bien
             // Sinó queda desfazada la linea con el puntito azul
-            fastestInterval = 1000
+            fastestInterval = 10000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
     }
@@ -131,10 +206,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     private fun updateUI() {
-        Log.d(TAG, "updateUI")
-
-        Log.d(TAG, "currentSites: ${currentSites?.size}")
-        Log.d(TAG, "currentLoc: $currentPos")
+        Log.d(TAG, "updateUI: currentPos: $currentPos")
 
         if (currentPos == null) {
             // No hacer nada aún
@@ -169,58 +241,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 polyline.points = listOf(currentPos, stat.site.pos)
                 binding.btnEnter.show()
                 binding.btnAccessible.visible(stat.site.accessible)
-//                binding.btnAccessible.icon = ContextCompat.getDrawable(this, R.drawable.ic_accessible)
             }
         }
-
-    }
-
-    @SuppressLint("PotentialBehaviorOverride")
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        mMap.uiSettings.isMapToolbarEnabled = false
-        mMap.uiSettings.isMyLocationButtonEnabled = false
-        mMap.isMyLocationEnabled = true
-        mMap.setOnMarkerClickListener(this)
-        mMap.setOnMapClickListener {
-            status = TourMapStatus.Navigating
-            updateUI()
-        }
-
-        polyline = mMap.addPolyline(
-            PolylineOptions()
-                .color(Color.BLACK)
-                .width(20f)
-                .pattern(listOf(Dot(), Gap(15f)))
-                .jointType(JointType.ROUND)
-                .geodesic(false) // Lineas curvas o no por la proyección del planeta
-        )
-
-        viewModel.sites.observe(this) { sitesMarkers ->
-            currentSites = sitesMarkers
-            sitesMarkers.forEach { site ->
-//                https://github.com/googlemaps/android-maps-utils/blob/main/demo/src/gms/java/com/google/maps/android/utils/demo/IconGeneratorDemoActivity.java
-                val iconFactory = IconGenerator(this)
-                val marker = mMap.addMarker(
-                    MarkerOptions()
-//                        .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(site.title)))
-                        .position(site.pos)
-//                        .anchor(iconFactory.anchorU, iconFactory.anchorV)
-                )
-                marker.tag = site
-                marker.showInfoWindow()
-            }
-
-            if (sitesMarkers.size > 2) {
-                val bounds = LatLngBounds.Builder()
-                sitesMarkers.forEach {
-                    bounds.include(it.pos)
-                }
-                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
-            }
-            updateUI()
-        }
-        viewModel.fetchSites()
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
