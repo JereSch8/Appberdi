@@ -83,7 +83,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         initMap()
         initPolyline()
 
-        observe(viewModel.getSites()) { sitesMarkers ->
+        observe(viewModel.sites) { sitesMarkers ->
             Log.d(TAG, "sitesMarkers: $sitesMarkers")
             currentSites = sitesMarkers
             initMarkers()
@@ -128,9 +128,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val iconFactory = IconGenerator(this)
         val marker = map.addMarker(
             MarkerOptions()
-                //.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(site.title)))
                 .position(site.pos)
-                //.anchor(iconFactory.anchorU, iconFactory.anchorV)
+                .icon(
+                    BitmapDescriptorFactory.defaultMarker(
+                        if (site.visited) BitmapDescriptorFactory.HUE_AZURE
+                        else BitmapDescriptorFactory.HUE_RED
+                    )
+                )
         )
         marker.tag = site
         marker.showInfoWindow()
@@ -161,6 +165,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     override fun onResume() {
         super.onResume()
         startLocationUpdates()
+        viewModel.updateSites()
     }
 
     override fun onPause() {
@@ -199,9 +204,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     private fun computeBestSite(): SiteMarker? {
-        // TODO filtar por visitados
-        return currentSites?.let { site ->
-            site.minByOrNull { distanceTo(it.pos) }
+        return currentSites?.let { sites ->
+            sites
+                .filter { !it.visited }
+                .minByOrNull { distanceTo(it.pos) }
         }
     }
 

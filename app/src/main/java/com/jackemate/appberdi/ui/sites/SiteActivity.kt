@@ -14,7 +14,6 @@ import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.transparentStatusBar
 
-
 class SiteActivity : FragmentActivity() {
 
     private val viewModel: SiteViewModel by viewModels()
@@ -94,14 +93,6 @@ class SiteActivity : FragmentActivity() {
         binding.steps.go(position, true)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     inner class ContentPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
         override fun getItemCount(): Int = site.contents.size
@@ -122,7 +113,7 @@ class SiteActivity : FragmentActivity() {
 
             fragment.arguments = Bundle().apply {
                 putSerializable(ARG_CONTENT, content)
-                putInt(ARG_INSET, binding.viewPager.height)
+                putString(ARG_ID_SITE, site.idSite)
             }
             return fragment
         }

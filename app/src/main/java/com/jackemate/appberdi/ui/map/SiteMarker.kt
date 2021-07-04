@@ -3,7 +3,7 @@ package com.jackemate.appberdi.ui.map
 import com.google.android.gms.maps.model.LatLng
 import com.jackemate.appberdi.entities.Site
 
-class SiteMarker(
+data class SiteMarker(
     val id: String,
     val title: String,
     val pos: LatLng,
