@@ -196,9 +196,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 .geodesic(false) // Lineas curvas o no por la proyección del planeta
         )
 
-        viewModel.sites.observe(this) {
-            currentSites = it
-            it.forEach { site ->
+        viewModel.sites.observe(this) { sitesMarkers ->
+            currentSites = sitesMarkers
+            sitesMarkers.forEach { site ->
 //                https://github.com/googlemaps/android-maps-utils/blob/main/demo/src/gms/java/com/google/maps/android/utils/demo/IconGeneratorDemoActivity.java
                 val iconFactory = IconGenerator(this)
                 val marker = mMap.addMarker(
@@ -211,13 +211,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 marker.showInfoWindow()
             }
 
-            val bounds = it.fold(LatLngBounds.Builder(), { acc, site ->
-                acc.include(site.pos)
-            })
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
+            if (sitesMarkers.size > 2) {
+                val bounds = LatLngBounds.Builder()
+                sitesMarkers.forEach {
+                    bounds.include(it.pos)
+                }
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
+            }
             updateUI()
         }
-
         viewModel.fetchSites()
     }
 

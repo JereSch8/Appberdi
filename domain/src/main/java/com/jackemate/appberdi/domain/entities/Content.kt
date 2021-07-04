@@ -7,29 +7,45 @@ sealed class Content(
     val tag: String = "",
     val title: String = "",
     val site: String = ""
-): Serializable {
-    class Audio(
+) : Serializable {
+    data class Audio(
         val href: String = "",
         val subtitle: String = "",
-    ) : Content()
+    ) : Content(
+        tag = "Audio"
+    )
 
-    class Image(
+    data class Image(
         val href: String = "",
         val description: String = "",
-    ) : Content()
+    ) : Content(
+        tag = "Imagen"
+    )
 
-    class Gif(
+    data class Gif(
         val href: String = "",
         val description: String = "",
-    ) : Content()
+    ) : Content(
+        tag = "GIF"
+    )
 
-    class Video(
+    data class Video(
         val href: String = "",
         val description: String = "",
         val duration: String = "",
-    ) : Content()
+    ) : Content(
+        tag = "Vídeo"
+    )
 
-    class Text(
+    data class Text(
         val description: String = "",
-    ) : Content()
+    ) : Content(
+        tag = "Texto"
+    )
+
+    data class Summary(
+        val description: String = "",
+    ) : Content(
+        tag = "Resumen"
+    )
 }

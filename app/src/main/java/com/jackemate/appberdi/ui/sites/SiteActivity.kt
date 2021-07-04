@@ -96,12 +96,10 @@ class SiteActivity : FragmentActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        viewModel.pauseAudio()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.onDisconnect()
     }
 
     inner class ContentPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
@@ -115,6 +113,7 @@ class SiteActivity : FragmentActivity() {
                 is Content.Audio -> SiteAudioFragment()
                 is Content.Image -> SiteImageFragment()
                 is Content.Video -> SiteVideoFragment()
+                is Content.Summary -> SiteSummaryFragment()
                 else -> {
                     Log.e(TAG, "createFragment: $content no implementado!")
                     ContentPageFragment()
