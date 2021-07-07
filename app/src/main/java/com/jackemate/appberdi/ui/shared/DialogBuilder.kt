@@ -21,10 +21,7 @@ abstract class DialogBuilder(context: Context): Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        if(preferenceRepo.getAvatar() != -8)
-            setAnimation(preferenceRepo.getAvatar())
-        else
-            setAnimation(R.raw.astronaut_dog)
+        setAnimation(preferenceRepo.getAvatar() ?: R.raw.astronaut_dog)
     }
 
     override fun show() {

@@ -82,7 +82,7 @@ class DialogClearStorage(val activity: Activity) : DialogBuilder(activity) {
     private fun getCBvideo(): CheckBox = binding.selectVIDEO
     private fun getCBaudio(): CheckBox = binding.selectAUDIO
 
-    private fun getSave(): Button = binding.save
+    private fun getSave(): Button = binding.button
 
     override fun setAnimation(rawRes: Int) = this.also { binding.animation.setAnimation(rawRes) }
 

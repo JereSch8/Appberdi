@@ -41,13 +41,13 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
     override fun onClickListener(position: Int) {
         if (position == (viewModel.getListBoard().size - 1)) {
             BasicDialog(this)
-                .setSaveEnabled(false)
+                .setButtonEnabled(false)
                 .setInputTypeText()
                 .setText("¿Cómo querés que te llamemos?")
                 .setInputListener { dialog, input ->
-                    dialog.setSaveEnabled(input.length in 3..15)
+                    dialog.setButtonEnabled(input.length in 3..15)
                 }
-                .setSaveListener { dialog ->
+                .setButtonListener { dialog ->
                     val name: String = dialog.getInput()
                     PreferenceRepository(this).setUserName(name)
                     PreferenceRepository(this).setFirstUsage()

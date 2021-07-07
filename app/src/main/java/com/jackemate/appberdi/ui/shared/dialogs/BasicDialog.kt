@@ -3,6 +3,8 @@ package com.jackemate.appberdi.ui.shared.dialogs
 import android.content.Context
 import android.text.InputType
 import android.view.View
+import android.view.View.OnFocusChangeListener
+import android.view.WindowManager
 import com.jackemate.appberdi.databinding.DialogCustomBinding
 import com.jackemate.appberdi.ui.shared.DialogBuilder
 import com.jackemate.appberdi.utils.onTextChanged
@@ -34,13 +36,18 @@ class BasicDialog(context: Context) : DialogBuilder(context) {
         return this
     }
 
-    fun setSaveEnabled(isEnabled: Boolean): BasicDialog {
-        binding.save.isEnabled = isEnabled
+    fun setButtonEnabled(isEnabled: Boolean): BasicDialog {
+        binding.button.isEnabled = isEnabled
         return this
     }
 
-    fun setSaveListener(dialog: (BasicDialog) -> Unit): BasicDialog {
-        binding.save.setOnClickListener { dialog(this) }
+    fun setButtonText(text: String): BasicDialog {
+        binding.button.text = text
+        return this
+    }
+
+    fun setButtonListener(dialog: (BasicDialog) -> Unit): BasicDialog {
+        binding.button.setOnClickListener { dialog(this) }
         return this
     }
 
@@ -51,6 +58,21 @@ class BasicDialog(context: Context) : DialogBuilder(context) {
 
     fun setHintText(text: String): BasicDialog {
         binding.inputName.hint = text
+        return this
+    }
+
+    fun setInputText(text: String): BasicDialog {
+        binding.inputName.editText?.setText(text)
+        return this
+    }
+
+    fun requestFocus(): BasicDialog {
+        binding.inputName.editText?.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+            }
+        }
+        binding.inputName.editText?.requestFocus()
         return this
     }
 

@@ -44,6 +44,10 @@ class PreferenceRepository(context: Context) {
         return prefs.getLong(key, 0)
     }
 
+    fun deleteAll() {
+        editor.clear()
+        editor.apply()
+    }
 
     //"isnt porque por defecto la variable se inicializa en false y queda mal si se llama "is"
     fun isntFirstUsage(): Boolean = getDataBoolean("Welcome")
@@ -54,27 +58,32 @@ class PreferenceRepository(context: Context) {
 
     fun setUserName(name : String) = setDataString("UserName", name)
 
-    fun getLimitStorage() : Int = getDataInt("limiteStorage")          //limites en MB
+    /*
+     * Limites en MB
+     */
+    fun getLimitStorage() : Int = getDataInt("limiteStorage").takeIf { it != -8 } ?: 150
 
-    fun setLimitStorage(limit : Int) = setDataInt("limiteStorage", limit)//limites en MB
+    fun setLimitStorage(limit : Int) = setDataInt("limiteStorage", limit)
 
-    fun getLimitMovil() : Int = getDataInt("limiteMovil")          //limites en MB
+    fun getLimitMovil() : Int = getDataInt("limiteMovil").takeIf { it != -8 } ?: 150
 
-    fun setLimitMovil(limit : Int) = setDataInt("limiteMovil", limit)//limites en MB
+    fun setLimitMovil(limit : Int) = setDataInt("limiteMovil", limit)
 
-    fun getAmountSites() : Int = getDataInt("amountSite")           //Cantidad de sitios obtenidos en DB
+    // Cantidad de sitios obtenidos en DB
+    fun getAmountSites() : Int? = getDataInt("amountSite").takeIf { it != -8 }
 
     fun setAmountSites(amount : Int) = setDataInt("amountSite", amount)
 
-    fun getProgressSite() : Int = getDataInt("progressSite")
+    fun getProgressSite() : Int? = getDataInt("progressSite").takeIf { it != -8 }
 
     fun setProgressSite(progress : Int) = setDataInt("progressSite", progress)
 
-    fun getAmountTreasures() : Int = getDataInt("amountTreasure")    //Cantidad de tesoros obtenidos en DB
+    // Cantidad de tesoros obtenidos en DB
+    fun getAmountTreasures() : Int? = getDataInt("amountTreasure").takeIf { it != -8 }
 
     fun setAmountTreasures(amount : Int) = setDataInt("amountTreasure", amount)
 
-    fun getProgressTreasure() : Int = getDataInt("progressTreasure")
+    fun getProgressTreasure() : Int? = getDataInt("progressTreasure").takeIf { it != -8 }
 
     fun setProgressTreasure(progress : Int) = setDataInt("progressTreasure", progress)
 
@@ -89,7 +98,7 @@ class PreferenceRepository(context: Context) {
     fun getLastAdTimestamp() = getDataString("AdTimestamp")
     fun updateAdTimestamp() = setDataString("AdTimestamp", LocalDateTime.now().toString())
 
-    fun getAvatar() : Int = getDataInt("selectedAvatar")
+    fun getAvatar() = getDataInt("selectedAvatar").takeIf { it != -8 }
 
     fun setAvatar(resource : Int) = setDataInt("selectedAvatar", resource)
 }
