@@ -15,24 +15,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MapViewModel(application: Application) : AndroidViewModel(application) {
-    private val repo = SiteRepository()
+    private val siteRepo = SiteRepository()
+    private val localInfo = LocalInfo(application)
 
     private val _sites: MutableLiveData<List<SiteMarker>> = MutableLiveData()
     val sites: LiveData<List<SiteMarker>> = _sites
 
-    fun fetchSites() = viewModelScope.launch(Dispatchers.IO) {
-        repo.getSites().addSnapshotListener { value, e ->
+    fun updateSites() = viewModelScope.launch(Dispatchers.IO) {
+        siteRepo.getSites().addSnapshotListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
-            _sites.value = value!!
+            val result = value!!
                 .mapNotNull { it.toObject<Site>() }
                 .map {
-                    val visited = false // TODO buscar en local info
+                    val visited = localInfo.getDataLong(it.id) != 0L
                     SiteMarker(it, visited)
                 }
-            LocalInfo(getApplication()).setAmountSites(value.size())
+            localInfo.setAmountSites(result.size)
+            localInfo.setProgressSite(result.count { it.visited })
+            _sites.value = result
         }
     }
 }

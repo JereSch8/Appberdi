@@ -8,39 +8,39 @@ class LocalInfo(context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val editor = prefs.edit()
 
-    private fun setDataString(ubication: String, value : String){
-        editor.putString(ubication, value)
+    fun setDataString(key: String, value : String){
+        editor.putString(key, value)
         editor.apply()
     }
 
-    private fun getDataString(ubication: String): String {
-        return prefs.getString(ubication, "none").toString()
+    fun getDataString(key: String): String {
+        return prefs.getString(key, "none").toString()
     }
 
-    private fun setDataInt(ubication: String, value : Int){
-        editor.putInt(ubication, value)
+    private fun setDataInt(key: String, value : Int){
+        editor.putInt(key, value)
         editor.apply()
     }
 
-    private fun getDataInt(ubication: String): Int {
-        return prefs.getInt(ubication, -8)
+    private fun getDataInt(key: String): Int {
+        return prefs.getInt(key, -8)
     }
 
-    private fun setDataBoolean(ubication: String, value : Boolean){
-        editor.putBoolean(ubication, value)
+    private fun setDataBoolean(key: String, value : Boolean){
+        editor.putBoolean(key, value)
         editor.apply()
     }
 
-    private fun getDataBoolean(ubication: String): Boolean {
-        return prefs.getBoolean(ubication, false)
+    private fun getDataBoolean(key: String): Boolean {
+        return prefs.getBoolean(key, false)
     }
 
-    private fun setDataLong(key: String, value : Long){
+    fun setDataLong(key: String, value : Long){
         editor.putLong(key, value)
         editor.apply()
     }
 
-    private fun getDataLong(key: String): Long {
+    fun getDataLong(key: String): Long {
         return prefs.getLong(key, 0)
     }
 

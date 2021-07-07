@@ -1,90 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/site_header"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:fillViewport="true"
+    android:fitsSystemWindows="true"
     tools:context=".ui.sites.SiteActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/site_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lobstertwo_bold"
+        android:text=""
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Escuela Manuel Belgrano" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/site_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="16dp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_back"
-                style="@style/AppWidget.IconOnly"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:icon="@drawable/ic_back"
-                app:layout_constraintBottom_toBottomOf="@+id/steps"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/steps" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_back"
+        style="@style/AppWidget.IconOnly"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:icon="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@+id/steps"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/steps" />
 
 
-            <com.shuhart.stepview.StepView
-                android:id="@+id/steps"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_next"
-                app:layout_constraintStart_toEndOf="@+id/btn_back"
-                app:layout_constraintTop_toTopOf="parent"
-                app:sv_animationType="All"
-                app:sv_doneCircleColor="@color/black"
-                app:sv_doneStepLineColor="@color/black"
-                app:sv_doneStepMarkColor="@color/white"
-                app:sv_doneTextColor="@color/black"
-                app:sv_nextStepLineColor="@color/white"
-                app:sv_nextTextColor="@color/white"
-                app:sv_selectedCircleColor="@color/black"
-                app:sv_selectedStepNumberColor="@color/white"
-                app:sv_selectedTextColor="@color/black"
-                app:sv_stepLineWidth="2dp"
-                app:sv_stepPadding="8dp"
-                app:sv_typeface="@font/montserrat_semibold" />
+    <com.shuhart.stepview.StepView
+        android:id="@+id/steps"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_next"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toBottomOf="@+id/site_name"
+        app:sv_animationType="All"
+        app:sv_doneCircleColor="@color/black"
+        app:sv_doneStepLineColor="@color/black"
+        app:sv_doneStepMarkColor="@color/white"
+        app:sv_doneTextColor="@color/black"
+        app:sv_nextStepLineColor="@color/white"
+        app:sv_nextTextColor="@color/white"
+        app:sv_selectedCircleColor="@color/black"
+        app:sv_selectedStepNumberColor="@color/white"
+        app:sv_selectedTextColor="@color/black"
+        app:sv_stepLineWidth="2dp"
+        app:sv_stepPadding="8dp"
+        app:sv_typeface="@font/montserrat_semibold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_next"
-                style="@style/AppWidget.IconOnly"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:icon="@drawable/ic_next"
-                app:layout_constraintBottom_toBottomOf="@+id/steps"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/steps" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next"
+        style="@style/AppWidget.IconOnly"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:icon="@drawable/ic_next"
+        app:layout_constraintBottom_toBottomOf="@+id/steps"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/steps" />
 
-            <TextView
-                android:id="@+id/tv_nameSite"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/lobstertwo_bold"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/btn_back"
-                app:layout_constraintTop_toBottomOf="@+id/steps"
-                tools:text="Escuela Manuel Belgrano" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/cab400"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/steps"
+        app:layout_constraintVertical_bias="0.0" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nameSite">
-
-        </androidx.viewpager2.widget.ViewPager2>
-
-    </LinearLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

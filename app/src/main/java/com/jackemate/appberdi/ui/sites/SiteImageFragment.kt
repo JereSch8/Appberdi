@@ -1,6 +1,7 @@
 package com.jackemate.appberdi.ui.sites
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteImageFragmentBinding
 import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.share
 
 
@@ -23,6 +25,16 @@ class SiteImageFragment : ContentPageFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = SiteImageFragmentBinding.inflate(layoutInflater)
+
+        // Setear el alto del playerContainer del mismo alto
+        // que el scrollView, menos un pequeño offset (el alto del title)
+        binding.scrollView.post {
+            val layout = binding.playerContainer.layoutParams
+            layout.height = binding.scrollView.height - binding.title.height * 2
+            binding.playerContainer.layoutParams = layout
+            Log.w(TAG, "set height: ${layout.height}")
+        }
+
         return binding.root
     }
 

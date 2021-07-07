@@ -30,7 +30,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:text="Intro al video" />
+        android:text="Resumen del sitio (PENDIENTE)" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_share"
@@ -41,40 +41,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_play"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_marginHorizontal="16dp"
-        app:cardBackgroundColor="@color/black"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="Play al video"
-            android:src="@drawable/ic_play_circle" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/duration"
-        android:layout_width="0dp"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_fin"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        tools:text="12 minutos de duración"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_play" />
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/black"
+        android:text="finalizar"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_check"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

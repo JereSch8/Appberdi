@@ -19,6 +19,7 @@ class ContentRepository {
             "audio" -> doc.toObject<Content.Audio>()
             "video" -> doc.toObject<Content.Video>()
             "text" -> doc.toObject<Content.Text>()
+            "summary" -> doc.toObject<Content.Summary>()
             else -> {
                 Log.w(TAG, "fromDoc: type desconocido: $doc")
                 null

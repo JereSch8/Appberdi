@@ -11,6 +11,7 @@ import com.google.android.material.chip.Chip
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaBinding
 import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.utils.transparentStatusBar
 
 class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListener {
 
@@ -19,6 +20,7 @@ class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListene
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        transparentStatusBar()
         binding = ActivityMediatecaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -11,6 +11,7 @@ import com.jackemate.appberdi.entities.Attraction
 import com.jackemate.appberdi.ui.attractions.AttractionDetailActivity.Companion.ID_ATTRACTION
 import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.setQueryListener
+import com.jackemate.appberdi.utils.transparentStatusBar
 import com.jackemate.appberdi.utils.upper
 
 class AttractionActivity : AppCompatActivity() {
@@ -19,14 +20,15 @@ class AttractionActivity : AppCompatActivity() {
     private lateinit var listAttraction: List<Attraction>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        transparentStatusBar()
         binding = ActivityAttractionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupRecyclerView(binding)
-        onCreateOptionsMenu(binding.searchView)
 
         observe(viewModel.getAttractions()) {
             listAttraction = it
             (binding.attractionList.adapter as AttractionListAdapter).update(it)
+            onCreateOptionsMenu(binding.searchView)
         }
     }
 

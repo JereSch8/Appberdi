@@ -13,6 +13,7 @@ import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.firestore.GeoPoint
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMainBinding
 import com.jackemate.appberdi.entities.Site
 import com.jackemate.appberdi.services.GeofenceBroadcastReceiver
@@ -20,10 +21,9 @@ import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
 import com.jackemate.appberdi.ui.mediateca.Mediateca
 import com.jackemate.appberdi.ui.preferences.PreferencesActivity
-import com.jackemate.appberdi.utils.Constants
-import com.jackemate.appberdi.utils.LocalInfo
-import com.jackemate.appberdi.utils.TAG
-import com.jackemate.appberdi.utils.observe
+import com.jackemate.appberdi.ui.welcome.WelcomeActivity
+import com.jackemate.appberdi.utils.*
+
 
 class MainActivity : RequesterPermissionsActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -35,13 +35,21 @@ class MainActivity : RequesterPermissionsActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
+        if (!LocalInfo(this).isntFirstUsage()) {
+            goWelcome()
+            return
+        }
+        transparentStatusBar()
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         geofencingClient = LocationServices.getGeofencingClient(this)
 
-        val name : String = LocalInfo(this).getUserName()
+        val name: String = LocalInfo(this).getUserName()
         binding.msgWelcome.text = "Hola $name, soy Albi.\n¡Vamos a recorrer el barrio!"
 
         // Pedimos el permiso de GPS
@@ -111,6 +119,16 @@ class MainActivity : RequesterPermissionsActivity() {
                     Log.e(TAG, "setupGeofence: Geofences NO")
                 }
             }
+    }
+
+    private fun goWelcome() {
+        val intent = Intent(this, WelcomeActivity::class.java)
+        intent.addFlags(
+            Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    or Intent.FLAG_ACTIVITY_NEW_TASK
+        )
+        startActivity(intent)
     }
 
     private fun getGeofencingRequest(list: List<Geofence>): GeofencingRequest {

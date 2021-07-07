@@ -12,7 +12,7 @@ import com.jackemate.appberdi.domain.entities.Content
 import com.jackemate.appberdi.entities.ContentSite
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe
-
+import com.jackemate.appberdi.utils.transparentStatusBar
 
 class SiteActivity : FragmentActivity() {
 
@@ -24,6 +24,7 @@ class SiteActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        transparentStatusBar()
         binding = ActivitySiteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -31,7 +32,7 @@ class SiteActivity : FragmentActivity() {
 
         observe(viewModel.getSite(idSite)) { contentSite ->
             site = contentSite
-            binding.tvNameSite.text = contentSite.name
+            binding.siteName.text = contentSite.name
 
             Log.i(TAG, "site contentSite size: ${site.contents.size}")
             val tags = site.contents.map { it.tag }
@@ -92,16 +93,6 @@ class SiteActivity : FragmentActivity() {
         binding.steps.go(position, true)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        viewModel.pauseAudio()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onDisconnect()
-    }
-
     inner class ContentPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
         override fun getItemCount(): Int = site.contents.size
@@ -113,6 +104,7 @@ class SiteActivity : FragmentActivity() {
                 is Content.Audio -> SiteAudioFragment()
                 is Content.Image -> SiteImageFragment()
                 is Content.Video -> SiteVideoFragment()
+                is Content.Summary -> SiteSummaryFragment()
                 else -> {
                     Log.e(TAG, "createFragment: $content no implementado!")
                     ContentPageFragment()
@@ -121,7 +113,7 @@ class SiteActivity : FragmentActivity() {
 
             fragment.arguments = Bundle().apply {
                 putSerializable(ARG_CONTENT, content)
-                putInt(ARG_INSET, binding.siteHeader.measuredHeight + (actionBar?.height ?: 0))
+                putString(ARG_ID_SITE, site.idSite)
             }
             return fragment
         }

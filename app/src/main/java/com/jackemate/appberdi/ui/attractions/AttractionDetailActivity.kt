@@ -10,6 +10,7 @@ import com.jackemate.appberdi.databinding.ActivityAttractionsDetailBinding
 import com.jackemate.appberdi.entities.BusinessHours
 import com.jackemate.appberdi.utils.dialogs.DialogMap
 import com.jackemate.appberdi.utils.observe
+import com.jackemate.appberdi.utils.transparentStatusBar
 import com.jackemate.appberdi.utils.visible
 
 
@@ -19,6 +20,7 @@ class AttractionDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        transparentStatusBar()
         val binding = ActivityAttractionsDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
