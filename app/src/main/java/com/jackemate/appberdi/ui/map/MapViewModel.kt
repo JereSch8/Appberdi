@@ -30,8 +30,7 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
             val result = value!!
                 .mapNotNull { it.toObject<Site>() }
                 .map {
-                    val visited = localInfo.getDataLong(it.id) != 0L
-                    SiteMarker(it, visited)
+                    SiteMarker(it, localInfo.getDataLong(it.id))
                 }
             localInfo.setAmountSites(result.size)
             localInfo.setProgressSite(result.count { it.visited })
