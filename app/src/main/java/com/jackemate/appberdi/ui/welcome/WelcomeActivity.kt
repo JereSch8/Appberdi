@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
 import com.jackemate.appberdi.ui.main.MainActivity
-import com.jackemate.appberdi.utils.LocalInfo
-import com.jackemate.appberdi.utils.dialogs.BasicDialog
+import com.jackemate.appberdi.ui.shared.dialogs.BasicDialog
 import com.jackemate.appberdi.utils.transparentStatusBar
 
 class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
@@ -20,12 +20,12 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
 
-        val limitStorage = LocalInfo(this).getLimitStorage()
-        val limitMovil = LocalInfo(this).getLimitMovil()
+        val limitStorage = PreferenceRepository(this).getLimitStorage()
+        val limitMovil = PreferenceRepository(this).getLimitMovil()
         if (limitStorage == -8)
-            LocalInfo(this).setLimitStorage(150)
+            PreferenceRepository(this).setLimitStorage(150)
         if (limitMovil != -8)
-            LocalInfo(this).setLimitMovil(150)
+            PreferenceRepository(this).setLimitMovil(150)
 
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -49,8 +49,8 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
                 }
                 .setSaveListener { dialog ->
                     val name: String = dialog.getInput()
-                    LocalInfo(this).setUserName(name)
-                    LocalInfo(this).setFirstUsage()
+                    PreferenceRepository(this).setUserName(name)
+                    PreferenceRepository(this).setFirstUsage()
                     dialog.cancel()
                     goMain()
                 }

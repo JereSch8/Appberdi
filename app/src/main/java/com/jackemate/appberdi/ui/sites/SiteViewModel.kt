@@ -6,10 +6,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.liveData
 import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.data.ContentRepository
+import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.data.SiteRepository
 import com.jackemate.appberdi.entities.ContentSite
 import com.jackemate.appberdi.entities.Site
-import com.jackemate.appberdi.utils.LocalInfo
 import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.tasks.await
 import java.util.*
@@ -17,7 +17,7 @@ import java.util.*
 class SiteViewModel(application: Application) : AndroidViewModel(application) {
     private val siteRepo = SiteRepository()
     private val contentRepo = ContentRepository()
-    private val localInfo = LocalInfo(application)
+    private val localInfo = PreferenceRepository(application)
 
     fun getSite(idSite: String) = liveData {
         val doc = siteRepo.getSite(idSite).get().await()

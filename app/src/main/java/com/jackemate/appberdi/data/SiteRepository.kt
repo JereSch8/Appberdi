@@ -4,6 +4,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
 class SiteRepository {
     private val db = Firebase.firestore
@@ -12,12 +13,12 @@ class SiteRepository {
 
     fun getSite(idSite: String): DocumentReference = db.collection("sites").document(idSite)
 
-    private fun getContentWhere(idSite : String, type : String) = db.collection("contents")
-                            .whereEqualTo("site",idSite)
-                            .whereEqualTo("type",type)
+    fun clearVisited() {
 
-    fun getContentAudioWhere(idSite : String) = getContentWhere(idSite,"audio")
-    fun getContentImageWhere(idSite : String) = getContentWhere(idSite,"image")
-    fun getContentGifWhere(idSite : String) = getContentWhere(idSite,"gif")
+    }
 
+    suspend fun getVisited() {
+        val sites = getSites().get().await()
+
+    }
 }

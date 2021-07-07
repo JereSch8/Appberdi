@@ -6,9 +6,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import com.jackemate.appberdi.databinding.ActivityPreferencesBinding
-import com.jackemate.appberdi.utils.dialogs.BasicDialog
-import com.jackemate.appberdi.utils.dialogs.DialogAvatars
-import com.jackemate.appberdi.utils.dialogs.DialogClearStorage
+import com.jackemate.appberdi.ui.shared.dialogs.BasicDialog
+import com.jackemate.appberdi.ui.shared.dialogs.DialogClearStorage
+import com.jackemate.appberdi.ui.shared.dialogs.avatar.DialogAvatars
 import com.jackemate.appberdi.utils.toRoundString
 import com.jackemate.appberdi.utils.transparentStatusBar
 

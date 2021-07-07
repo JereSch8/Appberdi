@@ -1,10 +1,11 @@
-package com.jackemate.appberdi.utils.dialogs
+package com.jackemate.appberdi.ui.shared.dialogs
 
 import android.app.Activity
 import android.widget.Button
 import android.widget.CheckBox
 import com.jackemate.appberdi.databinding.DialogClearstorageBinding
 import com.jackemate.appberdi.io.BasicIO
+import com.jackemate.appberdi.ui.shared.DialogBuilder
 import com.jackemate.appberdi.utils.toInt
 import com.jackemate.appberdi.utils.toRoundString
 

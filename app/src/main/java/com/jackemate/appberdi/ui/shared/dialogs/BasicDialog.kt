@@ -1,9 +1,10 @@
-package com.jackemate.appberdi.utils.dialogs
+package com.jackemate.appberdi.ui.shared.dialogs
 
 import android.content.Context
 import android.text.InputType
 import android.view.View
 import com.jackemate.appberdi.databinding.DialogCustomBinding
+import com.jackemate.appberdi.ui.shared.DialogBuilder
 import com.jackemate.appberdi.utils.onTextChanged
 
 class BasicDialog(context: Context) : DialogBuilder(context) {

@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.utils.dialogs
+package com.jackemate.appberdi.ui.shared.dialogs
 
 import android.content.Context
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jackemate.appberdi.databinding.DialogMapBinding
 import com.jackemate.appberdi.entities.Attraction
+import com.jackemate.appberdi.ui.shared.DialogBuilder
 
 
 class DialogMap(context: Context, private val attraction: Attraction) : DialogBuilder(context) {

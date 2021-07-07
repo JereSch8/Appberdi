@@ -3,39 +3,55 @@ package com.jackemate.appberdi.ui.preferences
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.io.BasicIO.sizeStorage
-import com.jackemate.appberdi.utils.LocalInfo
 
 @SuppressLint("StaticFieldLeak")
 class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
     private val context = app.applicationContext
+    private val preferenceRepo = PreferenceRepository(context)
 
-    fun getName() = LocalInfo(context).getUserName()
-    fun setName(name : String) = LocalInfo(context).setUserName(name)
+    fun getName() = preferenceRepo.getUserName()
+    fun setName(name: String) = preferenceRepo.setUserName(name)
 
-    fun getLimitStorage() = LocalInfo(context).getLimitStorage()
-    fun setLimitStorage(limit : Int) = LocalInfo(context).setLimitStorage(limit)
+    fun getLimitStorage() = preferenceRepo.getLimitStorage()
+    fun setLimitStorage(limit: Int) = preferenceRepo.setLimitStorage(limit)
 
-    fun getSizeStorage()  = sizeStorage(context)
+    fun getSizeStorage() = sizeStorage(context)
 
-    fun getLimitMovil()   = LocalInfo(context).getLimitMovil()
-    fun setLimitMovil(limit : Int)   = LocalInfo(context).setLimitMovil(limit)
+    fun getLimitMovil() = preferenceRepo.getLimitMovil()
+    fun setLimitMovil(limit: Int) = preferenceRepo.setLimitMovil(limit)
 
-    fun getProgressSite() : Float = if (LocalInfo(context).getProgressSite() == -8 ) 0.1f else LocalInfo(context).getProgressSite().toFloat()
-    fun setProgressSite(progress : Int) = LocalInfo(context).setProgressSite(progress)
+    fun getProgressSite(): Float =
+        if (preferenceRepo.getProgressSite() == -8) 0.1f else PreferenceRepository(
+            context
+        ).getProgressSite().toFloat()
 
-    fun getProgressTreasure() : Float = if (LocalInfo(context).getProgressTreasure() == -8 ) 0.1f else LocalInfo(context).getProgressTreasure().toFloat()
+    fun setProgressSite(progress: Int) = preferenceRepo.setProgressSite(progress)
 
-    fun getAmountSites() : Float = if (LocalInfo(context).getAmountSites() == -8 ) 0.1f else LocalInfo(context).getAmountSites().toFloat()
+    fun getProgressTreasure(): Float =
+        if (preferenceRepo.getProgressTreasure() == -8) 0.1f else PreferenceRepository(
+            context
+        ).getProgressTreasure().toFloat()
 
-    fun getAmountTreasure() : Float = if (LocalInfo(context).getAmountTreasures() == -8 ) 0.1f else LocalInfo(context).getAmountTreasures().toFloat()
+    fun getAmountSites(): Float =
+        if (preferenceRepo.getAmountSites() == -8) 0.1f else PreferenceRepository(
+            context
+        ).getAmountSites().toFloat()
 
-    fun getAutoPlayAudio() = LocalInfo(context).getAutoPlayAudio()
-    fun setAutoPlayAudio(isChecked : Boolean) = LocalInfo(context).setAutoPlayAudio(isChecked)
+    fun getAmountTreasure(): Float =
+        if (preferenceRepo.getAmountTreasures() == -8) 0.1f else PreferenceRepository(
+            context
+        ).getAmountTreasures().toFloat()
 
-    fun getAutoPlayVideo() = LocalInfo(context).getAutoPlayVideo()
-    fun setAutoPlayVideo(isChecked : Boolean) = LocalInfo(context).setAutoPlayVideo(isChecked)
+    fun getAutoPlayAudio() = preferenceRepo.getAutoPlayAudio()
+    fun setAutoPlayAudio(isChecked: Boolean) =
+        preferenceRepo.setAutoPlayAudio(isChecked)
 
-    fun getAvatarResource() = LocalInfo(context).getAvatar()
+    fun getAutoPlayVideo() = preferenceRepo.getAutoPlayVideo()
+    fun setAutoPlayVideo(isChecked: Boolean) =
+        preferenceRepo.setAutoPlayVideo(isChecked)
+
+    fun getAvatarResource() = preferenceRepo.getAvatar()
 
 }

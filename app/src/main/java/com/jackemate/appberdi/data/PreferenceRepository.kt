@@ -1,10 +1,10 @@
-package com.jackemate.appberdi.utils
+package com.jackemate.appberdi.data
 
 import android.content.Context
 import androidx.preference.PreferenceManager
 import java.time.LocalDateTime
 
-class LocalInfo(context: Context) {
+class PreferenceRepository(context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val editor = prefs.edit()
 

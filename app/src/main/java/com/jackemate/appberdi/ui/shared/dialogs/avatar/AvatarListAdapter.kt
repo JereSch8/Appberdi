@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.utils.dialogs
+package com.jackemate.appberdi.ui.shared.dialogs.avatar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
