@@ -5,7 +5,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.TAG
 
 class ContentRepository {

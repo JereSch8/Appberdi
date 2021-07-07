@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.domain.shared
+package com.jackemate.appberdi.utils
 
 import java.util.logging.Logger
 

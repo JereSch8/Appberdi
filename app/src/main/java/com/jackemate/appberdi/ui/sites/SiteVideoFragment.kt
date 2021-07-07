@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteVideoFragmentBinding
-import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.share
 
 

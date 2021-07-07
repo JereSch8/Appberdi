@@ -3,7 +3,7 @@ package com.jackemate.appberdi.utils.dialogs
 import android.app.Activity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jackemate.appberdi.databinding.DialogAvatarsBinding
-import com.jackemate.appberdi.domain.entities.Board
+import com.jackemate.appberdi.entities.Board
 
 class DialogAvatars(activity: Activity): DialogBuilder(activity) {
     override val binding = DialogAvatarsBinding.inflate(inflater)

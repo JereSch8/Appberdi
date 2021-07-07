@@ -3,8 +3,8 @@ package com.jackemate.appberdi.data
 import android.content.Context
 import androidx.lifecycle.MediatorLiveData
 import androidx.preference.PreferenceManager
-import com.jackemate.appberdi.domain.entities.TourEvent
-import com.jackemate.appberdi.domain.entities.TourTransition
+import com.jackemate.appberdi.entities.TourEvent
+import com.jackemate.appberdi.entities.TourTransition
 import me.ibrahimsn.library.LiveSharedPreferences
 
 class TourRepository(context: Context) {

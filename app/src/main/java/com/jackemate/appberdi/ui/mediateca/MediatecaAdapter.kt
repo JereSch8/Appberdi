@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.jackemate.appberdi.R
-import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.entities.Content
 
 class MediatecaAdapter(private val context: Context, private val listMultimedia: List<Any>,
                        private val itemClickListener: OnMultimediaClickListener) :

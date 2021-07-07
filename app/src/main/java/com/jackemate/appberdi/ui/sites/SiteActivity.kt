@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.jackemate.appberdi.databinding.ActivitySiteBinding
-import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.entities.ContentSite
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe

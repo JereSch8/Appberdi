@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.domain.entities
+package com.jackemate.appberdi.entities
 
 enum class TourTransition { ENTER, EXIT }
 

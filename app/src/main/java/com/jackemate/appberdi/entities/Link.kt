@@ -1,3 +1,3 @@
-package com.jackemate.appberdi.domain.entities
+package com.jackemate.appberdi.entities
 
 data class Link(val href: String = "", val rel: String = "")

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaBinding
-import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.transparentStatusBar
 
 class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListener {

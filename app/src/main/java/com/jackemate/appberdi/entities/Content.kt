@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.domain.entities
+package com.jackemate.appberdi.entities
 
 import java.io.Serializable
 

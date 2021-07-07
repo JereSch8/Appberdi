@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.jackemate.appberdi.R
-import com.jackemate.appberdi.domain.entities.Board
+import com.jackemate.appberdi.entities.Board
 
 class ViewPageAdapter(
     private val boardList: List<Board>,

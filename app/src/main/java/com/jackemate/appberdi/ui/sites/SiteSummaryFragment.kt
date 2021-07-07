@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.jackemate.appberdi.databinding.SiteSummaryFragmentBinding
-import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.TAG
 
 class SiteSummaryFragment : ContentPageFragment() {

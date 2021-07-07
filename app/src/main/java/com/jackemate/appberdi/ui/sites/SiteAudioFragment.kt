@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
-import com.jackemate.appberdi.domain.entities.Content
+import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.*
 import java.util.concurrent.TimeUnit
 

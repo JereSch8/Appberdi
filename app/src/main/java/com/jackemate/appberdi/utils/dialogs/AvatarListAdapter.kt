@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jackemate.appberdi.databinding.ItemAvatarBinding
-import com.jackemate.appberdi.domain.entities.Board
+import com.jackemate.appberdi.entities.Board
 import com.jackemate.appberdi.utils.visible
 
 class AvatarListAdapter constructor(
