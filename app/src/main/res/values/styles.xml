@@ -14,7 +14,7 @@
 
         <!--        <item name="android:colorBackground">@color/cab100</item>-->
         <item name="android:textColor">@color/white</item>
-        <!--        <item name="android:fontFamily">@font/montserrat</item>-->
+        <item name="android:fontFamily">@font/montserrat</item>
 
         <item name="android:ambientShadowAlpha">0.02</item>
         <item name="android:spotShadowAlpha">0.06</item>

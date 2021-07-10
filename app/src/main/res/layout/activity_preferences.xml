@@ -59,14 +59,15 @@
 
             <TextView
                 android:id="@+id/textView"
-                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/sitios_recorridos"
                 android:textAlignment="center"
                 android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="12sp"
+                android:letterSpacing="0.0333333333"
                 app:layout_constraintEnd_toEndOf="@+id/progress_site"
                 app:layout_constraintStart_toStartOf="@+id/progress_site"
                 app:layout_constraintTop_toBottomOf="@+id/progress_site" />
@@ -116,14 +117,15 @@
 
             <TextView
                 android:id="@+id/titleProgressTreasure"
-                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/montserrat_regular"
                 android:text="Tesoros encontrados"
                 android:textAlignment="center"
                 android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="12sp"
+                android:letterSpacing="0.0333333333"
                 app:layout_constraintEnd_toEndOf="@+id/progress_treasure"
                 app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintStart_toStartOf="@+id/progress_treasure"
@@ -204,7 +206,7 @@
             <View
                 android:id="@+id/view2"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/white40"
@@ -288,7 +290,7 @@
             <View
                 android:id="@+id/view3"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/white40"

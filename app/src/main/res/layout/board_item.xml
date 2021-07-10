@@ -5,13 +5,15 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@drawable/background">
 
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView_titulo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -25,44 +27,41 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:fontFamily="@font/lobstertwo_regular"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/lobstertwo_bold"
         android:textAlignment="center"
-        android:textSize="40sp"
-        tools:text="Hola"
+        android:textColor="@color/white90"
+        android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_descripcion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+        tools:text="Bienvenida/o al barrio Alberdi" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView_descripcion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="40dp"
-        android:fontFamily="@font/montserrat_regular"
+        android:layout_marginBottom="24dp"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:letterSpacing="-0.01"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_siguiente"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_titulo" />
+        tools:text="Descubrí todas las atracciones que tiene el barrio para vos." />
 
     <Button
         android:id="@+id/button_siguiente"
         style="@style/AppWidget.IconButton.Unelevated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:text="Siguiente"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView_descripcion"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_descripcion"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

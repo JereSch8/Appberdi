@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
 import com.jackemate.appberdi.ui.main.MainActivity
@@ -17,6 +18,7 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
     private lateinit var binding: ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         transparentStatusBar()
 
