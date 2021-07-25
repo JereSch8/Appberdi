@@ -14,10 +14,7 @@ import com.jackemate.appberdi.ui.sites.contents.SiteAudioFragment
 import com.jackemate.appberdi.ui.sites.contents.SiteImageFragment
 import com.jackemate.appberdi.ui.sites.contents.SiteSummaryFragment
 import com.jackemate.appberdi.ui.sites.contents.SiteVideoFragment
-import com.jackemate.appberdi.utils.TAG
-import com.jackemate.appberdi.utils.observe
-import com.jackemate.appberdi.utils.transparentStatusBar
-import com.jackemate.appberdi.utils.visible
+import com.jackemate.appberdi.utils.*
 
 class SiteActivity : FragmentActivity() {
 
@@ -81,6 +78,8 @@ class SiteActivity : FragmentActivity() {
 
     private fun isFirst() = binding.viewPager.currentItem == 0
 
+    private fun isLast() = binding.viewPager.currentItem + 1 == binding.viewPager.adapter?.itemCount
+
     private fun previousPage() {
         val currPos: Int = binding.viewPager.currentItem
         if (currPos != 0) {
@@ -90,7 +89,7 @@ class SiteActivity : FragmentActivity() {
 
     private fun nextPage() {
         val currPos: Int = binding.viewPager.currentItem
-        if ((currPos + 1) != binding.viewPager.adapter?.itemCount) {
+        if (!isLast()) {
             setPage(currPos + 1)
         }
     }
@@ -98,6 +97,7 @@ class SiteActivity : FragmentActivity() {
     private fun setPage(position: Int) {
         binding.viewPager.currentItem = position
         binding.steps.go(position, true)
+        binding.btnNext.invisible(isLast())
     }
 
     inner class ContentPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
