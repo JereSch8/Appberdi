@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.sites
+package com.jackemate.appberdi.ui.sites.contents
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.jackemate.appberdi.databinding.SiteSummaryFragmentBinding
 import com.jackemate.appberdi.entities.Content
+import com.jackemate.appberdi.ui.sites.ContentPageFragment
+import com.jackemate.appberdi.ui.sites.SiteViewModel
 import com.jackemate.appberdi.utils.TAG
 
 class SiteSummaryFragment : ContentPageFragment() {

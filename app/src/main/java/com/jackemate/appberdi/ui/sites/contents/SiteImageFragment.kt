@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.sites
+package com.jackemate.appberdi.ui.sites.contents
 
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteImageFragmentBinding
 import com.jackemate.appberdi.entities.Content
+import com.jackemate.appberdi.ui.sites.ContentPageFragment
+import com.jackemate.appberdi.ui.sites.SiteViewModel
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.share
 

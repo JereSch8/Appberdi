@@ -10,6 +10,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.jackemate.appberdi.databinding.ActivitySiteBinding
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.entities.ContentSite
+import com.jackemate.appberdi.ui.sites.contents.SiteAudioFragment
+import com.jackemate.appberdi.ui.sites.contents.SiteImageFragment
+import com.jackemate.appberdi.ui.sites.contents.SiteSummaryFragment
+import com.jackemate.appberdi.ui.sites.contents.SiteVideoFragment
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.transparentStatusBar
