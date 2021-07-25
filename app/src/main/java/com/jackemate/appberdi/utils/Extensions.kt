@@ -72,7 +72,8 @@ inline fun <T> LifecycleOwner.observe(liveData: LiveData<T>, crossinline body: (
 
 fun Activity.transparentStatusBar() {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        window.decorView.systemUiVisibility =
+            (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     } else {
         window.setDecorFitsSystemWindows(false)
     }
@@ -148,7 +149,7 @@ fun SeekBar.onSeekBarChanged(onSeekbarChanged: (progress: Int, fromUser: Boolean
     })
 }
 
-fun Boolean.toInt() : Int = if(this) 1 else -1
+fun Boolean.toInt(): Int = if (this) 1 else -1
 
 
 fun Double.toRoundString(): String {
@@ -200,8 +201,16 @@ fun Context.needLocationPermission() =
     needPermission(Manifest.permission.ACCESS_FINE_LOCATION) && needPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
 
 // Comprueba si ya tiene el permiso otorgado
-fun AppCompatActivity.checkSelfPermissionCompat(permission: String): Boolean =
+fun AppCompatActivity.hasPermission(permission: String): Boolean =
     ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+
+fun AppCompatActivity.hasPermission(permissions: List<String>): Boolean =
+    permissions.all {
+        ActivityCompat.checkSelfPermission(
+            this,
+            it
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
 fun AppCompatActivity.shouldShowRequestPermissionRationaleCompat(permission: String): Boolean =
     ActivityCompat.shouldShowRequestPermissionRationale(this, permission)

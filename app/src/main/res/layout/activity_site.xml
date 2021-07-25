@@ -68,11 +68,29 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/cab400"
+        android:background="@color/cab400_60"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/steps"
         app:layout_constraintVertical_bias="0.0" />
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/loading"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:cpb_background_progressbar_color="@color/black10"
+        app:cpb_background_progressbar_width="4dp"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progressbar_color="@color/white"
+        app:cpb_progressbar_color_direction="left_to_right"
+        app:cpb_progressbar_width="8dp"
+        app:cpb_round_border="true"
+        app:cpb_indeterminate_mode="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view_pager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/steps" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

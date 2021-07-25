@@ -13,6 +13,7 @@ import com.jackemate.appberdi.entities.ContentSite
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.transparentStatusBar
+import com.jackemate.appberdi.utils.visible
 
 class SiteActivity : FragmentActivity() {
 
@@ -30,7 +31,9 @@ class SiteActivity : FragmentActivity() {
 
         val idSite: String = intent.getStringExtra("idSite")!!
 
+        binding.loading.visible(true)
         observe(viewModel.getSite(idSite)) { contentSite ->
+            binding.loading.visible(false)
             site = contentSite
             binding.siteName.text = contentSite.name
 
