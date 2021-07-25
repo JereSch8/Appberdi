@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background" android:top="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="@color/black10" />
+        </shape>
+    </item>
+
+<!--  Tiene padding horizontal interno hardcodeado!  -->
+    <item android:id="@android:id/progress" android:left="24dp" android:right="24dp">
+        <scale android:scaleWidth="100%" >
+            <shape>
+                <corners android:radius="16dp" />
+                <solid android:color="@color/white90" />
+            </shape>
+        </scale>
+    </item>
+</layer-list>

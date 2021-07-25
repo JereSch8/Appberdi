@@ -44,7 +44,10 @@ sealed class Content(
     )
 
     data class Summary(
-        val description: String = "",
+        val words: SummaryCountable? = null,
+        val years: SummaryYear? = null,
+        val vecinos: SummaryCountable? = null,
+        val love: SummaryLabelIcon? = null,
     ) : Content(
         tag = "Resumen"
     )
