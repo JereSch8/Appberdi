@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.jackemate.appberdi.databinding.ActivityAttractionsDetailBinding
 import com.jackemate.appberdi.entities.BusinessHours
-import com.jackemate.appberdi.utils.dialogs.DialogMap
+import com.jackemate.appberdi.ui.shared.dialogs.DialogMap
 import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.transparentStatusBar
 import com.jackemate.appberdi.utils.visible

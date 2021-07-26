@@ -12,7 +12,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ItemSocialBinding
-import com.jackemate.appberdi.domain.entities.Link
+import com.jackemate.appberdi.entities.Link
 import java.util.*
 
 class ItemSocial : LinearLayoutCompat {

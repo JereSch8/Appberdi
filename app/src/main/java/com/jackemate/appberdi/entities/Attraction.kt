@@ -2,8 +2,7 @@ package com.jackemate.appberdi.entities
 
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.GeoPoint
-import com.jackemate.appberdi.domain.entities.Link
-import com.jackemate.appberdi.domain.shared.logger
+import com.jackemate.appberdi.utils.logger
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.time.LocalTime

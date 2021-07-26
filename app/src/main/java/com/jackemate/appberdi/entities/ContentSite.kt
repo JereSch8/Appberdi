@@ -1,7 +1,6 @@
 package com.jackemate.appberdi.entities
 
 import com.google.firebase.firestore.GeoPoint
-import com.jackemate.appberdi.domain.entities.Content
 import java.io.Serializable
 
 data class ContentSite(

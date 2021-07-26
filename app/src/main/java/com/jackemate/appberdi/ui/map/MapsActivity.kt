@@ -241,7 +241,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             }
             is TourMapStatus.SiteSelected -> {
                 val distance = distanceTo(stat.site.pos).roundToInt()
-                binding.tvNextStop.text = "Ir a:"
+                binding.tvNextStop.text =
+                    if (stat.site.visited) "Ya lo visitaste"
+                    else "Ir a:"
                 binding.tvNameSite.text = stat.site.title
                 binding.tvDistance.text = "Estás a $distance metros masomono."
                 polyline.points = listOf(currentPos, stat.site.pos)

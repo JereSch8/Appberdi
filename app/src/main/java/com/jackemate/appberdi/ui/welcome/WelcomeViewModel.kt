@@ -2,7 +2,7 @@ package com.jackemate.appberdi.ui.welcome
 
 import androidx.lifecycle.ViewModel
 import com.jackemate.appberdi.R
-import com.jackemate.appberdi.domain.entities.Board
+import com.jackemate.appberdi.entities.Board
 
 class WelcomeViewModel : ViewModel() {
 

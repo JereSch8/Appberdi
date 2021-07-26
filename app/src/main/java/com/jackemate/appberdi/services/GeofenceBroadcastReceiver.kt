@@ -8,9 +8,8 @@ import androidx.preference.PreferenceManager
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
-import com.jackemate.appberdi.domain.entities.TourTransition
+import com.jackemate.appberdi.entities.TourTransition
 import com.jackemate.appberdi.utils.TAG
-import java.lang.Exception
 import java.util.*
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
