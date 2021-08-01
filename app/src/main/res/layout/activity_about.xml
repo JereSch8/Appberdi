@@ -46,7 +46,9 @@
             android:layout_height="wrap_content"
             custom:facu="FAUD"
             custom:name="Agustina Aldana Bustos"
-            custom:social_face="astrast" />
+            custom:social_face="https://www.facebook.com/agus.bustos.94"
+            custom:social_insta="https://www.instagram.com/agus.bustos"
+            custom:social_linkedin="https://www.linkedin.com/in/agustina-bustos-95864a214"/>
 
         <Space
             android:layout_width="match_parent"
@@ -70,7 +72,8 @@
             custom:name="Alejandro Ismael Silva"
             custom:social_github="https://github.com/AIDEA775"
             custom:social_insta="https://www.instagram.com/aidea775"
-            custom:social_twitter="https://twitter.com/AIDEA775" />
+            custom:social_twitter="https://twitter.com/AIDEA775"
+            custom:social_linkedin="https://www.linkedin.com/in/aidea775" />
 
         <Space
             android:layout_width="match_parent"
@@ -81,7 +84,8 @@
             android:layout_height="wrap_content"
             custom:facu="FFyH"
             custom:name="Maia Milman"
-            custom:social_face="astrast" />
+            custom:social_face="https://www.facebook.com/maia.milman"
+            custom:social_insta="https://www.instagram.com/maiarandom"/>
 
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
