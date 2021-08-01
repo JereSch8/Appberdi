@@ -11,6 +11,7 @@ sealed class Content(
     data class Audio(
         val href: String = "",
         val subtitle: String = "",
+        val preview: Map<String, String> = emptyMap()
     ) : Content(
         tag = "Audio"
     )

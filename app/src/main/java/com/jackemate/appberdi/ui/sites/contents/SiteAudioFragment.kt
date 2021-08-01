@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
 import com.jackemate.appberdi.entities.Content
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit
 class SiteAudioFragment : ContentPageFragment() {
     private lateinit var binding: SiteAudioFragmentBinding
     private val mediaPlayer = MediaPlayer()
+    private var currentPreview: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,16 +72,7 @@ class SiteAudioFragment : ContentPageFragment() {
             // Evitar que el celu entre en modo hibernación mientras reproduce audio
             setWakeMode(requireContext().applicationContext, PowerManager.PARTIAL_WAKE_LOCK)
             setOnPreparedListener {
-                binding.btnPlay.isEnabled = true
-                binding.btnRewind.visible(true)
-                binding.btnForward.visible(true)
-                binding.sbProgress.visible(true)
-
-                binding.tvCurrentAudio.text = durationToString(mediaPlayer.currentPosition)
-                val duration = mediaPlayer.duration
-                binding.sbProgress.max = duration
-                binding.tvDurationAudio.text = durationToString(duration)
-                Log.d(TAG, "setOnPreparedListener: $duration")
+                onMediaPlayerPrepared()
             }
             setOnSeekCompleteListener {
                 Log.d(TAG, "setOnSeekCompleteListener")
@@ -108,6 +101,22 @@ class SiteAudioFragment : ContentPageFragment() {
                 mediaPlayer.seekTo(progress)
             }
         }
+
+        // Prefech la primera imagen
+        updatePreview("00:00")
+    }
+
+    private fun onMediaPlayerPrepared() {
+        binding.btnPlay.isEnabled = true
+        binding.btnRewind.visible(true)
+        binding.btnForward.visible(true)
+        binding.sbProgress.visible(true)
+
+        binding.tvCurrentAudio.text = durationToString(mediaPlayer.currentPosition)
+        val duration = mediaPlayer.duration
+        binding.sbProgress.max = duration
+        binding.tvDurationAudio.text = durationToString(duration)
+        Log.d(TAG, "setOnPreparedListener: $duration")
     }
 
     private val handler = Handler(Looper.getMainLooper())
@@ -115,10 +124,10 @@ class SiteAudioFragment : ContentPageFragment() {
         override fun run() {
             updateUI()
             if (mediaPlayer.isPlaying) {
-                Log.d(
-                    "SiteAudioFragment",
-                    "runnable: currentPosition: ${mediaPlayer.currentPosition}"
-                )
+//                Log.d(
+//                    "SiteAudioFragment",
+//                    "runnable: currentPosition: ${mediaPlayer.currentPosition}"
+//                )
                 handler.postDelayed(this, 1000)
             } else {
                 Log.d("SiteAudioFragment", "runnable: stop")
@@ -129,11 +138,44 @@ class SiteAudioFragment : ContentPageFragment() {
 
     private fun updateUI() {
         binding.sbProgress.progress = mediaPlayer.currentPosition
-        binding.tvCurrentAudio.text = durationToString(mediaPlayer.currentPosition)
+        val time = durationToString(mediaPlayer.currentPosition)
+        binding.tvCurrentAudio.text = time
         binding.btnPlay.setImageResource(
             if (mediaPlayer.isPlaying) R.drawable.ic_pause
             else R.drawable.ic_play_circle
         )
+        updatePreview(time)
+    }
+
+    private fun updatePreview(time: String) {
+        val c = content as Content.Audio
+        c.preview.keys
+            .sorted()
+            /*
+             * Estoy comparando strings con la forma "xx:xx"
+             * Cuestionable, pero funciona razonablemente bien
+             * ya que están ordenados cronológicamente.
+             *
+             * Quiero la primer key que apenas es más grande que
+             * el tiempo actual.
+             */
+            .findLast { it <= time }
+            /*
+             * Como tengo que llamar a Glide
+             * no quiero ser muy pesado, así que sólo voy a hacerlo
+             * si cambia la url de imagen.
+             */
+            ?.takeIf { c.preview[it] != c.preview[currentPreview ?: ""] }
+            ?.let {
+                Log.d(TAG, "updateUI: change preview: $it")
+                currentPreview = it
+                Glide.with(requireContext())
+                    .load(c.preview[it])
+                    .error(R.drawable.no_image)
+                    .placeholder(R.drawable.loading)
+                    .centerCrop()
+                    .into(binding.img)
+            }
     }
 
     private fun playPauseAudio() {
@@ -146,6 +188,8 @@ class SiteAudioFragment : ContentPageFragment() {
     }
 
     private fun seekBy(change: Int) {
+        if (!binding.btnPlay.isEnabled) return // MediaPlayer not ready
+
         val position = mediaPlayer.currentPosition + change
         mediaPlayer.seekTo(position.coerceIn(0, mediaPlayer.duration))
     }
