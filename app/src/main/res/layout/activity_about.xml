@@ -100,16 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:fontFamily="@font/montserrat_regular"
-            android:text="Juan Pérez"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Jose Luis Garcia"
+            android:text="Don pepe"
             android:textColor="@color/white"
             android:textSize="12sp" />
 
