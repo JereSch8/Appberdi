@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StudentView">
+        <attr name="name" format="string" />
+        <attr name="facu" format="string" />
+        <attr name="social_face" format="string" />
+        <attr name="social_github" format="string" />
+        <attr name="social_insta" format="string" />
+        <attr name="social_linkedin" format="string" />
+        <attr name="social_twitter" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="TitleView">
+        <attr name="title" format="string" />
+    </declare-styleable>
+</resources>

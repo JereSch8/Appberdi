@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.viewModels
 import com.jackemate.appberdi.databinding.SiteSummaryFragmentBinding
 import com.jackemate.appberdi.entities.Content
@@ -66,9 +66,9 @@ class SiteSummaryFragment : ContentPageFragment() {
                 subtitle.text = it.subtitle
 
                 ValueAnimator.ofInt(0, it.count ?: 0).apply {
-                    duration = 6000
+                    duration = 3000
                     addUpdateListener { animation -> wordsNumber.text = animation.animatedValue.toString() }
-                    interpolator = DecelerateInterpolator()
+                    interpolator = AccelerateDecelerateInterpolator()
                     start()
                 }
             }
@@ -80,11 +80,11 @@ class SiteSummaryFragment : ContentPageFragment() {
                 title.text = it.title
                 yearStart.text = it.from
                 yearEnd.text = it.to
+                progressBar.progress = 500
 
                 ObjectAnimator.ofInt(progressBar, "progress", 10000).apply {
-                    duration = 6000
-                    interpolator = DecelerateInterpolator()
-//                    startDelay = 2000
+                    duration = 4000
+                    interpolator = AccelerateDecelerateInterpolator()
                     start()
                 }
             }
@@ -96,6 +96,13 @@ class SiteSummaryFragment : ContentPageFragment() {
                 title.text = it.title
                 wordsNumber.text = it.count.toString()
                 subtitle.text = it.subtitle
+
+                ValueAnimator.ofInt(0, it.count ?: 0).apply {
+                    duration = 5000
+                    addUpdateListener { animation -> wordsNumber.text = animation.animatedValue.toString() }
+                    interpolator = AccelerateDecelerateInterpolator()
+                    start()
+                }
             }
         }
 

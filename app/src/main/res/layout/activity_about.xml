@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:fontFamily="@font/lobstertwo_bold"
+            android:text="Appberdi"
+            android:textAlignment="center"
+            android:textSize="32sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Una app desarrollada por estudiantes de la UNC en el ¿marco? de blabla"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+
+        <com.jackemate.appberdi.ui.shared.TitleView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            custom:title="JackeMate" />
+
+        <com.jackemate.appberdi.ui.about.StudentView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            custom:facu="FAUD"
+            custom:name="Agustina Aldana Bustos"
+            custom:social_face="astrast" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.StudentView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            custom:facu="FCEFyN"
+            custom:name="Jeremias Schneider"
+            custom:social_github="https://github.com/JereSch8" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.StudentView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            custom:facu="FAMAF"
+            custom:name="Alejandro Ismael Silva"
+            custom:social_github="https://github.com/AIDEA775"
+            custom:social_insta="https://www.instagram.com/aidea775"
+            custom:social_twitter="https://twitter.com/AIDEA775" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.StudentView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            custom:facu="FFyH"
+            custom:name="Maia Milman"
+            custom:social_face="astrast" />
+
+        <com.jackemate.appberdi.ui.shared.TitleView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            custom:title="Tutores" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Juan Pérez"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Jose Luis Garcia"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Otros nombres"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/lobstertwo_bolditalic"
+            android:text="¡Y Albi!"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/avatarUser"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="16dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/astronaut_dog" />
+
+    </LinearLayout>
+
+</ScrollView>

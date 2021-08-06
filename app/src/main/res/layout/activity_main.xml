@@ -90,13 +90,13 @@
         android:text="Preferencias"
         app:icon="@drawable/ic_settings"
         app:iconTint="@color/cab400"
-        app:layout_constraintBottom_toTopOf="@+id/information"
+        app:layout_constraintBottom_toTopOf="@+id/launch_about"
         app:layout_constraintEnd_toEndOf="@+id/launch_tour"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/launch_tour" />
 
     <Button
-        android:id="@+id/information"
+        android:id="@+id/launch_about"
         style="@style/AppWidget.IconButton.Unelevated"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
