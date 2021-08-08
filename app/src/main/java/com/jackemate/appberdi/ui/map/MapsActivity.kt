@@ -1,5 +1,6 @@
 package com.jackemate.appberdi.ui.map
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
@@ -151,10 +152,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         )
     }
 
+    @SuppressLint("PotentialBehaviorOverride", "MissingPermission")
     private fun initMap() {
         map.uiSettings.isMapToolbarEnabled = false
         map.uiSettings.isMyLocationButtonEnabled = false
-        map.isMyLocationEnabled = true
+
+        if (hasAnyPermission(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        ) {
+            map.isMyLocationEnabled = true
+        }
         map.setOnMarkerClickListener(this)
         map.setOnMapClickListener {
             status = TourMapStatus.Navigating
@@ -183,12 +192,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         }
     }
 
+    // El IDE no toma la extensión Context.hasPermission()
+    @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
-        fusedLocationClient.requestLocationUpdates(
-            createLocationRequest(),
-            locationCallback,
-            Looper.getMainLooper()
-        )
+        if (hasPermission(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        ) {
+            fusedLocationClient.requestLocationUpdates(
+                createLocationRequest(),
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        }
     }
 
     private fun stopLocationUpdates() {
@@ -197,7 +214,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun distanceTo(latLng: LatLng): Double {
         if (currentPos == null) {
-            // No debería pasar
             return Double.MAX_VALUE
         }
         return SphericalUtil.computeDistanceBetween(latLng, currentPos)
@@ -214,13 +230,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private fun updateUI() {
         Log.d(TAG, "updateUI: currentPos: $currentPos")
 
-        if (currentPos == null) {
-            // No hacer nada aún
-            return
-        }
-
         when (val stat = status) {
             is TourMapStatus.Navigating -> {
+
+                // No hacer nada si no hay posición actual
+                if (currentPos == null) {
+                    binding.tvNextStop.text = ""
+                    binding.tvNameSite.text = "Pensando..."
+                    binding.tvDistance.text = ""
+                    polyline.points = emptyList()
+                    binding.btnAccessible.visible(false)
+                    binding.btnEnter.hide()
+                    return
+                }
+
                 val best = computeBestSite()
 
                 Log.d(TAG, "best: $best")
@@ -240,13 +263,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 }
             }
             is TourMapStatus.SiteSelected -> {
-                val distance = distanceTo(stat.site.pos).roundToInt()
                 binding.tvNextStop.text =
                     if (stat.site.visited) "Ya lo visitaste"
                     else "Ir a:"
                 binding.tvNameSite.text = stat.site.title
-                binding.tvDistance.text = "Estás a $distance metros masomono."
-                polyline.points = listOf(currentPos, stat.site.pos)
+
+                if (currentPos != null) {
+                    val distance = distanceTo(stat.site.pos).roundToInt()
+                    binding.tvDistance.text = "Estás a $distance metros masomono."
+                    polyline.points = listOf(currentPos, stat.site.pos)
+                }
+
                 binding.btnEnter.show()
                 binding.btnAccessible.visible(stat.site.accessible)
             }

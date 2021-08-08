@@ -38,7 +38,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/lobstertwo_bold"
         android:paddingHorizontal="16dp"
-        android:text="Pensando..."
         android:textSize="28sp"
         android:maxLines="1"
         android:ellipsize="end"

@@ -95,10 +95,8 @@ class MainActivity : RequesterPermissionsActivity() {
     @SuppressLint("MissingPermission")
     private fun setupGeofence(sites: List<Site>) {
         if (!hasPermission(
-                listOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                )
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
             )
         ) {
             return
