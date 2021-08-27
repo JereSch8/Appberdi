@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal">
 
         <TextView
@@ -21,47 +22,56 @@
             android:textSize="14sp"
             tools:text="Nombre Apellido" />
 
+        <TextView
+            android:id="@+id/facu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="@color/white80"
+            android:textSize="14sp"
+            tools:text="Facultad" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="horizontal">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/social_face"
             style="@style/AppWidget.SocialIcon"
-            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
             app:icon="@drawable/ic_social_face"
             tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/social_insta"
             style="@style/AppWidget.SocialIcon"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:icon="@drawable/ic_social_insta"
             tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/social_twitter"
             style="@style/AppWidget.SocialIcon"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:icon="@drawable/ic_social_twitter" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/social_linkedin"
             style="@style/AppWidget.SocialIcon"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:icon="@drawable/ic_social_linkedin" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/social_github"
             style="@style/AppWidget.SocialIcon"
-            android:layout_marginStart="8dp"
             app:icon="@drawable/ic_social_github" />
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/facu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="@color/white80"
-        android:textSize="14sp"
-        tools:text="Facultad" />
+    </LinearLayout>
 
 </LinearLayout>
