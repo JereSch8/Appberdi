@@ -26,8 +26,6 @@
         <TextView
             android:id="@+id/horario"
             style="@style/TextAppearance.MaterialComponents.Overline"
-            android:letterSpacing="0.05"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
