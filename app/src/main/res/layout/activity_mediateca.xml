@@ -33,54 +33,10 @@
                 android:visibility="gone"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/tvSite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/sitios"
-                    android:fontFamily="casual"
-                    android:textColor="@color/white"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <HorizontalScrollView
-                    android:id="@+id/horizontalScrollView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvSite">
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/cgSite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fadeScrollbars="true"
-                        android:isScrollContainer="true"
-                        android:nestedScrollingEnabled="true"
-                        android:overScrollMode="always"
-                        android:paddingStart="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="16dp"
-                        android:paddingBottom="8dp"
-                        android:scrollbarSize="16dp"
-                        app:singleSelection="true">
-
-
-
-                    </com.google.android.material.chip.ChipGroup>
-
-                </HorizontalScrollView>
-
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvTag"
@@ -91,11 +47,7 @@
                     android:paddingTop="8dp"
                     android:text="@string/tag"
                     android:fontFamily="casual"
-                    android:textColor="@color/white"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/horizontalScrollView" />
+                    android:textColor="@color/white"/>
 
                 <HorizontalScrollView
                     android:id="@+id/horizontalScrollView2"
@@ -119,16 +71,12 @@
                         android:paddingEnd="16dp"
                         android:paddingBottom="8dp"
                         android:scrollbarSize="16dp"
-                        app:singleSelection="true">
-
-
-
+                        app:singleSelection="false">
                     </com.google.android.material.chip.ChipGroup>
 
                 </HorizontalScrollView>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
 
 

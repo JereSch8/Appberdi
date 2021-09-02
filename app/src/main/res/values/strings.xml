@@ -136,4 +136,6 @@
     <string name="horarios">Horarios:</string>
     <string name="redes_sociales">Redes sociales:</string>
     <string name="site_video_duration">%1$s minutos de duración</string>
+    <string name="mediateca_de_appberdi">Mediateca de Appberdi</string>
+    <string name="imagen">imagen</string>
 </resources>

@@ -98,6 +98,18 @@ fun FragmentActivity.showDialogFragment(
     fragment.show(supportFragmentManager, tag)
 }
 
+fun Activity.share(subject: String, text: String) {
+    try {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+        startActivity(Intent.createChooser(shareIntent, "¿A quién se lo compartís?"))
+    } catch (e: ActivityNotFoundException) {
+        e.printStackTrace()
+    }
+}
+
 fun Fragment.share(subject: String, text: String) {
     try {
         val shareIntent = Intent(Intent.ACTION_SEND)

@@ -65,6 +65,10 @@
         <activity
             android:name=".ui.about.AboutActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.mediateca.MediatecaStart" />
+        <activity android:name=".ui.view_contents.ImageActivity" />
+        <activity android:name=".ui.view_contents.VideoActivity" />
+        <activity android:name=".ui.view_contents.AudioActivity" />
     </application>
 
 </manifest>
