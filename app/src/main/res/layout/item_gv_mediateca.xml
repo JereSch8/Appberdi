@@ -20,6 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:scaleY="1.1"
+            android:scaleX="1.1"
             android:src="@mipmap/ic_launcher"
             android:contentDescription="@string/imagen" />
 

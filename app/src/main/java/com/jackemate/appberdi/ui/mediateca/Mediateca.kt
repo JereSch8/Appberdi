@@ -119,7 +119,6 @@ class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListene
         binding.animation.playAnimation()
     }
 
-    //TODO: Reemplazar por la llamada al activity correspondiente
     override fun onMultimediaClick(multimedia: Any) {
         when(multimedia){
             is Content.Image -> {
