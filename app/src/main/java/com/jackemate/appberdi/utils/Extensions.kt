@@ -216,9 +216,17 @@ fun Context.needLocationPermission() =
 fun AppCompatActivity.hasPermission(permission: String): Boolean =
     ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 
-fun AppCompatActivity.hasPermission(permissions: List<String>): Boolean =
+fun Context.hasPermission(vararg permissions: String): Boolean =
     permissions.all {
-        ActivityCompat.checkSelfPermission(
+        ContextCompat.checkSelfPermission(
+            this,
+            it
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+fun Context.hasAnyPermission(vararg permissions: String): Boolean =
+    permissions.any {
+        ContextCompat.checkSelfPermission(
             this,
             it
         ) == PackageManager.PERMISSION_GRANTED

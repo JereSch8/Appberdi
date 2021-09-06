@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,104 +8,111 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.main.MainActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="24dp"
-        android:importantForAccessibility="no"
-        app:layout_constraintBottom_toTopOf="@+id/msgWelcome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/smiling_dog" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_dodgeInsetEdges="bottom">
 
-    <TextView
-        android:id="@+id/msgWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:fontFamily="@font/lobstertwo_regular"
-        android:padding="16dp"
-        android:letterSpacing="-0.015625"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/launch_tour"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Hola amego!" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toTopOf="@+id/msgWelcome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/smiling_dog" />
 
-    <Button
-        android:id="@+id/launch_tour"
-        style="@style/AppWidget.IconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:text="Iniciar recorrido"
-        android:textColor="@color/white"
-        app:icon="@drawable/ic_play"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/launch_mediateca"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="@color/white20" />
+        <TextView
+            android:id="@+id/msgWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/lobstertwo_regular"
+            android:letterSpacing="-0.015625"
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/launch_tour"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Hola amego!" />
 
-    <Button
-        android:id="@+id/launch_mediateca"
-        style="@style/AppWidget.IconButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="mediateca"
-        app:icon="@drawable/ic_galery"
-        app:iconTint="@color/cab200"
-        app:layout_constraintBottom_toTopOf="@+id/launch_attractions"
-        app:layout_constraintEnd_toEndOf="@+id/launch_tour"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/launch_tour" />
+        <Button
+            android:id="@+id/launch_tour"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:text="Iniciar recorrido"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_play"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/launch_mediateca"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rippleColor="@color/white20" />
 
-    <Button
-        android:id="@+id/launch_attractions"
-        style="@style/AppWidget.IconButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="actividades"
-        app:icon="@drawable/ic_map"
-        app:iconTint="@color/cab200"
-        app:layout_constraintBottom_toTopOf="@+id/launch_preferences"
-        app:layout_constraintEnd_toEndOf="@+id/launch_tour"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/launch_tour" />
+        <Button
+            android:id="@+id/launch_mediateca"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="mediateca"
+            app:icon="@drawable/ic_galery"
+            app:iconTint="@color/cab200"
+            app:layout_constraintBottom_toTopOf="@+id/launch_attractions"
+            app:layout_constraintEnd_toEndOf="@+id/launch_tour"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/launch_tour" />
+
+        <Button
+            android:id="@+id/launch_attractions"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="actividades"
+            app:icon="@drawable/ic_map"
+            app:iconTint="@color/cab200"
+            app:layout_constraintBottom_toTopOf="@+id/launch_preferences"
+            app:layout_constraintEnd_toEndOf="@+id/launch_tour"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/launch_tour" />
 
 
-    <Button
-        android:id="@+id/launch_preferences"
-        style="@style/AppWidget.IconButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Preferencias"
-        app:icon="@drawable/ic_settings"
-        app:iconTint="@color/cab400"
-        app:layout_constraintBottom_toTopOf="@+id/launch_about"
-        app:layout_constraintEnd_toEndOf="@+id/launch_tour"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/launch_tour" />
+        <Button
+            android:id="@+id/launch_preferences"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Preferencias"
+            app:icon="@drawable/ic_settings"
+            app:iconTint="@color/cab400"
+            app:layout_constraintBottom_toTopOf="@+id/launch_about"
+            app:layout_constraintEnd_toEndOf="@+id/launch_tour"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/launch_tour" />
 
-    <Button
-        android:id="@+id/launch_about"
-        style="@style/AppWidget.IconButton.Unelevated"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Quienes somos"
-        app:icon="@drawable/ic_info"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/launch_tour"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/launch_tour" />
+        <Button
+            android:id="@+id/launch_about"
+            style="@style/AppWidget.IconButton.Unelevated"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Quienes somos"
+            app:icon="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/launch_tour"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/launch_tour" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

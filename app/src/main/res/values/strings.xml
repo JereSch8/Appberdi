@@ -5,17 +5,20 @@
     <string name="est_s_en">Estás en:</string>
 
     <string name="permission_storage_required">
-        Se necesitan permisos para poder descargar el archivo. Por favor, edite los permisos de la aplicación.
+        Para poder descargar contenidos, necesito permisos de almacenamiento!
     </string>
-    <string name="permission_location__required">
-        Se necesita que el permiso de ubicación esté siempre activo. Por favor, edite los permisos de la aplicación.
+    <string name="permission_location_required">
+        La parte mas interesante de la app no va andar sin el permiso de ubicación!
+    </string>
+    <string name="permission_background_required">
+        Algunas funciones no van a andar sin el permiso de la ubicación activada todo el tiempo
     </string>
     <string name="permission_default_required">
         Por favor, edite los permisos de la aplicación.
     </string>
 
     <string name="permission_denied">El permiso ha sido denegado.</string>
-    <string name="ok">OK</string>
+    <string name="change">Cambiar</string>
 
     <string name="title_activity_mediateca">Mediateca</string>
     <string name="large_text">

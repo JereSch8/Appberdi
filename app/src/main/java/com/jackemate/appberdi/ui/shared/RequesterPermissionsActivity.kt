@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.main
+package com.jackemate.appberdi.ui.shared
 
 import android.Manifest
 import android.util.Log
@@ -9,13 +9,14 @@ import com.jackemate.appberdi.R
 import com.jackemate.appberdi.utils.*
 
 open class RequesterPermissionsActivity : AppCompatActivity() {
-    private val listOfPermissionsCallbacks: MutableList<() -> Unit> = mutableListOf()
+    protected lateinit var root: View
 
+    private val listOfPermissionsCallbacks: MutableList<() -> Unit> = mutableListOf()
     private val fromPermissionToRationaleStringId: Map<String, Int> = mapOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE to R.string.permission_storage_required,
-        Manifest.permission.ACCESS_COARSE_LOCATION to R.string.permission_location__required,
-        Manifest.permission.ACCESS_FINE_LOCATION to R.string.permission_location__required,
-        Manifest.permission.ACCESS_BACKGROUND_LOCATION to R.string.permission_location__required
+        Manifest.permission.ACCESS_COARSE_LOCATION to R.string.permission_location_required,
+        Manifest.permission.ACCESS_FINE_LOCATION to R.string.permission_location_required,
+        Manifest.permission.ACCESS_BACKGROUND_LOCATION to R.string.permission_background_required
     )
 
     fun withPermission(permission: String, callback: () -> Unit) {
@@ -48,12 +49,12 @@ open class RequesterPermissionsActivity : AppCompatActivity() {
         val firstPermission = permissions[0]
         val stringId: Int = fromPermissionToRationaleStringId[firstPermission]
             ?: R.string.permission_default_required
-        val root: View = findViewById<View>(android.R.id.content).rootView
+//        val root: View = findViewById<View>(android.R.id.content).rootView
 
         root.showSnackbar(
             stringId,
             Snackbar.LENGTH_INDEFINITE,
-            R.string.ok
+            R.string.change
         ) {
             onOk()
         }
@@ -71,14 +72,15 @@ open class RequesterPermissionsActivity : AppCompatActivity() {
             return
         }
 
-        if (permissions.none { needPermission(it) }) {
+        val pending = permissions.filter { needPermission(it) }
+        if (pending.isEmpty()) {
             // Si los permisos ya estan ortorgados
             callback()
         } else {
             // En este caso podríamos hacer varias cosas. Pero simplemente vamos a repetir el mensaje.
-            popUpPermissionRationale(permissions) {
+            popUpPermissionRationale(pending.toTypedArray()) {
                 // Si esta función se spamea, simplemente no se llama. Creo que se puede llamar máximo 2 veces.
-                requestPermissionsCompat(permissions, callbackIndex)
+                requestPermissionsCompat(pending.toTypedArray(), callbackIndex)
             }
         }
     }

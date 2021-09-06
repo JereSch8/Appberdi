@@ -12,7 +12,6 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.GeoPoint
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.PreferenceRepository
@@ -49,6 +48,9 @@ class MainActivity : RequesterPermissionsActivity() {
         transparentStatusBar()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Indispensable para el RequesterPermissionsActivity
+        root = binding.root
 
         geofencingClient = LocationServices.getGeofencingClient(this)
 
@@ -93,16 +95,10 @@ class MainActivity : RequesterPermissionsActivity() {
     @SuppressLint("MissingPermission")
     private fun setupGeofence(sites: List<Site>) {
         if (!hasPermission(
-                listOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                )
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
             )
         ) {
-            binding.root.showSnackbar(
-                "Algunas funcionalidades no van a andar sin todos los permisos",
-                Snackbar.LENGTH_LONG
-            )
             return
         }
 
