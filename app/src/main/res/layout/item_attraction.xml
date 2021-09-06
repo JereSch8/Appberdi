@@ -1,67 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="8dp"
-    app:contentPaddingBottom="16dp"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp">
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="192dp"
-            android:paddingBottom="8dp"
             android:importantForAccessibility="no"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-        <TextView
-            android:id="@+id/horario"
-            style="@style/TextAppearance.MaterialComponents.Overline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            tools:text="ahora mismo" />
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/TextAppearance.MaterialComponents.Subtitle2"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            tools:text="titulo" />
-
-        <TextView
-            android:id="@+id/description"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#7000"
-            android:paddingHorizontal="16dp"
-            android:maxLines="2"
-            android:ellipsize="end"
-            tools:text="bla" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_accessible"
             style="@style/AppWidget.IconOnly"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_gravity="end"
-            app:iconTint="@color/cab400"
-            app:icon="@drawable/ic_accessible"
-            app:layout_constraintBottom_toTopOf="@+id/tv_distance"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nextStop" />
-    </LinearLayout>
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="end|bottom"
+            app:backgroundTint="@color/black90"
+            app:iconTint="@color/white"
+            app:icon="@drawable/ic_accessible" />
 
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/horario"
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:letterSpacing="0.05"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        tools:text="ahora mismo" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        tools:text="titulo" />
+
+    <TextView
+        android:id="@+id/description"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:paddingHorizontal="16dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingBottom="20dp"
+        tools:text="bla" />
+
+</LinearLayout>

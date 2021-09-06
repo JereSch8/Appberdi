@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 class MediatecaViewModel : ViewModel() {
     private val repoContent = ContentRepository()
 
-    val nameSites: List<String> = repoContent.getSites()
     val tags: List<String> = repoContent.getTags()
 
     private val _audios : MutableLiveData<List<Content.Audio>> = MutableLiveData()
@@ -29,7 +28,17 @@ class MediatecaViewModel : ViewModel() {
     private val _texts : MutableLiveData<List<Content.Text>> = MutableLiveData()
     val texts: LiveData<List<Content.Text>> = _texts
 
-    fun getImages(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
+
+    fun getContents(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
+        getImages(nameSite)
+        getAudios(nameSite)
+        getGifs(nameSite)
+        getVideos(nameSite)
+        getText(nameSite)
+    }
+
+
+    private fun getImages(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentImageWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -39,7 +48,7 @@ class MediatecaViewModel : ViewModel() {
         }
     }
 
-    fun getAudios(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
+    private fun getAudios(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentAudioWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -49,7 +58,7 @@ class MediatecaViewModel : ViewModel() {
         }
     }
 
-    fun getGifs(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
+    private fun getGifs(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentGifWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -59,7 +68,7 @@ class MediatecaViewModel : ViewModel() {
         }
     }
 
-    fun getVideos(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
+    private fun getVideos(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentVideoWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -69,7 +78,7 @@ class MediatecaViewModel : ViewModel() {
         }
     }
 
-    fun getText(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
+    private fun getText(nameSite : String) = viewModelScope.launch(Dispatchers.IO) {
         repoContent.getContentTextWhere(nameSite).addSnapshotListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)

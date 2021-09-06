@@ -27,6 +27,8 @@ class ContentRepository {
         }
     }
 
+    fun getContentMediateca() = db.collection("mediateca")
+
     fun getContentAudioWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "audio")
     fun getContentImageWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "image")
     fun getContentGifWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "gif")
@@ -34,7 +36,5 @@ class ContentRepository {
     fun getContentTextWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "text")
 
     fun getTags() = listOf("Texto", "Audio", "Imagen", "Gif", "Video")
-    fun getSites() = listOf("Antiguo mercado","Casa de la FUC", "Cementerio  San Jerónimo", "Centro cultural La Piojera",
-        "Club Belgrano", "Escuela Manuel Belgrano", "Esquina del Chango Rodriguez", "Esquina del Cordobazo",
-        "Hospital Nacional de Clínicas", "Museo de la Reforma", "Pasaje de la Reforma", "Plaza Colón", "")
+
 }
