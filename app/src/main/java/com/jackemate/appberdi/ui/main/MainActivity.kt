@@ -21,9 +21,9 @@ import com.jackemate.appberdi.services.GeofenceBroadcastReceiver
 import com.jackemate.appberdi.ui.about.AboutActivity
 import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
-import com.jackemate.appberdi.ui.mediateca.Mediateca
 import com.jackemate.appberdi.ui.mediateca.MediatecaStart
 import com.jackemate.appberdi.ui.preferences.PreferencesActivity
+import com.jackemate.appberdi.ui.shared.RequesterPermissionsActivity
 import com.jackemate.appberdi.ui.welcome.WelcomeActivity
 import com.jackemate.appberdi.utils.*
 
