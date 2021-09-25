@@ -8,7 +8,8 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -19,11 +20,12 @@ import com.google.maps.android.SphericalUtil
 import com.google.maps.android.ui.IconGenerator
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMapsBinding
+import com.jackemate.appberdi.services.TourService
 import com.jackemate.appberdi.ui.sites.SiteActivity
 import com.jackemate.appberdi.utils.*
 import kotlin.math.roundToInt
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private val viewModel by viewModels<MapViewModel>()
     private lateinit var map: GoogleMap
@@ -52,6 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
         transparentStatusBar()
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -76,16 +79,34 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             }
         }
 
+        binding.back.setOnClickListener {
+            stopService(Intent(this, TourService::class.java))
+            finish()
+        }
+
+        ContextCompat.startForegroundService(this, Intent(this, TourService::class.java))
     }
 
-    @SuppressLint("PotentialBehaviorOverride")
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume")
+        startLocationUpdates()
+        viewModel.updateSites()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
+        Log.i(TAG, "Map Ready!")
         map = googleMap
         initMap()
         initPolyline()
 
         observe(viewModel.sites) { sitesMarkers ->
-            Log.d(TAG, "sitesMarkers: $sitesMarkers")
+            Log.i(TAG, "sitesMarkers: ${sitesMarkers.size}")
             currentSites = sitesMarkers
             initMarkers()
             updateUI()
@@ -102,16 +123,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private fun moveCameraByBounds(sites: List<SiteMarker>) {
         val bounds = getBoundsBy(sites)
-        Log.d(TAG, "moveCamera: ${binding.map.width}")
+        Log.d(TAG, "moveCamera: map size: ${binding.map.width}x${binding.map.height}")
 
-        // En este punto es posible que el mapa sepa sus dimensiones
-        // Por lo que se los tengo que pasar a manopla
+        if (binding.map.width == 0 || binding.map.height == 0) {
+            Log.w(TAG, "moveCamera: using screen size!")
+        }
+
+        val display = resources.displayMetrics
+        val padding = display.widthPixels / 20
+
+        // Cuando se abre la Activity, los datos pueden estar listos antes
+        // de que tanto el SupportMapFragment o el FragmentContainerView NO sepan sus dimensiones.
+        // Asumo que el MapFragment no lo va a saber directamente.
+        // Por lo que intento tomando las dimensiones del View (usando binding)
+        // y si no, uso directamente las dimensiones de la pantalla.
         map.moveCamera(
             CameraUpdateFactory.newLatLngBounds(
                 bounds.build(),
-                binding.map.width,
-                binding.map.height,
-                100
+                binding.map.width.takeIf { it != 0 } ?: display.widthPixels,
+                binding.map.height.takeIf { it != 0 } ?: display.heightPixels,
+                padding
             )
         )
     }
@@ -169,17 +200,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             status = TourMapStatus.Navigating
             updateUI()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        startLocationUpdates()
-        viewModel.updateSites()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        stopLocationUpdates()
     }
 
     private fun createLocationRequest(): LocationRequest {

@@ -117,6 +117,7 @@
     <string name="guardar">Guardar</string>
     <string name="finalizar">Finalizar</string>
     <string name="entrar">entrar</string>
+    <string name="kill_tour">Detener</string>
     <string name="progreso">Progreso</string>
     <string name="sitios_recorridos">Sitios recorridos</string>
     <string name="reproducci_n_autom_tica_de_audio">Reproducir audio al toque</string>
@@ -142,4 +143,7 @@
     <string name="mediateca_de_appberdi">Mediateca de Appberdi</string>
     <string name="imagen">imagen</string>
     <string name="como_llegar">¿Cómo llegar?</string>
+
+    <string name="channel_description">Notificacion cuando se ejecuta el tour</string>
+    <string name="channel_name">Tour por Alberdi</string>
 </resources>
