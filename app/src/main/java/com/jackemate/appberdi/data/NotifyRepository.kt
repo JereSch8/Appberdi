@@ -38,6 +38,9 @@ class NotifyRepository(val context: Context) {
     fun tourRunning() =
         makeForeground("¡Tour Activado!")
 
+    fun tourStatus(site: String, distance: Int) =
+        update(NOTIFICATION_ID, makeForeground("Yendo a $site", "Estás a $distance metros"))
+
     fun makeForeground(
         title: String = "Cargando",
         text: String? = null,

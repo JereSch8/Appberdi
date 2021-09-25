@@ -12,12 +12,12 @@ import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
 import com.jackemate.appberdi.entities.Content
-import com.jackemate.appberdi.services.TourService
-import com.jackemate.appberdi.services.TourService.Companion.AUDIO_PLAYING
-import com.jackemate.appberdi.services.TourService.Companion.BROADCAST_UPDATES
-import com.jackemate.appberdi.services.TourService.Companion.BROAD_PROGRESS_UPDATE
-import com.jackemate.appberdi.services.TourService.Companion.EXTRA_OFFSET
-import com.jackemate.appberdi.services.TourService.Companion.EXTRA_SEEK
+import com.jackemate.appberdi.services.AudioService
+import com.jackemate.appberdi.services.AudioService.Companion.AUDIO_PLAYING
+import com.jackemate.appberdi.services.AudioService.Companion.BROADCAST_UPDATES
+import com.jackemate.appberdi.services.AudioService.Companion.BROAD_PROGRESS_UPDATE
+import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_OFFSET
+import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_SEEK
 import com.jackemate.appberdi.ui.sites.ContentPageFragment
 import com.jackemate.appberdi.utils.*
 
@@ -26,21 +26,21 @@ class SiteAudioFragment : ContentPageFragment() {
     private lateinit var binding: SiteAudioFragmentBinding
     private var currentPreview: String? = null
 
-    private var tourService: TourService? = null
-    private val receiver = TourBroadcastReceiver()
+    private var audioService: AudioService? = null
+    private val receiver = AudioBroadcastReceiver()
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            val binder = service as TourService.TourServiceBinder
-            tourService = binder.service
+            val binder = service as AudioService.TourServiceBinder
+            audioService = binder.service
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {
-            tourService = null
+            audioService = null
         }
     }
 
-    inner class TourBroadcastReceiver : BroadcastReceiver() {
+    inner class AudioBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
             Log.i(TAG, "Action: ${intent.action}}")
@@ -56,7 +56,7 @@ class SiteAudioFragment : ContentPageFragment() {
 
     override fun onResume() {
         super.onResume()
-        Intent(requireActivity(), TourService::class.java).also { intent ->
+        Intent(requireActivity(), AudioService::class.java).also { intent ->
             requireActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
 
@@ -68,8 +68,8 @@ class SiteAudioFragment : ContentPageFragment() {
 
         ContextCompat.startForegroundService(
             requireActivity(),
-            Intent(requireActivity(), TourService::class.java).apply {
-                action = TourService.ACTION_FORCE
+            Intent(requireActivity(), AudioService::class.java).apply {
+                action = AudioService.ACTION_FORCE
             }
         )
     }
@@ -77,7 +77,7 @@ class SiteAudioFragment : ContentPageFragment() {
     override fun onPause() {
         super.onPause()
         requireActivity().unbindService(connection)
-        tourService = null
+        audioService = null
         requireActivity().unregisterReceiver(receiver)
     }
 
@@ -133,8 +133,8 @@ class SiteAudioFragment : ContentPageFragment() {
 
         binding.sbProgress.onSeekBarChanged { progress, fromUser ->
             if (fromUser) {
-                val intent = Intent(requireActivity(), TourService::class.java)
-                intent.action = TourService.ACTION_SEEK
+                val intent = Intent(requireActivity(), AudioService::class.java)
+                intent.action = AudioService.ACTION_SEEK
                 intent.putExtra(EXTRA_SEEK, progress)
                 ContextCompat.startForegroundService(requireActivity(), intent)
             }
@@ -196,16 +196,16 @@ class SiteAudioFragment : ContentPageFragment() {
     }
 
     private fun playPauseAudio() {
-        val intent = Intent(requireActivity(), TourService::class.java)
-        intent.action = TourService.ACTION_PLAY
+        val intent = Intent(requireActivity(), AudioService::class.java)
+        intent.action = AudioService.ACTION_PLAY
         ContextCompat.startForegroundService(requireActivity(), intent)
     }
 
     private fun seekBy(change: Int) {
         if (!binding.btnPlay.isEnabled) return // MediaPlayer not ready
 
-        val intent = Intent(requireActivity(), TourService::class.java)
-        intent.action = TourService.ACTION_SEEK
+        val intent = Intent(requireActivity(), AudioService::class.java)
+        intent.action = AudioService.ACTION_SEEK
         intent.putExtra(EXTRA_OFFSET, change)
         ContextCompat.startForegroundService(requireActivity(), intent)
     }

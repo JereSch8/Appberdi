@@ -34,6 +34,12 @@
             android:value="AIzaSyAMoZ4t6dtiy1oaVAwl7GOFAs6B5gFebBc" />
 
         <receiver android:name=".services.GeofenceBroadcastReceiver" />
+        <receiver android:name=".services.TourNotificationsReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="comjackemateappberdiactionTRACKING" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.Splash">
@@ -74,7 +80,10 @@
         <activity android:name=".ui.view_contents.VideoActivity" />
         <activity android:name=".ui.view_contents.AudioActivity" />
         <service
-            android:name="com.jackemate.appberdi.services.TourService"
+            android:name="com.jackemate.appberdi.services.AudioService"
+            android:exported="false" />
+        <service
+            android:name="com.jackemate.appberdi.services.TrackingService"
             android:exported="false"
             android:foregroundServiceType="location" />
     </application>

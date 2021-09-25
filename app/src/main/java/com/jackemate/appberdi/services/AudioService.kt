@@ -12,7 +12,7 @@ import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.toTimeString
 
-class TourService : Service() {
+class AudioService : Service() {
     val mediaPlayer: MediaPlayer by lazy { MediaPlayer.create(this, R.raw.a) }
     private val binder = TourServiceBinder()
     private val notifyRepo = NotifyRepository(this)
@@ -24,7 +24,7 @@ class TourService : Service() {
     }
 
     inner class TourServiceBinder : Binder() {
-        val service: TourService get() = this@TourService
+        val service: AudioService get() = this@AudioService
     }
 
     override fun onCreate() {
@@ -144,8 +144,9 @@ class TourService : Service() {
         const val EXTRA_SEEK = "seek"
 
         const val BROAD_PROGRESS_UPDATE = "com.jackemate.appberdi.action.PROGRESS"
-        const val AUDIO_PLAYING = 0
-        const val AUDIO_PAUSED = 1
-        const val AUDIO_STOPPED = 2
+        const val AUDIO_READY = 0 // TODO
+        const val AUDIO_PLAYING = 1
+        const val AUDIO_PAUSED = 2
+        const val AUDIO_STOPPED = 3
     }
 }

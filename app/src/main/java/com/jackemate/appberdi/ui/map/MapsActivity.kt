@@ -2,54 +2,53 @@ package com.jackemate.appberdi.ui.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.maps.android.SphericalUtil
 import com.google.maps.android.ui.IconGenerator
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMapsBinding
-import com.jackemate.appberdi.services.TourService
+import com.jackemate.appberdi.entities.TourMode
+import com.jackemate.appberdi.services.AudioService
+import com.jackemate.appberdi.services.TrackingService
+import com.jackemate.appberdi.services.TrackingService.Companion.ACTION_FORCE
+import com.jackemate.appberdi.services.TrackingService.Companion.EXTRA_SITE
 import com.jackemate.appberdi.ui.sites.SiteActivity
 import com.jackemate.appberdi.utils.*
-import kotlin.math.roundToInt
 
 class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private val viewModel by viewModels<MapViewModel>()
     private lateinit var map: GoogleMap
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult?) {
-            locationResult ?: return
-            val loc = locationResult.locations.first()
-            currentPos = LatLng(loc.latitude, loc.longitude)
-            updateUI()
-        }
-    }
-
-    private var currentPos: LatLng? = null
     private var currentSites: List<SiteMarker>? = null
     private lateinit var binding: ActivityMapsBinding
 
     private lateinit var polyline: Polyline
-    private var status: TourMapStatus = TourMapStatus.Navigating
+    private val receiver = TrackingBroadcastReceiver()
 
-    sealed class TourMapStatus {
-        object Navigating : TourMapStatus()
-        class SiteSelected(val site: SiteMarker) : TourMapStatus()
+    inner class TrackingBroadcastReceiver : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            Log.i(TAG, "Action: ${intent.action}}")
+
+            val pos = intent.getParcelableExtra<LatLng>("pos")
+            val mode = intent.getSerializableExtra("mode") as TourMode
+
+            updateUI(pos, mode)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,40 +62,30 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-        binding.btnEnter.setOnClickListener {
-            Log.i(TAG, "btnEnter: $status")
-            when (val stat = status) {
-                is TourMapStatus.Navigating -> {
-                    computeBestSite()?.let {
-                        openSite(it.id)
-                    }
-                }
-                is TourMapStatus.SiteSelected -> {
-                    openSite(stat.site.id)
-                }
-            }
-        }
-
         binding.back.setOnClickListener {
-            stopService(Intent(this, TourService::class.java))
+            stopService(Intent(this, AudioService::class.java))
             finish()
         }
 
-        ContextCompat.startForegroundService(this, Intent(this, TourService::class.java))
+        ContextCompat.startForegroundService(this, Intent(this, AudioService::class.java))
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
-        startLocationUpdates()
         viewModel.updateSites()
+        registerReceiver(receiver, IntentFilter(TrackingService.TRACKING_UPDATE))
+
+        ContextCompat.startForegroundService(this,
+            Intent(this, TrackingService::class.java)
+                .apply { action = ACTION_FORCE }
+        )
     }
 
     override fun onPause() {
         super.onPause()
-        stopLocationUpdates()
+        Log.d(TAG, "onPause")
+        unregisterReceiver(receiver)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -109,7 +98,6 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
             Log.i(TAG, "sitesMarkers: ${sitesMarkers.size}")
             currentSites = sitesMarkers
             initMarkers()
-            updateUI()
         }
     }
 
@@ -150,7 +138,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private fun getBoundsBy(sitesMarkers: List<SiteMarker>): LatLngBounds.Builder {
         val bounds = LatLngBounds.Builder()
         sitesMarkers.forEach {
-            bounds.include(it.pos)
+            bounds.include(it.pos.toLatLng())
         }
         return bounds
     }
@@ -160,7 +148,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         val iconFactory = IconGenerator(this)
         val marker = map.addMarker(
             MarkerOptions()
-                .position(site.pos)
+                .position(site.pos.toLatLng())
                 .icon(
                     BitmapDescriptorFactory.defaultMarker(
                         if (site.visited) BitmapDescriptorFactory.HUE_AZURE
@@ -197,105 +185,60 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         }
         map.setOnMarkerClickListener(this)
         map.setOnMapClickListener {
-            status = TourMapStatus.Navigating
-            updateUI()
+            val intent = Intent(this, TrackingService::class.java)
+            intent.action = TrackingService.ACTION_NAVIGATE
+            ContextCompat.startForegroundService(this, intent)
         }
     }
 
-    private fun createLocationRequest(): LocationRequest {
-        return LocationRequest.create().apply {
-            interval = 20000
-            // Es poco tiempo pero para las pruebas se ve bien
-            // Sinó queda desfazada la linea con el puntito azul
-            fastestInterval = 10000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-    }
+    private fun updateUI(currentPos: LatLng?, mode: TourMode) {
+        Log.d(TAG, "updateUI")
 
-    // El IDE no toma la extensión Context.hasPermission()
-    @SuppressLint("MissingPermission")
-    private fun startLocationUpdates() {
-        if (hasPermission(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        ) {
-            fusedLocationClient.requestLocationUpdates(
-                createLocationRequest(),
-                locationCallback,
-                Looper.getMainLooper()
-            )
-        }
-    }
+        when (mode) {
+            is TourMode.Thinking -> {
+                binding.tvNextStop.text = ""
+                binding.tvNameSite.text = "Pensando..."
+                binding.tvDistance.text = ""
+                polyline.points = emptyList()
+                binding.btnAccessible.visible(false)
+                binding.btnEnter.hide()
+            }
+            is TourMode.Navigating -> {
+                binding.tvNextStop.text = "Sitio más cercano:"
+                binding.tvNameSite.text = mode.best.title
+                binding.tvDistance.text = "Estás masomenos a ${mode.distance} metros"
+                binding.btnAccessible.visible(mode.best.accessible)
+                polyline.points = listOf(currentPos, mode.best.pos.toLatLng())
 
-    private fun stopLocationUpdates() {
-        fusedLocationClient.removeLocationUpdates(locationCallback)
-    }
 
-    private fun distanceTo(latLng: LatLng): Double {
-        if (currentPos == null) {
-            return Double.MAX_VALUE
-        }
-        return SphericalUtil.computeDistanceBetween(latLng, currentPos)
-    }
-
-    private fun computeBestSite(): SiteMarker? {
-        return currentSites?.let { sites ->
-            sites
-                .filter { !it.visited }
-                .minByOrNull { distanceTo(it.pos) }
-        }
-    }
-
-    private fun updateUI() {
-        Log.d(TAG, "updateUI: currentPos: $currentPos")
-
-        when (val stat = status) {
-            is TourMapStatus.Navigating -> {
-
-                // No hacer nada si no hay posición actual
-                if (currentPos == null) {
-                    binding.tvNextStop.text = ""
-                    binding.tvNameSite.text = "Pensando..."
-                    binding.tvDistance.text = ""
-                    polyline.points = emptyList()
-                    binding.btnAccessible.visible(false)
-                    binding.btnEnter.hide()
-                    return
-                }
-
-                val best = computeBestSite()
-
-                Log.d(TAG, "best: $best")
-                best?.pos?.let {
-                    val distance = distanceTo(best.pos).roundToInt()
-                    binding.tvNextStop.text = "Sitio más cercano:"
-                    binding.tvNameSite.text = best.title
-                    binding.tvDistance.text = "Estás masomenos a $distance metros"
-                    polyline.points = listOf(currentPos, best.pos)
-                    binding.btnAccessible.visible(best.accessible)
-                }
-
-                if (best != null && distanceTo(best.pos) < Constants.GEOFENCE_RADIUS_IN_METERS) {
+                if (mode.distance < Constants.GEOFENCE_RADIUS_IN_METERS) {
                     binding.btnEnter.show()
                 } else {
                     binding.btnEnter.hide()
                 }
+
+                binding.btnEnter.setOnClickListener {
+                    Log.i(TAG, "btnEnter: $mode")
+                    openSite(mode.best.id)
+                }
             }
-            is TourMapStatus.SiteSelected -> {
+            is TourMode.Selected -> {
                 binding.tvNextStop.text =
-                    if (stat.site.visited) "Ya lo visitaste"
+                    if (mode.site.visited) "Ya lo visitaste"
                     else "Ir a:"
-                binding.tvNameSite.text = stat.site.title
+                binding.tvNameSite.text = mode.site.title
+                binding.btnAccessible.visible(mode.site.accessible)
 
                 if (currentPos != null) {
-                    val distance = distanceTo(stat.site.pos).roundToInt()
-                    binding.tvDistance.text = "Estás a $distance metros masomono."
-                    polyline.points = listOf(currentPos, stat.site.pos)
+                    binding.tvDistance.text = "Estás a ${mode.distance} metros masomono."
+                    polyline.points = listOf(currentPos, mode.site.pos.toLatLng())
                 }
 
                 binding.btnEnter.show()
-                binding.btnAccessible.visible(stat.site.accessible)
+                binding.btnEnter.setOnClickListener {
+                    Log.i(TAG, "btnEnter: $mode")
+                    openSite(mode.site.id)
+                }
             }
         }
     }
@@ -303,8 +246,12 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     override fun onMarkerClick(marker: Marker): Boolean {
         val site = marker.tag as SiteMarker
         Log.i(TAG, "onMarkerClick: site: ${site.title}")
-        status = TourMapStatus.SiteSelected(site)
-        updateUI()
+
+        val intent = Intent(this, TrackingService::class.java)
+        intent.action = TrackingService.ACTION_SELECT
+        intent.putExtra(EXTRA_SITE, site.id)
+        ContextCompat.startForegroundService(this, intent)
+
         return false
     }
 
