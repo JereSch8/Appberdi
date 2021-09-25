@@ -64,6 +64,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
         binding.back.setOnClickListener {
             stopService(Intent(this, AudioService::class.java))
+            stopService(Intent(this, TrackingService::class.java))
             finish()
         }
 
