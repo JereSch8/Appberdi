@@ -11,7 +11,7 @@ import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MediatecaViewModel(val context: Application) : AndroidViewModel() {
+class MediatecaViewModel(val context: Application) : AndroidViewModel(context) {
     private val repoContent = ContentRepository(context)
 
     val tags: List<String> = repoContent.getTags()
