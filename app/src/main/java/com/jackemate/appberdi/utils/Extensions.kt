@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 val Any.TAG: String
     get() {
@@ -277,3 +278,9 @@ fun View.showSnackbar(
 fun LatLng.fromGeo(geoPoint: GeoPoint): LatLng {
     return LatLng(this.latitude, this.longitude)
 }
+
+fun Int.toTimeString() = String.format(
+    "%02d:%02d",
+    TimeUnit.MILLISECONDS.toMinutes(toLong()),
+    TimeUnit.MILLISECONDS.toSeconds(toLong()) % 60
+)

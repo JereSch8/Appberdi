@@ -7,6 +7,21 @@
     android:background="@drawable/background"
     tools:context=".ui.map.MapsActivity">
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/black"
+        android:contentDescription="@string/kill_tour"
+        android:text="@string/kill_tour"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_close"
+        app:iconTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
@@ -36,11 +51,11 @@
         android:id="@+id/tv_nameSite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:fontFamily="@font/lobstertwo_bold"
+        android:maxLines="1"
         android:paddingHorizontal="16dp"
         android:textSize="28sp"
-        android:maxLines="1"
-        android:ellipsize="end"
         app:layout_constraintBottom_toTopOf="@+id/tv_distance"
         app:layout_constraintEnd_toStartOf="@+id/btn_accessible"
         app:layout_constraintHorizontal_bias="0.0"
