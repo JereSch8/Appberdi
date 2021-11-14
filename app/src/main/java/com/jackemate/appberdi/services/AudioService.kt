@@ -35,6 +35,10 @@ class AudioService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         when (intent.action) {
+            ACTION_SELECT -> {
+                content = intent.getSerializableExtra("content") as Content.Audio
+                // TODO init
+            }
             ACTION_PLAY -> {
                 if (mediaPlayer.isPlaying) {
                     mediaPlayer.pause()
@@ -43,7 +47,7 @@ class AudioService : Service() {
                     broadcast()
                 } else {
                     mediaPlayer.start()
-                    notifyRepo.playing()
+                    notifyRepo.playing(idSite = content!!.idSite)
                     handler.post(runnable)
                     broadcast()
                 }
@@ -57,7 +61,6 @@ class AudioService : Service() {
                 broadcast()
             }
             ACTION_FORCE -> broadcast()
-
         }
         return START_STICKY
     }
@@ -84,12 +87,12 @@ class AudioService : Service() {
     }
 
     private fun broadcast(status: Int? = null) {
-        val broadcast = Intent(BROADCAST_UPDATES)
+        val broadcast = Intent()
         broadcast.action = BROAD_PROGRESS_UPDATE
-
         broadcast.putExtra("time", mediaPlayer.currentPosition)
         broadcast.putExtra("status", status ?: playingOrPaused())
         broadcast.putExtra("duration", mediaPlayer.duration)
+        broadcast.setPackage("com.jackemate.appberdi")
         sendBroadcast(broadcast)
     }
 
@@ -127,7 +130,7 @@ class AudioService : Service() {
             if (mediaPlayer.isPlaying) {
                 val time = mediaPlayer.currentPosition.toTimeString()
                 Log.d("TourService", "runnable: $time")
-                notifyRepo.playing(time)
+                notifyRepo.playing(time, content!!.idSite)
                 broadcast()
                 handler.postDelayed(this, 1000)
             }
@@ -135,6 +138,7 @@ class AudioService : Service() {
     }
 
     companion object {
+        const val ACTION_SELECT = "com.jackemate.appberdi.action.SELECT"
         const val ACTION_PLAY = "com.jackemate.appberdi.action.PLAY"
         const val ACTION_SEEK = "com.jackemate.appberdi.action.SEEK"
         const val ACTION_FORCE = "com.jackemate.appberdi.action.FORCE"

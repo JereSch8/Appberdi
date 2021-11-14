@@ -26,7 +26,9 @@ import com.jackemate.appberdi.services.TrackingService
 import com.jackemate.appberdi.services.TrackingService.Companion.ACTION_FORCE
 import com.jackemate.appberdi.services.TrackingService.Companion.EXTRA_SITE
 import com.jackemate.appberdi.ui.sites.SiteActivity
-import com.jackemate.appberdi.utils.*
+import com.jackemate.appberdi.utils.Constants
+import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.observe
 
 class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -54,7 +56,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate")
-        transparentStatusBar()
+//        transparentStatusBar()
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

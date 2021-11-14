@@ -19,7 +19,9 @@ import com.jackemate.appberdi.services.AudioService.Companion.BROAD_PROGRESS_UPD
 import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_OFFSET
 import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_SEEK
 import com.jackemate.appberdi.ui.sites.ContentPageFragment
-import com.jackemate.appberdi.utils.*
+import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.share
+import com.jackemate.appberdi.utils.toTimeString
 
 
 class SiteAudioFragment : ContentPageFragment() {
@@ -106,6 +108,14 @@ class SiteAudioFragment : ContentPageFragment() {
         val c = content
         if (c is Content.Audio) {
             initAudio(c)
+
+            ContextCompat.startForegroundService(
+                requireActivity(),
+                Intent(requireActivity(), AudioService::class.java).apply {
+                    action = AudioService.ACTION_SELECT
+                    putExtra("content", content)
+                }
+            )
         }
     }
 

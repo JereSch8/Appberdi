@@ -10,7 +10,8 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.jackemate.appberdi.R
-import com.jackemate.appberdi.ui.map.MapsActivity
+import com.jackemate.appberdi.ui.main.MainActivity
+import com.jackemate.appberdi.ui.sites.SiteActivity
 
 class NotifyRepository(val context: Context) {
 
@@ -20,42 +21,51 @@ class NotifyRepository(val context: Context) {
         }
     }
 
-    fun update(id: Int, notification: Notification) {
+    private fun update(notification: Notification, id: Int = NOTIFICATION_ID) {
         with(NotificationManagerCompat.from(context)) {
             notify(id, notification)
         }
     }
 
-    fun playing(curr: String = "00:00") =
-        update(NOTIFICATION_ID, makeForeground("Reproduciendo algo", curr))
+    fun playing(curr: String = "00:00", idSite: String) =
+        update(makeForeground(
+            "Reproduciendo algo",
+            curr,
+            intent = Intent(context, SiteActivity::class.java).putExtra("idSite", idSite)))
 
     fun paused(curr: String = "00:00") =
-        update(NOTIFICATION_ID, makeForeground("Audio pausado", curr))
+        update(makeForeground("Audio pausado", curr))
 
     fun running() =
-        update(NOTIFICATION_ID, tourRunning())
+        update(tourRunning())
 
     fun tourRunning() =
-        makeForeground("¡Tour Activado!")
+        makeForeground("¡Tour Activado!", "Pensando…")
 
     fun tourStatus(site: String, distance: Int) =
-        update(NOTIFICATION_ID, makeForeground("Yendo a $site", "Estás a $distance metros"))
+        update(makeForeground("Yendo a $site", "Estás a $distance metros"))
+
+    fun tourSelected(site: String) =
+        update(makeForeground("Yendo a $site"))
 
     fun makeForeground(
         title: String = "Cargando",
         text: String? = null,
         progress: Boolean = false,
-        showWhen: Boolean = false
+        showWhen: Boolean = false,
+        intent: Intent = Intent(context, MainActivity::class.java)
     ): Notification {
 
         // Ante la duda, nos aseguramos de que el channel está creado
         createBackgroundChannel()
 
-        val intent = Intent(context, MapsActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-
         val pendingIntent = PendingIntent.getActivity(
-            context, System.currentTimeMillis().toInt(), intent, 0
+            context,
+            System.currentTimeMillis().toInt(),
+            intent.also {
+                it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            },
+            0
         )
 
         return NotificationCompat.Builder(context, CHANNEL_BACKGROUND_ID)
