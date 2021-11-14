@@ -1,10 +1,9 @@
 package com.jackemate.appberdi.ui.mediateca
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.data.ContentRepository
 import com.jackemate.appberdi.entities.Content
@@ -12,8 +11,8 @@ import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MediatecaViewModel : ViewModel() {
-    private val repoContent = ContentRepository()
+class MediatecaViewModel(val context: Application) : AndroidViewModel() {
+    private val repoContent = ContentRepository(context)
 
     val tags: List<String> = repoContent.getTags()
 

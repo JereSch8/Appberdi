@@ -6,7 +6,8 @@ sealed class Content(
     val type: String = "",
     val tag: String = "",
     val title: String = "",
-    val site: String = ""
+    val site: String = "",
+    val idSite: String = ""
 ) : Serializable {
     data class Audio(
         val href: String = "",

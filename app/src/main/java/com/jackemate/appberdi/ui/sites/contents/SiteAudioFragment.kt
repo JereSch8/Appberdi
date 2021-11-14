@@ -106,6 +106,14 @@ class SiteAudioFragment : ContentPageFragment() {
         val c = content
         if (c is Content.Audio) {
             initAudio(c)
+
+            ContextCompat.startForegroundService(
+                requireActivity(),
+                Intent(requireActivity(), AudioService::class.java).apply {
+                    action = AudioService.ACTION_SELECT
+                    putExtra("content", content)
+                }
+            )
         }
     }
 

@@ -18,6 +18,12 @@ class TourNotificationsReceiver : BroadcastReceiver() {
             is TourMode.Navigating -> {
                 notifyRepo.tourStatus(mode.best.title, mode.distance)
             }
+            is TourMode.Selected -> {
+                notifyRepo.tourSelected(mode.site.title)
+            }
+            is TourMode.Thinking -> {
+                notifyRepo.tourRunning()
+            }
         }
     }
 

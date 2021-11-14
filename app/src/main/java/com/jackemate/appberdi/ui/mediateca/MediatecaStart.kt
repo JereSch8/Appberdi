@@ -12,7 +12,7 @@ import com.jackemate.appberdi.utils.transparentStatusBar
 class MediatecaStart : AppCompatActivity() {
 
     private lateinit var binding : ActivityMediatecaStartBinding
-    private val viewModel by viewModels<MediatecaStartViewModel>()
+    private val viewModel: MediatecaStartViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class MediatecaStart : AppCompatActivity() {
 
         var listContents : List<ContentMediateca> = emptyList()
 
-        viewModel.contents.observe(this){
+        viewModel.contents.observe(this) {
             listContents = it
             binding.gridContents.adapter = GVAdapter(this,listContents)
         }

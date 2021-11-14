@@ -54,7 +54,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate")
-        transparentStatusBar()
+//        transparentStatusBar()
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
