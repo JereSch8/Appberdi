@@ -12,8 +12,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
         android:fitsSystemWindows="true"
+        android:padding="8dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -29,8 +29,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
                 android:visibility="gone"
+                app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             <LinearLayout
@@ -42,12 +42,12 @@
                     android:id="@+id/tvTag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/tag"
                     android:fontFamily="casual"
-                    android:textColor="@color/white"/>
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/tag"
+                    android:textColor="@color/white" />
 
                 <HorizontalScrollView
                     android:id="@+id/horizontalScrollView2"
@@ -71,14 +71,11 @@
                         android:paddingEnd="16dp"
                         android:paddingBottom="8dp"
                         android:scrollbarSize="16dp"
-                        app:singleSelection="false">
-                    </com.google.android.material.chip.ChipGroup>
+                        app:singleSelection="false" />
 
                 </HorizontalScrollView>
 
             </LinearLayout>
-
-
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -91,21 +88,10 @@
         android:id="@+id/animation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lottie_rawRes="@raw/loading"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true"
-        android:visibility="invisible"
         android:layout_marginTop="100dp"
-        />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        android:visibility="gone"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_search_category_default" />
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,6 +2,7 @@ package com.jackemate.appberdi.ui.mediateca
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -18,16 +19,11 @@ import com.jackemate.appberdi.ui.view_contents.VideoActivity
 import com.jackemate.appberdi.utils.IntentName
 import com.jackemate.appberdi.utils.transparentStatusBar
 
-class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListener {
+class Mediateca : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMediatecaBinding
+    private lateinit var binding: ActivityMediatecaBinding
     private val viewModel by viewModels<MediatecaViewModel>()
-    private lateinit var nameSite : String
-    private var listImage : List<Content.Image> = emptyList()
-    private var listVideo : List<Content.Video> = emptyList()
-    private var listGif : List<Content.Gif> = emptyList()
-    private var listText : List<Content.Text> = emptyList()
-    private var listAudio : List<Content.Audio> = emptyList()
+    private var listContents: List<Content> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,81 +32,71 @@ class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListene
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-
-        nameSite = intent.getStringExtra("title").toString()
-        viewModel.getContents(nameSite)
-
-        setupChips()
-
-        viewModel.images.observe(this){ listImage = it }
-        viewModel.gifs.observe(this)  { listGif = it }
-        viewModel.audios.observe(this){ listAudio = it }
-        viewModel.videos.observe(this){ listVideo = it }
-        viewModel.texts.observe(this) { listText = it }
-
         setupRecyclerView()
+
+        viewModel.contents.observe(this) {
+            listContents = it
+            setupChips()
+            updateUI()
+        }
+
+        val nameSite = intent.getStringExtra("title").toString()
+        viewModel.getContents(nameSite)
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         binding.contentRecycler.recycler.layoutManager = LinearLayoutManager(this)
-        binding.contentRecycler.recycler .addItemDecoration(
-            DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL)
+        binding.contentRecycler.recycler.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        binding.contentRecycler.recycler.adapter = MediatecaAdapter(
+            this,
+            emptyList(),
+            this::onMultimediaClick
         )
     }
 
-    private fun setupChips(){
-        for ((index, site) in viewModel.tags.withIndex()) {
+    private fun getAllTags() = listContents.map { it.tag }.toSet().toList()
+
+    private fun setupChips() {
+        for ((index, site) in getAllTags().withIndex()) {
             val chip = Chip(binding.cgTag.context)
-            chip.text= site
+            chip.text = site
             chip.id = index
             chip.isClickable = true
             chip.isCheckable = true
             binding.cgTag.addView(chip)
-            chip.setOnCheckedChangeListener { _, _ -> searchByTag() }
+            chip.setOnCheckedChangeListener { _, _ -> updateUI() }
         }
     }
 
-    private fun getTagName() : List<String>{
-        var listTags : List<String> = emptyList()
+    private fun getCheckedTags() = binding.cgTag.checkedChipIds
+        .map { chipTagID -> getAllTags()[chipTagID] }
 
-        binding.cgTag.checkedChipIds.forEach { chipTagID ->
-            listTags += viewModel.tags[chipTagID]
-        }
 
-        return listTags
-    }
-
-    private fun searchByTag() {
+    private fun updateUI() {
         changeAnimation("Loading")
-        var listContents : List<Any> = emptyList()
-        getTagName().forEach { tag ->
-            when(tag){
-                in "Texto" -> listContents += listText
-                in "Audio" -> listContents += listAudio
-                in "Video" -> listContents += listVideo
-                in "Gif" -> listContents += listGif
-                in "Imagen" -> listContents += listImage
-                else -> changeAnimation("Problem")
-            }
+        val listToShow = if (getCheckedTags().isEmpty()) listContents
+        else listContents.filter {
+            getCheckedTags().contains(it.tag)
         }
 
-        if (listContents.isNullOrEmpty())
+        if (listToShow.isNullOrEmpty())
             changeAnimation("Empty")
         else
             changeAnimation("Invisible")
 
-        binding.contentRecycler.recycler.adapter = MediatecaAdapter(
-            this,
-            listContents,
-            this
-        )
+        val adapter = binding.contentRecycler.recycler.adapter as MediatecaAdapter
+        adapter.updateItems(listToShow.sortedBy { it.title })
     }
 
-    private fun changeAnimation(change : String){
+    private fun changeAnimation(change: String) {
         binding.animation.visibility = View.VISIBLE
         binding.animation.setAnimation(R.raw.loading)
-        when(change){
+        when (change) {
             in "Loading" -> binding.animation.setAnimation(R.raw.loading)
             in "Problem" -> binding.animation.setAnimation(R.raw.problem)
             in "Empty" -> binding.animation.setAnimation(R.raw.empty)
@@ -119,8 +105,8 @@ class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListene
         binding.animation.playAnimation()
     }
 
-    override fun onMultimediaClick(multimedia: Any) {
-        when(multimedia){
+    private fun onMultimediaClick(multimedia: Content) {
+        when (multimedia) {
             is Content.Image -> {
                 val intent = Intent(this, ImageActivity::class.java)
                 intent.putExtra(IntentName.TITLE, multimedia.title)
@@ -128,7 +114,11 @@ class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListene
                 intent.putExtra(IntentName.HREF, multimedia.href)
                 startActivity(intent)
             }
-            is Content.Gif -> Toast.makeText(baseContext, "Es un gif ${multimedia.site}", Toast.LENGTH_LONG ).show()
+            is Content.Gif -> Toast.makeText(
+                baseContext,
+                "Es un gif ${multimedia.site}",
+                Toast.LENGTH_LONG
+            ).show()
             is Content.Video -> {
                 val intent = Intent(this, VideoActivity::class.java)
                 intent.putExtra(IntentName.TITLE, multimedia.title)
@@ -150,6 +140,8 @@ class Mediateca : AppCompatActivity(), MediatecaAdapter.OnMultimediaClickListene
                 intent.putExtra(IntentName.SUBTITLE, multimedia.subtitle)
                 intent.putExtra(IntentName.HREF, multimedia.href)
                 startActivity(intent)
+            }
+            else -> {
             }
         }
     }

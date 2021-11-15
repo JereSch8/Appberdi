@@ -14,7 +14,6 @@ import java.net.URL
 
 class ContentRepository(context: Context) {
     private val db = Firebase.firestore
-//    private val storage = Firebase.s
     private val cache = CacheRepository(context)
 
     private fun getContentWhere(idSite : String) = db.collection("contents").whereEqualTo("site",idSite)
@@ -52,12 +51,6 @@ class ContentRepository(context: Context) {
 
     fun getContentMediateca() = db.collection("mediateca")
 
-    fun getContentAudioWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "audio")
-    fun getContentImageWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "image")
-    fun getContentGifWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "gif")
-    fun getContentVideoWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "video")
-    fun getContentTextWhere(idSite : String) = getContentWhere(idSite).whereEqualTo("type", "text")
-
-    fun getTags() = listOf("Texto", "Audio", "Imagen", "Gif", "Video")
+    fun getContentBySite(idSite : String) = getContentWhere(idSite)
 
 }

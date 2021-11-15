@@ -24,6 +24,7 @@ import com.jackemate.appberdi.ui.about.AboutActivity
 import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
 import com.jackemate.appberdi.ui.mediateca.MediatecaStart
+import com.jackemate.appberdi.ui.preferences.PreferencesActivity
 import com.jackemate.appberdi.ui.shared.RequesterPermissionsActivity
 import com.jackemate.appberdi.ui.welcome.WelcomeActivity
 import com.jackemate.appberdi.utils.*
@@ -77,8 +78,7 @@ class MainActivity : RequesterPermissionsActivity() {
         }
 
         binding.launchPreferences.setOnClickListener {
-//            startActivity(Intent(this, PreferencesActivity::class.java))
-            ContextCompat.startForegroundService(this, Intent(this, TrackingService::class.java))
+            startActivity(Intent(this, PreferencesActivity::class.java))
         }
 
         binding.launchAttractions.setOnClickListener {
