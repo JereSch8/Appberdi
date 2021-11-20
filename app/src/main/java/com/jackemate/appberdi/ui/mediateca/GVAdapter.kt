@@ -1,48 +1,45 @@
 package com.jackemate.appberdi.ui.mediateca
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ItemGvMediatecaBinding
 import com.jackemate.appberdi.entities.ContentMediateca
 
-class GVAdapter(var context: Context, var listContents: List<ContentMediateca>) : BaseAdapter(){
-    override fun getCount(): Int {
-        return listContents.size
+class GVAdapter(
+    private val contents: List<ContentMediateca>,
+    val onClick: (ContentMediateca) -> Unit
+) :
+    RecyclerView.Adapter<GVAdapter.ViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val v = ItemGvMediatecaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(v)
     }
 
-    override fun getItem(position: Int): ContentMediateca {
-        return listContents[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(contents[position])
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
+    override fun getItemCount(): Int {
+        return contents.size
     }
 
-    @SuppressLint("ViewHolder")
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val binding = ItemGvMediatecaBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
-        val view : View = binding.root
-        val title = binding.title
-        val item = getItem(position)
+    inner class ViewHolder(private val binding: ItemGvMediatecaBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: ContentMediateca) {
+            Glide.with(binding.root)
+                .load(item.href)
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.no_image)
+                .transform(CenterCrop())
+                .into(binding.img)
 
-        Glide.with(view)
-            .load(item.href)
-            .placeholder(R.drawable.loading)
-            .error(R.drawable.no_image)
-            .transform(CenterCrop())
-            .into(binding.img)
-
-        title.text = item.title
-
-        return view;
+            binding.title.text = item.title
+            binding.root.setOnClickListener { onClick(item) }
+        }
     }
 }

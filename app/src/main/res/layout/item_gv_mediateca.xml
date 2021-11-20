@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:gravity="top"
+    android:orientation="vertical"
+    android:background="?selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_margin="8dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="10dp" >
+        app:cardElevation="10dp">
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:scaleY="1.1"
+            android:contentDescription="@string/imagen"
             android:scaleX="1.1"
-            android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/imagen" />
+            android:scaleY="1.1"
+            android:src="@mipmap/ic_launcher" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -31,11 +33,9 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:layout_marginHorizontal="8dp"
         android:fontFamily="@font/montserrat_semibold"
-        android:paddingBottom="16dp"
+        android:text="@string/app_name"
         android:textAlignment="center" />
 
 </LinearLayout>
