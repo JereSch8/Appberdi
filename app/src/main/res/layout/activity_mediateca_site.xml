@@ -44,9 +44,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include
-        android:id="@+id/contentRecycler"
-        layout="@layout/content_scrolling" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:listitem="@layout/item_mediateca_site"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation"

@@ -43,8 +43,8 @@ class MediatecaSiteActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        binding.contentRecycler.recycler.layoutManager = LinearLayoutManager(this)
-        binding.contentRecycler.recycler.adapter = MediatecaSiteAdapter(
+        binding.recycler.layoutManager = LinearLayoutManager(this)
+        binding.recycler.adapter = MediatecaSiteAdapter(
             this,
             emptyList(),
             this::onMultimediaClick
@@ -54,6 +54,10 @@ class MediatecaSiteActivity : AppCompatActivity() {
     private fun getAllTags() = listContents.map { it.tag }.toSet().toList()
 
     private fun setupChips() {
+        // Si se restaura el estado de la Activity
+        // No quiero duplicar los chips
+        if (binding.filters.childCount > 0) return
+
         for ((index, site) in getAllTags().withIndex()) {
             val chip = Chip(this)
             chip.text = site
@@ -81,7 +85,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
         else
             changeAnimation("Invisible")
 
-        val adapter = binding.contentRecycler.recycler.adapter as MediatecaSiteAdapter
+        val adapter = binding.recycler.adapter as MediatecaSiteAdapter
         adapter.updateItems(listToShow.sortedBy { it.title })
     }
 
