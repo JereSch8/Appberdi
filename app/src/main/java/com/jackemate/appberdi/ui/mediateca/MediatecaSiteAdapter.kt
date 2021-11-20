@@ -11,7 +11,7 @@ import com.jackemate.appberdi.R
 import com.jackemate.appberdi.entities.Content
 import java.lang.Integer.max
 
-class MediatecaAdapter(
+class MediatecaSiteAdapter(
     private val context: Context,
     private var listMultimedia: List<Content>,
     private val listener: (Content) -> Unit
@@ -19,7 +19,7 @@ class MediatecaAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return MultiMediaViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.item_mediateca_site, parent, false)
         )
     }
 

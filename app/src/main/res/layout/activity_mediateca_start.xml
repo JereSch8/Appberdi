@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:fitsSystemWindows="true"
-    tools:context=".ui.mediateca.Mediateca">
+    tools:context=".ui.mediateca.MediatecaSiteActivity">
 
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:paddingVertical="8dp"
         android:fontFamily="@font/lobstertwo_bold"
         android:text="@string/mediateca_de_appberdi"
         android:textSize="30sp" />
@@ -22,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
-        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:paddingBottom="16dp" />
 

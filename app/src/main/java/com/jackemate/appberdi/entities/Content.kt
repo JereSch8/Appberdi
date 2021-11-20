@@ -5,7 +5,7 @@ import java.io.Serializable
 sealed class Content(
     val type: String = "",
     val tag: String = "",
-    val title: String = "",
+    val title: String = "Sin título",
     val site: String = "",
     val idSite: String = ""
 ) : Serializable {

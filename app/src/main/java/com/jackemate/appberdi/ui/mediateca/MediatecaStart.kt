@@ -2,15 +2,11 @@ package com.jackemate.appberdi.ui.mediateca
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.AdapterView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.jackemate.appberdi.databinding.ActivityAttractionsBinding
 import com.jackemate.appberdi.databinding.ActivityMediatecaStartBinding
 import com.jackemate.appberdi.entities.ContentMediateca
-import com.jackemate.appberdi.ui.attractions.AttractionListAdapter
 import com.jackemate.appberdi.utils.transparentStatusBar
 
 class MediatecaStart : AppCompatActivity() {
@@ -32,7 +28,7 @@ class MediatecaStart : AppCompatActivity() {
     }
 
     private fun onSelected(item: ContentMediateca) {
-        val intent = Intent(this, Mediateca::class.java)
+        val intent = Intent(this, MediatecaSiteActivity::class.java)
         intent.putExtra("title", item.title)
         startActivity(intent)
     }
