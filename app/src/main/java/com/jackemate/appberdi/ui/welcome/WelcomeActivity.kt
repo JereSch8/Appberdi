@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
@@ -12,9 +11,8 @@ import com.jackemate.appberdi.ui.main.MainActivity
 import com.jackemate.appberdi.ui.shared.dialogs.BasicDialog
 import com.jackemate.appberdi.utils.transparentStatusBar
 
-class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
+class WelcomeActivity : AppCompatActivity() {
     private lateinit var viewModel: WelcomeViewModel
-    private lateinit var viewPager: ViewPager2
     private lateinit var binding: ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +32,12 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
 
         viewModel = ViewModelProvider(this).get(WelcomeViewModel::class.java)
 
-        val adapter = ViewPageAdapter(viewModel.getListBoard(), this)
-        viewPager = binding.viewPager
+        val adapter = ViewPageAdapter(viewModel.getListBoard(), this::onClickListener)
 
-        viewPager.adapter = adapter
+        binding.viewPager.adapter = adapter
     }
 
-    override fun onClickListener(position: Int) {
+    private fun onClickListener(position: Int) {
         if (position == (viewModel.getListBoard().size - 1)) {
             BasicDialog(this)
                 .setButtonEnabled(false)
@@ -54,14 +51,14 @@ class WelcomeActivity : AppCompatActivity(), ViewPageAdapter.OnItemSelected {
                     PreferenceRepository(this).setUserName(name)
                     PreferenceRepository(this).setFirstUsage()
                     dialog.cancel()
-                    goMain()
+                    goToMain()
                 }
                 .show()
         } else
-            viewPager.setCurrentItem((position + 1), true)
+            binding.viewPager.setCurrentItem((position + 1), true)
     }
 
-    private fun goMain() {
+    private fun goToMain() {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(
             Intent.FLAG_ACTIVITY_CLEAR_TOP or

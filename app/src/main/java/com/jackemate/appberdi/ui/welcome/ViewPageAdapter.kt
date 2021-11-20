@@ -14,12 +14,15 @@ import com.jackemate.appberdi.entities.Board
 
 class ViewPageAdapter(
     private val boardList: List<Board>,
-    private val onItemSelected: OnItemSelected? = null
-): RecyclerView.Adapter<ViewPageAdapter.BoardViewHolder>() {
+    private val onItemSelected: (Int) -> Unit
+) : RecyclerView.Adapter<ViewPageAdapter.BoardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {
-        val  view = LayoutInflater.from(parent.context).inflate(R.layout.board_item, parent, false)
-        return BoardViewHolder(view, onItemSelected )
+        return BoardViewHolder(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.board_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
@@ -29,10 +32,7 @@ class ViewPageAdapter(
     override fun getItemCount(): Int = boardList.size
 
 
-    inner class  BoardViewHolder(
-            itemView: View,
-            private val onItemSelected: OnItemSelected? = null
-    ): RecyclerView.ViewHolder(itemView){
+    inner class BoardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val contenedor = itemView.findViewById<ConstraintLayout>(R.id.container)
         private val animacion = itemView.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
@@ -40,22 +40,18 @@ class ViewPageAdapter(
         private val descripcion = itemView.findViewById<TextView>(R.id.textView_descripcion)
         private val boton = itemView.findViewById<AppCompatButton>(R.id.button_siguiente)
 
-        fun bind(board: Board) = with(itemView){
-            contenedor.background = ContextCompat.getDrawable(context, board.background)
+        fun bind(board: Board) = with(itemView) {
+//            contenedor.background = ContextCompat.getDrawable(context, board.background)
             animacion.setAnimation(board.animation)
             titulo.text = board.title
             descripcion.text = board.description
 
-            if (adapterPosition == (boardList.size - 1)){
+            if (adapterPosition == (boardList.size - 1)) {
                 boton.text = context.getString(R.string.finalizar)
             }
 
-            boton.setOnClickListener { onItemSelected?.onClickListener(adapterPosition) }
+            boton.setOnClickListener { onItemSelected(adapterPosition) }
         }
 
-    }
-
-    interface OnItemSelected{
-        fun onClickListener(position: Int)
     }
 }
