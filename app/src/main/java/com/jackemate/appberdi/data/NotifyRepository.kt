@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.jackemate.appberdi.R
+import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.ui.main.MainActivity
 import com.jackemate.appberdi.ui.sites.SiteActivity
 
@@ -27,11 +28,17 @@ class NotifyRepository(val context: Context) {
         }
     }
 
-    fun playing(curr: String = "00:00", idSite: String) =
+    fun audioRunning() =
+        makeForeground("Descargando Audio", "Perame un cachito")
+
+    fun prepared(title: String) =
+        update(makeForeground("Listo para escuchar", title))
+
+    fun playing(audio: Content.Audio, curr: String = "00:00") =
         update(makeForeground(
-            "Reproduciendo algo",
+            "Reproduciendo ${audio.title}",
             curr,
-            intent = Intent(context, SiteActivity::class.java).putExtra("idSite", idSite)))
+            intent = Intent(context, SiteActivity::class.java).putExtra("idSite", audio.idSite)))
 
     fun paused(curr: String = "00:00") =
         update(makeForeground("Audio pausado", curr))

@@ -29,41 +29,56 @@ class AudioService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        startForeground(NOTIFICATION_ID, notifyRepo.tourRunning())
+        startForeground(NOTIFICATION_ID, notifyRepo.audioRunning())
         initMediaPlayer()
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        intent ?: return START_STICKY
         when (intent.action) {
-            ACTION_SELECT -> {
-                content = intent.getSerializableExtra("content") as Content.Audio
-                // TODO init
-            }
-            ACTION_PLAY -> {
-                if (mediaPlayer.isPlaying) {
-                    mediaPlayer.pause()
-                    notifyRepo.paused(mediaPlayer.currentPosition.toTimeString())
-                    handler.removeCallbacks(runnable)
-                    broadcast()
-                } else {
-                    mediaPlayer.start()
-                    notifyRepo.playing(idSite = content!!.idSite)
-                    handler.post(runnable)
-                    broadcast()
-                }
-            }
-            ACTION_SEEK -> {
-                val seek = intent.getIntExtra(EXTRA_SEEK, -1).takeIf { it != -1 }
-                val change = intent.getIntExtra(EXTRA_OFFSET, 0)
-
-                val position = seek ?: mediaPlayer.currentPosition + change
-                mediaPlayer.seekTo(position.coerceIn(0, mediaPlayer.duration))
-                broadcast()
-            }
-            ACTION_FORCE -> broadcast()
+            ACTION_SELECT -> actionSelect(intent.getSerializableExtra("content") as Content.Audio)
+            ACTION_PLAY -> actionPlay()
+            ACTION_SEEK -> actionSeek(intent.getIntExtra(EXTRA_POSITION, -1))
+            ACTION_SEEK_BY -> actionSeekBy(intent.getIntExtra(EXTRA_OFFSET, -1))
+            ACTION_FORCE -> actionForce()
         }
         return START_STICKY
     }
+
+    fun actionSelect(audio: Content.Audio) {
+        content = audio
+        notifyRepo.prepared(audio.title)
+        // todo init
+    }
+
+    fun actionPlay() {
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.pause()
+            notifyRepo.paused(mediaPlayer.currentPosition.toTimeString())
+            handler.removeCallbacks(runnable)
+            broadcast()
+        } else {
+            mediaPlayer.start()
+            notifyRepo.playing(content!!)
+            handler.post(runnable)
+            broadcast()
+        }
+
+    }
+
+    fun actionSeek(position: Int) {
+        if (position == -1) {
+            Log.e(TAG, "actionSeek: position == -1")
+        }
+        mediaPlayer.seekTo(position.coerceIn(0, mediaPlayer.duration))
+    }
+
+    fun actionSeekBy(offset: Int) {
+        val position = mediaPlayer.currentPosition + offset
+        mediaPlayer.seekTo(position.coerceIn(0, mediaPlayer.duration))
+    }
+
+    fun actionForce() = broadcast()
 
     override fun onLowMemory() {
         super.onLowMemory()
@@ -108,7 +123,7 @@ class AudioService : Service() {
             }
             setOnSeekCompleteListener {
                 Log.d(TAG, "setOnSeekCompleteListener")
-                broadcast(AUDIO_STOPPED)
+                broadcast()
             }
             setOnCompletionListener {
                 Log.d(TAG, "setOnCompletionListener")
@@ -130,7 +145,7 @@ class AudioService : Service() {
             if (mediaPlayer.isPlaying) {
                 val time = mediaPlayer.currentPosition.toTimeString()
                 Log.d("TourService", "runnable: $time")
-                notifyRepo.playing(time, content!!.idSite)
+                notifyRepo.playing(content!!, time)
                 broadcast()
                 handler.postDelayed(this, 1000)
             }
@@ -141,11 +156,12 @@ class AudioService : Service() {
         const val ACTION_SELECT = "com.jackemate.appberdi.action.SELECT"
         const val ACTION_PLAY = "com.jackemate.appberdi.action.PLAY"
         const val ACTION_SEEK = "com.jackemate.appberdi.action.SEEK"
+        const val ACTION_SEEK_BY = "com.jackemate.appberdi.action.SEEK_BY"
         const val ACTION_FORCE = "com.jackemate.appberdi.action.FORCE"
         const val BROADCAST_UPDATES = "com.jackemate.TourService.STATUS"
 
         const val EXTRA_OFFSET = "offset"
-        const val EXTRA_SEEK = "seek"
+        const val EXTRA_POSITION = "seek"
 
         const val BROAD_PROGRESS_UPDATE = "com.jackemate.appberdi.action.PROGRESS"
         const val AUDIO_READY = 0 // TODO

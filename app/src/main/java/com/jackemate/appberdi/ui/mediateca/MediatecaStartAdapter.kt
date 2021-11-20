@@ -9,11 +9,11 @@ import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ItemGvMediatecaBinding
 import com.jackemate.appberdi.entities.ContentMediateca
 
-class GVAdapter(
+class MediatecaStartAdapter(
     private val contents: List<ContentMediateca>,
     val onClick: (ContentMediateca) -> Unit
 ) :
-    RecyclerView.Adapter<GVAdapter.ViewHolder>() {
+    RecyclerView.Adapter<MediatecaStartAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = ItemGvMediatecaBinding.inflate(LayoutInflater.from(parent.context), parent, false)

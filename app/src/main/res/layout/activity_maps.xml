@@ -83,6 +83,8 @@
         android:contentDescription="@string/entrar"
         android:text="@string/entrar"
         android:textColor="@color/white"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:icon="@drawable/ic_send"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/map"

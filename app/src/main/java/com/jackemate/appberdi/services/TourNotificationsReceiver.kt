@@ -11,7 +11,7 @@ import com.jackemate.appberdi.utils.TAG
 class TourNotificationsReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.e(TAG, intent.toString())
+        Log.i(TAG, intent.toString())
         val notifyRepo = NotifyRepository(context.applicationContext)
         val mode = intent.getSerializableExtra("mode") as TourMode
         when (mode) {

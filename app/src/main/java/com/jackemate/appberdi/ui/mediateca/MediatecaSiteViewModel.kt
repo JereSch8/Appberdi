@@ -10,7 +10,7 @@ import com.jackemate.appberdi.utils.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MediatecaViewModel(val context: Application) : AndroidViewModel(context) {
+class MediatecaSiteViewModel(val context: Application) : AndroidViewModel(context) {
     private val repoContent = ContentRepository(context)
 
     private val _contents : MutableLiveData<List<Content>> = MutableLiveData()

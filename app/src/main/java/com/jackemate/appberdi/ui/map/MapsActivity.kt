@@ -93,7 +93,9 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         Log.i(TAG, "Map Ready!")
         map = googleMap
         initMap()
+        Log.i(TAG, "initMap Ready!")
         initPolyline()
+        Log.i(TAG, "initPolyline Ready!")
 
         observe(viewModel.sites) { sitesMarkers ->
             Log.i(TAG, "sitesMarkers: ${sitesMarkers.size}")
@@ -157,8 +159,8 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                     )
                 )
         )
-        marker.tag = site
-        marker.showInfoWindow()
+        marker?.tag = site
+        marker?.showInfoWindow()
     }
 
     private fun initPolyline() {

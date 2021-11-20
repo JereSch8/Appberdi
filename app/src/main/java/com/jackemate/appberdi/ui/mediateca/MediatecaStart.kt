@@ -22,7 +22,7 @@ class MediatecaStart : AppCompatActivity() {
         binding.contents.layoutManager = GridLayoutManager(this, 2)
 
         viewModel.contents.observe(this) { listContents ->
-            binding.contents.adapter = GVAdapter(listContents, this::onSelected)
+            binding.contents.adapter = MediatecaStartAdapter(listContents, this::onSelected)
         }
         viewModel.getContents()
     }

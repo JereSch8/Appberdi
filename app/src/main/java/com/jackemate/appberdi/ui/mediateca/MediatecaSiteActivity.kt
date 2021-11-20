@@ -11,6 +11,7 @@ import com.google.android.material.chip.Chip
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaSiteBinding
 import com.jackemate.appberdi.entities.Content
+import com.jackemate.appberdi.ui.sites.ARG_CONTENT
 import com.jackemate.appberdi.ui.view_contents.AudioActivity
 import com.jackemate.appberdi.ui.view_contents.ImageActivity
 import com.jackemate.appberdi.ui.view_contents.VideoActivity
@@ -20,7 +21,7 @@ import com.jackemate.appberdi.utils.transparentStatusBar
 class MediatecaSiteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMediatecaSiteBinding
-    private val viewModel by viewModels<MediatecaViewModel>()
+    private val viewModel by viewModels<MediatecaSiteViewModel>()
     private var listContents: List<Content> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,9 +133,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
             }
             is Content.Audio -> {
                 val intent = Intent(this, AudioActivity::class.java)
-                intent.putExtra(IntentName.TITLE, multimedia.title)
-                intent.putExtra(IntentName.SUBTITLE, multimedia.subtitle)
-                intent.putExtra(IntentName.HREF, multimedia.href)
+                intent.putExtra(ARG_CONTENT, multimedia)
                 startActivity(intent)
             }
             else -> {

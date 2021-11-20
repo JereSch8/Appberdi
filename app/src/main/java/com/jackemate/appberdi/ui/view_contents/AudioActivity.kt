@@ -1,23 +1,53 @@
 package com.jackemate.appberdi.ui.view_contents
 
+import android.content.*
 import android.media.MediaPlayer
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.PowerManager
+import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
 import com.jackemate.appberdi.entities.Content
+import com.jackemate.appberdi.services.AudioService
+import com.jackemate.appberdi.ui.sites.ARG_CONTENT
+import com.jackemate.appberdi.ui.sites.ARG_ID_SITE
 import com.jackemate.appberdi.utils.*
 import java.util.concurrent.TimeUnit
 
 class AudioActivity : AppCompatActivity() {
 
-    private lateinit var binding : SiteAudioFragmentBinding
-    private lateinit var content : Content.Audio
-    private val mediaPlayer = MediaPlayer()
+    private lateinit var binding: SiteAudioFragmentBinding
+    private lateinit var content: Content.Audio
+
+    private var audioService: AudioService? = null
+    private val receiver = AudioBroadcastReceiver()
+
+    private val connection = object : ServiceConnection {
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            val binder = service as AudioService.TourServiceBinder
+            audioService = binder.service
+            binder.service.actionSelect(content)
+            binder.service.actionForce()
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            audioService = null
+        }
+    }
+
+    inner class AudioBroadcastReceiver : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            Log.v(TAG, "Action: ${intent.action}}")
+
+            if (intent.action == AudioService.BROAD_PROGRESS_UPDATE) {
+                val time = intent.getIntExtra("time", 0)
+                val status = intent.getIntExtra("status", 0)
+                val duration = intent.getIntExtra("duration", 0)
+                updateUI(status, time, duration)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,56 +55,63 @@ class AudioActivity : AppCompatActivity() {
         binding = SiteAudioFragmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setup()
-        initContent()
-        initAudio()
+        content = intent?.getSerializableExtra(ARG_CONTENT) as Content.Audio?
+            ?: throw Exception("No argument ARG_CONTENT")
+
+        binding.scrollView.fitsSystemWindows = true
+
+        // Setear el alto del playerContainer del mismo alto
+        // que el scrollView, menos un pequeño offset (el alto del title)
+        binding.scrollView.post {
+            val layout = binding.playerContainer.layoutParams
+            layout.height = binding.scrollView.height - binding.title.height * 2
+            binding.playerContainer.layoutParams = layout
+            Log.w(TAG, "set height: ${layout.height}")
+        }
+
+        initAudio(content)
     }
 
-    private fun setup(){
-        binding.btnPlay.isEnabled = false
-        binding.btnRewind.invisible(true)
-        binding.btnForward.invisible(true)
-        binding.sbProgress.invisible(true)
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(receiver,
+            IntentFilter(AudioService.BROADCAST_UPDATES).apply {
+                addAction(AudioService.BROAD_PROGRESS_UPDATE)
+            }
+        )
+
+        Intent(this, AudioService::class.java).also {
+            bindService(it, connection, Context.BIND_AUTO_CREATE)
+        }
+
+        audioService?.actionForce()
     }
 
-    private fun initContent() {
-        val subtitle = intent.getStringExtra(IntentName.SUBTITLE).toString()
-        val href = intent.getStringExtra(IntentName.HREF).toString()
-
-        content =  Content.Audio(href,subtitle)
+    override fun onPause() {
+        super.onPause()
+        unbindService(connection)
+        audioService = null
+        unregisterReceiver(receiver)
     }
 
-    private fun initAudio() {
+    private fun initAudio(content: Content.Audio) {
         Log.i(TAG, "initAudio: $content")
-        val title = intent.getStringExtra(IntentName.TITLE).toString()
-        binding.title.text = title
+
+        binding.title.text = content.title
         binding.transcription.text = content.subtitle
 
         binding.btnShare.setOnClickListener {
-            share(title, content.href)
-        }
-
-        mediaPlayer.apply {
-            setDataSource(content.href)
-            prepareAsync()
-            // Evitar que el celu entre en modo hibernación mientras reproduce audio
-            setWakeMode(applicationContext, PowerManager.PARTIAL_WAKE_LOCK)
-            setOnPreparedListener {
-                onMediaPlayerPrepared()
-            }
-            setOnSeekCompleteListener {
-                Log.d(TAG, "setOnSeekCompleteListener")
-                updateUI()
-            }
-            setOnCompletionListener {
-                Log.d(TAG, "setOnCompletionListener")
-                updateUI()
-            }
+            share(content.title, content.href)
         }
 
         binding.btnPlay.setImageResource(R.drawable.ic_play_circle)
         binding.btnPlay.setOnClickListener {
-            playPauseAudio()
+            audioService?.actionPlay()
+        }
+
+        fun seekBy(change: Int) {
+            if (!binding.btnPlay.isEnabled) return // MediaPlayer not ready
+            audioService?.actionSeekBy(change)
         }
 
         binding.btnForward.setOnClickListener {
@@ -85,79 +122,22 @@ class AudioActivity : AppCompatActivity() {
         }
 
         binding.sbProgress.onSeekBarChanged { progress, fromUser ->
-            if (fromUser)
-                mediaPlayer.seekTo(progress)
-        }
-
-    }
-
-    private fun onMediaPlayerPrepared() {
-        binding.btnPlay.isEnabled = true
-        binding.btnRewind.visible(true)
-        binding.btnForward.visible(true)
-        binding.sbProgress.visible(true)
-
-        binding.tvCurrentAudio.text = durationToString(mediaPlayer.currentPosition)
-        val duration = mediaPlayer.duration
-        binding.sbProgress.max = duration
-        binding.tvDurationAudio.text = durationToString(duration)
-        Log.d(TAG, "setOnPreparedListener: $duration")
-    }
-
-    private val handler = Handler(Looper.getMainLooper())
-    private val runnable = object : Runnable {
-        override fun run() {
-            updateUI()
-            if (mediaPlayer.isPlaying) {
-                handler.postDelayed(this, 1000)
-            } else {
-                Log.d("SiteAudioFragment", "runnable: stop")
-                handler.removeCallbacks(this)
+            if (fromUser) {
+                audioService?.actionSeek(progress)
             }
         }
     }
 
-    private fun updateUI() {
-        binding.sbProgress.progress = mediaPlayer.currentPosition
-        val time = durationToString(mediaPlayer.currentPosition)
-        binding.tvCurrentAudio.text = time
+    fun updateUI(status: Int, time: Int, duration: Int) {
+        binding.sbProgress.max = duration
+        binding.sbProgress.progress = time
+        binding.tvCurrentAudio.text = time.toTimeString()
+        binding.tvDurationAudio.text = duration.toTimeString()
+
         binding.btnPlay.setImageResource(
-            if (mediaPlayer.isPlaying) R.drawable.ic_pause
+            if (status == AudioService.AUDIO_PLAYING) R.drawable.ic_pause
             else R.drawable.ic_play_circle
         )
-    }
-
-
-    private fun playPauseAudio() {
-        if (mediaPlayer.isPlaying) {
-            mediaPlayer.pause()
-        } else {
-            mediaPlayer.start()
-            handler.post(runnable)
-        }
-    }
-
-    private fun seekBy(change: Int) {
-        if (!binding.btnPlay.isEnabled) return // MediaPlayer not ready
-
-        val position = mediaPlayer.currentPosition + change
-        mediaPlayer.seekTo(position.coerceIn(0, mediaPlayer.duration))
-    }
-
-    private fun durationToString(duration: Int) = String.format(
-        "%02d:%02d",
-        TimeUnit.MILLISECONDS.toMinutes(duration.toLong()),
-        TimeUnit.MILLISECONDS.toSeconds(duration.toLong()) % 60
-    )
-
-    override fun onPause() {
-        super.onPause()
-        mediaPlayer.pause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mediaPlayer.release()
     }
 
 }

@@ -37,7 +37,7 @@ class TrackingService : Service() {
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
             locationResult ?: return
-            val loc = locationResult.locations.first()
+            val loc = locationResult.locations.firstOrNull() ?: return
             currentPos = LatLng(loc.latitude, loc.longitude)
             doUpdate()
         }

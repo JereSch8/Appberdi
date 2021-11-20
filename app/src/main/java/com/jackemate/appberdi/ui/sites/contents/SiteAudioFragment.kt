@@ -17,7 +17,7 @@ import com.jackemate.appberdi.services.AudioService.Companion.AUDIO_PLAYING
 import com.jackemate.appberdi.services.AudioService.Companion.BROADCAST_UPDATES
 import com.jackemate.appberdi.services.AudioService.Companion.BROAD_PROGRESS_UPDATE
 import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_OFFSET
-import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_SEEK
+import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_POSITION
 import com.jackemate.appberdi.ui.sites.ContentPageFragment
 import com.jackemate.appberdi.utils.*
 
@@ -33,6 +33,8 @@ class SiteAudioFragment : ContentPageFragment() {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             val binder = service as AudioService.TourServiceBinder
             audioService = binder.service
+            binder.service.actionSelect(content as Content.Audio)
+            binder.service.actionForce()
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {
@@ -43,7 +45,7 @@ class SiteAudioFragment : ContentPageFragment() {
     inner class AudioBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-            Log.i(TAG, "Action: ${intent.action}}")
+            Log.v(TAG, "Action: ${intent.action}}")
 
             if (intent.action == BROAD_PROGRESS_UPDATE) {
                 val time = intent.getIntExtra("time", 0)
@@ -56,22 +58,17 @@ class SiteAudioFragment : ContentPageFragment() {
 
     override fun onResume() {
         super.onResume()
-        Intent(requireActivity(), AudioService::class.java).also { intent ->
-            requireActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE)
-        }
-
         requireActivity().registerReceiver(receiver,
             IntentFilter(BROADCAST_UPDATES).apply {
                 addAction(BROAD_PROGRESS_UPDATE)
             }
         )
 
-        ContextCompat.startForegroundService(
-            requireActivity(),
-            Intent(requireActivity(), AudioService::class.java).apply {
-                action = AudioService.ACTION_FORCE
-            }
-        )
+        Intent(requireActivity(), AudioService::class.java).also { intent ->
+            requireActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
+
+        audioService?.actionForce()
     }
 
     override fun onPause() {
@@ -106,14 +103,6 @@ class SiteAudioFragment : ContentPageFragment() {
         val c = content
         if (c is Content.Audio) {
             initAudio(c)
-
-            ContextCompat.startForegroundService(
-                requireActivity(),
-                Intent(requireActivity(), AudioService::class.java).apply {
-                    action = AudioService.ACTION_SELECT
-                    putExtra("content", content)
-                }
-            )
         }
     }
 
@@ -129,7 +118,12 @@ class SiteAudioFragment : ContentPageFragment() {
 
         binding.btnPlay.setImageResource(R.drawable.ic_play_circle)
         binding.btnPlay.setOnClickListener {
-            playPauseAudio()
+            audioService?.actionPlay()
+        }
+
+        fun seekBy(change: Int) {
+            if (!binding.btnPlay.isEnabled) return // MediaPlayer not ready
+            audioService?.actionSeekBy(change)
         }
 
         binding.btnForward.setOnClickListener {
@@ -141,10 +135,7 @@ class SiteAudioFragment : ContentPageFragment() {
 
         binding.sbProgress.onSeekBarChanged { progress, fromUser ->
             if (fromUser) {
-                val intent = Intent(requireActivity(), AudioService::class.java)
-                intent.action = AudioService.ACTION_SEEK
-                intent.putExtra(EXTRA_SEEK, progress)
-                ContextCompat.startForegroundService(requireActivity(), intent)
+                audioService?.actionSeek(progress)
             }
         }
 
@@ -201,21 +192,6 @@ class SiteAudioFragment : ContentPageFragment() {
                     .centerCrop()
                     .into(binding.img)
             }
-    }
-
-    private fun playPauseAudio() {
-        val intent = Intent(requireActivity(), AudioService::class.java)
-        intent.action = AudioService.ACTION_PLAY
-        ContextCompat.startForegroundService(requireActivity(), intent)
-    }
-
-    private fun seekBy(change: Int) {
-        if (!binding.btnPlay.isEnabled) return // MediaPlayer not ready
-
-        val intent = Intent(requireActivity(), AudioService::class.java)
-        intent.action = AudioService.ACTION_SEEK
-        intent.putExtra(EXTRA_OFFSET, change)
-        ContextCompat.startForegroundService(requireActivity(), intent)
     }
 
 }
