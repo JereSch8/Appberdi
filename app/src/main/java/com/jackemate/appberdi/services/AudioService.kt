@@ -2,24 +2,32 @@ package com.jackemate.appberdi.services
 
 import android.app.Service
 import android.content.Intent
+import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.*
 import android.util.Log
-import com.jackemate.appberdi.R
+import androidx.lifecycle.LifecycleService
+import com.jackemate.appberdi.data.CacheRepository
 import com.jackemate.appberdi.data.NotifyRepository
 import com.jackemate.appberdi.data.NotifyRepository.Companion.NOTIFICATION_ID
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.toTimeString
+import kotlinx.coroutines.coroutineScope
+import kotlin.coroutines.suspendCoroutine
 
-class AudioService : Service() {
-    val mediaPlayer: MediaPlayer by lazy { MediaPlayer.create(this, R.raw.a) }
+class AudioService : LifecycleService() {
+    val mediaPlayer: MediaPlayer = MediaPlayer()
     private val binder = TourServiceBinder()
     private val notifyRepo = NotifyRepository(this)
+    private val cacheRepo = CacheRepository(this)
 
     private var content: Content.Audio? = null
 
     override fun onBind(intent: Intent): IBinder {
+        super.onBind(intent)
         return binder
     }
 
@@ -30,10 +38,11 @@ class AudioService : Service() {
     override fun onCreate() {
         super.onCreate()
         startForeground(NOTIFICATION_ID, notifyRepo.audioRunning())
-        initMediaPlayer()
+        setListeners()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
         intent ?: return START_STICKY
         when (intent.action) {
             ACTION_SELECT -> actionSelect(intent.getSerializableExtra("content") as Content.Audio)
@@ -46,9 +55,34 @@ class AudioService : Service() {
     }
 
     fun actionSelect(audio: Content.Audio) {
+        Log.i(TAG, "actionSelect: $audio")
+
+        // Si es el mismo audio, no hago nada
+        if (content?.href == audio.href) return
+
         content = audio
         notifyRepo.prepared(audio.title)
-        // todo init
+
+        // Parar lo que se esté reproduciendo y volver a empezar
+        mediaPlayer.reset()
+
+        observe(cacheRepo.get(audio)) { file ->
+            Log.i(TAG, "input file: $file")
+            val uri = Uri.fromFile(file)
+            Log.i(TAG, "input uri: $uri")
+
+            mediaPlayer.apply {
+                setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+                )
+                setDataSource(applicationContext, uri)
+                Log.i(TAG, "preparing async: $uri")
+                prepareAsync()
+            }
+        }
     }
 
     fun actionPlay() {
@@ -111,15 +145,14 @@ class AudioService : Service() {
         sendBroadcast(broadcast)
     }
 
-    private fun initMediaPlayer() {
+    private fun setListeners() {
         Log.d(TAG, "initMediaPlayer")
         mediaPlayer.apply {
-//            setDataSource()
-//            prepareAsync()
             // Evitar que el celu entre en modo hibernación mientras reproduce audio
             setWakeMode(applicationContext, PowerManager.PARTIAL_WAKE_LOCK)
             setOnPreparedListener {
-                Log.d(TAG, "setOnPreparedListener")
+                Log.i(TAG, "setOnPreparedListener")
+                broadcast()
             }
             setOnSeekCompleteListener {
                 Log.d(TAG, "setOnSeekCompleteListener")
@@ -131,8 +164,9 @@ class AudioService : Service() {
                 handler.removeCallbacks(runnable)
                 broadcast(AUDIO_STOPPED)
             }
-            setOnErrorListener { _: MediaPlayer, _: Int, _: Int ->
-                TODO("Not yet implemented")
+            setOnErrorListener { _: MediaPlayer, a: Int, b: Int ->
+                Log.e(TAG, "OnErrorListener: a: $a, b: $b")
+                true
             }
         }
     }

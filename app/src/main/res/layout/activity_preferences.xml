@@ -1,335 +1,329 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:fitsSystemWindows="false">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:fitsSystemWindows="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="16dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/containerImgUser"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            app:cardCornerRadius="90dp"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.03"
+            tools:visibility="visible">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/containerImgUser"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/avatarUser"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                app:cardCornerRadius="90dp"
-                app:cardElevation="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.05"
-                tools:visibility="gone">
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/astronaut_dog" />
+        </androidx.cardview.widget.CardView>
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/avatarUser"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/astronaut_dog" />
-            </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/nameUser"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lobstertwo_regular"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:icon="@drawable/ic_edit"
+            app:iconTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/containerImgUser" />
 
-            <Button
-                android:id="@+id/nameUser"
-                style="@style/AppWidget.IconButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/lobstertwo_regular"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                app:icon="@drawable/ic_edit"
-                app:iconTint="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/containerImgUser" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:letterSpacing="0.0333333333"
+            android:text="@string/sitios_recorridos"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/progress_site"
+            app:layout_constraintStart_toStartOf="@+id/progress_site"
+            app:layout_constraintTop_toBottomOf="@+id/progress_site" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/sitios_recorridos"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:fontFamily="@font/montserrat_regular"
-                android:textSize="12sp"
-                android:letterSpacing="0.0333333333"
-                app:layout_constraintEnd_toEndOf="@+id/progress_site"
-                app:layout_constraintStart_toStartOf="@+id/progress_site"
-                app:layout_constraintTop_toBottomOf="@+id/progress_site" />
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/progress_site"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            app:cpb_background_progressbar_color="@color/black10"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="@color/white"
+            app:cpb_progressbar_color_direction="left_to_right"
+            app:cpb_progressbar_width="12dp"
+            app:cpb_round_border="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameUser" />
 
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/progress_site"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="16dp"
-                android:padding="16dp"
-                app:cpb_background_progressbar_color="@color/black10"
-                app:cpb_background_progressbar_width="5dp"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color="@color/white"
-                app:cpb_progressbar_color_direction="left_to_right"
-                app:cpb_progressbar_width="12dp"
-                app:cpb_round_border="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameUser" />
+        <TextView
+            android:id="@+id/txtProgressSite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/lobstertwo_regular"
+            android:text="8/12"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_site"
+            app:layout_constraintEnd_toEndOf="@+id/progress_site"
+            app:layout_constraintStart_toStartOf="@+id/progress_site"
+            app:layout_constraintTop_toTopOf="@+id/progress_site"
+            app:layout_constraintVertical_bias="0.38" />
 
-            <TextView
-                android:id="@+id/txtProgressSite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/lobstertwo_regular"
-                android:text="8/12"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-                app:layout_constraintBottom_toBottomOf="@+id/progress_site"
-                app:layout_constraintEnd_toEndOf="@+id/progress_site"
-                app:layout_constraintStart_toStartOf="@+id/progress_site"
-                app:layout_constraintTop_toTopOf="@+id/progress_site"
-                app:layout_constraintVertical_bias="0.38" />
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_map_pirate"
+            app:layout_constraintEnd_toEndOf="@+id/txtProgressSite"
+            app:layout_constraintStart_toStartOf="@+id/txtProgressSite"
+            app:layout_constraintTop_toBottomOf="@+id/txtProgressSite"
+            tools:ignore="ContentDescription" />
 
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_map_pirate"
-                app:layout_constraintEnd_toEndOf="@+id/txtProgressSite"
-                app:layout_constraintStart_toStartOf="@+id/txtProgressSite"
-                app:layout_constraintTop_toBottomOf="@+id/txtProgressSite"
-                tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/titleProgressTreasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:letterSpacing="0.0333333333"
+            android:text="Tesoros encontrados"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/progress_treasure"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="@+id/progress_treasure"
+            app:layout_constraintTop_toBottomOf="@+id/progress_treasure" />
 
-            <TextView
-                android:id="@+id/titleProgressTreasure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Tesoros encontrados"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:fontFamily="@font/montserrat_regular"
-                android:textSize="12sp"
-                android:letterSpacing="0.0333333333"
-                app:layout_constraintEnd_toEndOf="@+id/progress_treasure"
-                app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintStart_toStartOf="@+id/progress_treasure"
-                app:layout_constraintTop_toBottomOf="@+id/progress_treasure" />
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/progress_treasure"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            app:cpb_background_progressbar_color="@color/black10"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#FFEB3B"
+            app:cpb_progressbar_color_direction="left_to_right"
+            app:cpb_progressbar_width="12dp"
+            app:cpb_round_border="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameUser" />
 
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/progress_treasure"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="16dp"
-                android:padding="16dp"
-                app:cpb_background_progressbar_color="@color/black10"
-                app:cpb_background_progressbar_width="5dp"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color="#FFEB3B"
-                app:cpb_progressbar_color_direction="left_to_right"
-                app:cpb_progressbar_width="12dp"
-                app:cpb_round_border="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameUser" />
+        <TextView
+            android:id="@+id/txtProgressTreasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/lobstertwo_regular"
+            android:text="14/32"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_treasure"
+            app:layout_constraintEnd_toEndOf="@+id/progress_treasure"
+            app:layout_constraintStart_toStartOf="@+id/progress_treasure"
+            app:layout_constraintTop_toTopOf="@+id/progress_treasure"
+            app:layout_constraintVertical_bias="0.38" />
 
-            <TextView
-                android:id="@+id/txtProgressTreasure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/lobstertwo_regular"
-                android:text="14/32"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-                app:layout_constraintBottom_toBottomOf="@+id/progress_treasure"
-                app:layout_constraintEnd_toEndOf="@+id/progress_treasure"
-                app:layout_constraintStart_toStartOf="@+id/progress_treasure"
-                app:layout_constraintTop_toTopOf="@+id/progress_treasure"
-                app:layout_constraintVertical_bias="0.38" />
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:rotation="25"
+            android:src="@drawable/ic_bottle"
+            app:layout_constraintEnd_toEndOf="@+id/txtProgressTreasure"
+            app:layout_constraintStart_toStartOf="@+id/txtProgressTreasure"
+            app:layout_constraintTop_toBottomOf="@+id/txtProgressTreasure"
+            tools:ignore="ContentDescription" />
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:rotation="25"
-                android:src="@drawable/ic_bottle"
-                app:layout_constraintEnd_toEndOf="@+id/txtProgressTreasure"
-                app:layout_constraintStart_toStartOf="@+id/txtProgressTreasure"
-                app:layout_constraintTop_toBottomOf="@+id/txtProgressTreasure"
-                tools:ignore="ContentDescription" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/autoPlayAudio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/reproducci_n_autom_tica_de_audio"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/autoPlayAudio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="@string/reproducci_n_autom_tica_de_audio"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/autoPlayVideo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/reproducci_n_autom_tica_de_video"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autoPlayAudio" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/autoPlayVideo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="@string/reproducci_n_autom_tica_de_video"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/autoPlayAudio" />
+        <com.jackemate.appberdi.ui.shared.TitleView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autoPlayVideo"
+            app:title="Uso de almacenamiento" />
 
-            <com.jackemate.appberdi.ui.shared.TitleView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="32dp"
-                app:title="Uso de almacenamiento"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/autoPlayVideo" />
+        <Button
+            android:id="@+id/setLimitStorage"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/l_mite_de_almacenamiento_sin_l_mite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-            <Button
-                android:id="@+id/setLimitStorage"
-                style="@style/AppWidget.IconButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="@string/l_mite_de_almacenamiento_sin_l_mite"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="@string/limit_storage"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setLimitStorage" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="@string/limit_storage"
-                android:textSize="12sp"
-                android:justificationMode="inter_word"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/setLimitStorage" />
+        <Button
+            android:id="@+id/cleanStorage"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/borrar_datos_almacenados"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-            <Button
-                android:id="@+id/cleanStorage"
-                style="@style/AppWidget.IconButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="@string/borrar_datos_almacenados"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-            <TextView
-                android:id="@+id/tvDescriptionClean"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="@string/str_clear_data"
-                android:textSize="12sp"
-                android:justificationMode="inter_word"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cleanStorage" />
+        <TextView
+            android:id="@+id/tvDescriptionClean"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="@string/str_clear_data"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cleanStorage" />
 
 
-            <com.jackemate.appberdi.ui.shared.TitleView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="32dp"
-                app:title="@string/uso_de_datos"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionClean" />
+        <com.jackemate.appberdi.ui.shared.TitleView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescriptionClean"
+            app:title="@string/uso_de_datos" />
 
-            <Button
-                android:id="@+id/setLimitMovil"
-                style="@style/AppWidget.IconButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="@string/l_mite_de_datos_sin_l_mite"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        <Button
+            android:id="@+id/setLimitMovil"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/l_mite_de_datos_sin_l_mite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="@string/limit_data"
-                android:justificationMode="inter_word"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/setLimitMovil" />
-
-
-            <Button
-                android:id="@+id/clearProgressSite"
-                style="@style/AppWidget.IconButton.Unelevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Borrar todo el progreso"
-                android:textColor="@color/white"
-                app:icon="@drawable/ic_clean_data"
-                app:iconTint="@color/white"
-                app:rippleColor="@color/black"
-                android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="@string/limit_data"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setLimitMovil" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/clearProgressSite"
+            style="@style/AppWidget.IconButton.Unelevated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Borrar todo el progreso"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_clean_data"
+            app:iconTint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:rippleColor="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -10,8 +10,7 @@ import com.jackemate.appberdi.io.BasicIO.sizeStorage
 import kotlinx.coroutines.launch
 
 class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
-    private val context = app.applicationContext
-    private val preferenceRepo = PreferenceRepository(context)
+    private val preferenceRepo = PreferenceRepository(app.applicationContext)
 
     private val _data: MutableLiveData<PreferenceData> = MutableLiveData()
     val data: LiveData<PreferenceData> = _data
@@ -21,7 +20,7 @@ class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
             username = preferenceRepo.getUserName(),
             avatar = preferenceRepo.getAvatar(),
             storageLimit = preferenceRepo.getLimitStorage(),
-            storageSize = sizeStorage(context),
+            storageSize = sizeStorage(getApplication()),
             mobilLimit = preferenceRepo.getLimitMovil(),
             siteProgress = preferenceRepo.getProgressSite()?.toFloat() ?: 0.1f,
             siteTotal = preferenceRepo.getAmountSites()?.toFloat() ?: 12f,

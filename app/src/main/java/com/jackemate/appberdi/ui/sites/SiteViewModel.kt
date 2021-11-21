@@ -16,7 +16,7 @@ import java.util.*
 
 class SiteViewModel(application: Application) : AndroidViewModel(application) {
     private val siteRepo = SiteRepository()
-    private val contentRepo = ContentRepository(application)
+    private val contentRepo = ContentRepository()
     private val localInfo = PreferenceRepository(application)
 
     fun getSite(idSite: String) = liveData {

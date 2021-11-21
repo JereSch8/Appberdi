@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
 import com.jackemate.appberdi.entities.Content
@@ -27,7 +28,6 @@ class AudioActivity : AppCompatActivity() {
             val binder = service as AudioService.TourServiceBinder
             audioService = binder.service
             binder.service.actionSelect(content)
-            binder.service.actionForce()
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {
@@ -62,9 +62,10 @@ class AudioActivity : AppCompatActivity() {
 
         // Setear el alto del playerContainer del mismo alto
         // que el scrollView, menos un pequeño offset (el alto del title)
+        // El 4 es un número mágico xD just works
         binding.scrollView.post {
             val layout = binding.playerContainer.layoutParams
-            layout.height = binding.scrollView.height - binding.title.height * 2
+            layout.height = binding.scrollView.height - binding.title.height * 4
             binding.playerContainer.layoutParams = layout
             Log.w(TAG, "set height: ${layout.height}")
         }
@@ -84,6 +85,10 @@ class AudioActivity : AppCompatActivity() {
             bindService(it, connection, Context.BIND_AUTO_CREATE)
         }
 
+        ContextCompat.startForegroundService(
+            this,
+            Intent(this, AudioService::class.java)
+        )
         audioService?.actionForce()
     }
 

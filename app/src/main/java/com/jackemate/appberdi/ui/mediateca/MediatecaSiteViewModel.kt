@@ -3,7 +3,6 @@ package com.jackemate.appberdi.ui.mediateca
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.google.firebase.firestore.ktx.toObject
 import com.jackemate.appberdi.data.ContentRepository
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.TAG
@@ -11,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MediatecaSiteViewModel(val context: Application) : AndroidViewModel(context) {
-    private val repoContent = ContentRepository(context)
+    private val repoContent = ContentRepository()
 
     private val _contents : MutableLiveData<List<Content>> = MutableLiveData()
     val contents: LiveData<List<Content>> = _contents

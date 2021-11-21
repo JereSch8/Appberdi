@@ -1,6 +1,5 @@
 package com.jackemate.appberdi.data
 
-import android.content.Context
 import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -8,13 +7,9 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.TAG
-import java.io.File
-import java.io.FileOutputStream
-import java.net.URL
 
-class ContentRepository(context: Context) {
+class ContentRepository {
     private val db = Firebase.firestore
-    private val cache = CacheRepository(context)
 
     private fun getContentWhere(idSite : String) = db.collection("contents").whereEqualTo("site",idSite)
 
@@ -28,23 +23,6 @@ class ContentRepository(context: Context) {
             else -> {
                 Log.w(TAG, "fromDoc: type desconocido: $doc")
                 null
-            }
-        }
-    }
-
-    fun persistContent(content: Content) {
-        val base = cache.getSiteStorageDir(content.site)
-
-        when (content) {
-            is Content.Audio -> {
-                download(content.href, File(base, content.type))
-            }
-        }
-    }
-    fun download(link: String, out: File) {
-        URL(link).openStream().use { input ->
-            FileOutputStream(out).use { output ->
-                input.copyTo(output)
             }
         }
     }

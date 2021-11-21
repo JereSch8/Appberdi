@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MediatecaStartViewModel(app: Application) : AndroidViewModel(app) {
-    private val repoContent = ContentRepository(app)
+    private val repoContent = ContentRepository()
 
     private val _contents : MutableLiveData<List<ContentMediateca>> = MutableLiveData()
     val contents: LiveData<List<ContentMediateca>> = _contents

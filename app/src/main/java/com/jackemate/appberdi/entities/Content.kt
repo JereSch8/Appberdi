@@ -10,24 +10,24 @@ sealed class Content(
     val idSite: String = ""
 ) : Serializable {
     data class Audio(
-        val href: String = "",
+        override val href: String = "",
         val subtitle: String = "",
         val preview: Map<String, String> = emptyMap()
-    ) : Content(
+    ) : Cacheable, Content(
         tag = "Audio"
     )
 
     data class Image(
-        val href: String = "",
+        override val href: String = "",
         val description: String = "",
-    ) : Content(
+    ) : Cacheable, Content(
         tag = "Imagen"
     )
 
     data class Gif(
-        val href: String = "",
+        override val href: String = "",
         val description: String = "",
-    ) : Content(
+    ) : Cacheable, Content(
         tag = "GIF"
     )
 
@@ -53,4 +53,9 @@ sealed class Content(
     ) : Content(
         tag = "Resumen"
     )
+
+    interface Cacheable {
+        val href: String
+        val tag: String
+    }
 }
