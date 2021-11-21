@@ -22,7 +22,9 @@
         <item name="android:ambientShadowAlpha">0.02</item>
         <item name="android:spotShadowAlpha">0.06</item>
 
+        <!-- Customizing Material Design-->
         <item name="chipStyle">@style/Widget.App.Chip</item>
+        <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -33,16 +35,4 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="TextAppearance.App.Chip" parent="TextAppearance.MaterialComponents.Chip">
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/montserrat_medium</item>
-    </style>
-
-    <style name="Widget.App.Chip" parent="Widget.MaterialComponents.Chip.Filter">
-        <item name="checkedIconTint">@color/white</item>
-        <item name="chipBackgroundColor">@color/chip_background</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="chipSurfaceColor">@android:color/transparent</item>
-        <item name="android:textAppearance">@style/TextAppearance.App.Chip</item>
-    </style>
 </resources>

@@ -1,74 +1,73 @@
 package com.jackemate.appberdi.ui.shared.dialogs
 
 import android.app.Activity
-import android.widget.Button
-import android.widget.CheckBox
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.CacheRepository
 import com.jackemate.appberdi.databinding.DialogClearstorageBinding
-import com.jackemate.appberdi.io.BasicIO
+import com.jackemate.appberdi.databinding.ItemClearStorageBinding
+import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.ui.shared.DialogBuilder
-import com.jackemate.appberdi.utils.toInt
-import com.jackemate.appberdi.utils.toRoundString
 
 class DialogClearStorage(val activity: Activity) : DialogBuilder(activity) {
     override val binding = DialogClearstorageBinding.inflate(inflater)
     private val cacheRepo = CacheRepository(activity)
 
-    private var space = 0.0
-    private val sizeIMG = cacheRepo.sizeOf("Imagen")
-    private val sizeVIDEO = cacheRepo.sizeOf("Vídeo")
-    private val sizeAUDIO = cacheRepo.sizeOf("Audio")
+    class Option(val tag: String, var size: Double = 0.0, var isChecked: Boolean = false)
+
+    private val options = listOf(
+        Option(Content.TAG_AUDIO),
+        Option(Content.TAG_IMG),
+        Option(Content.TAG_GIF)
+    )
 
     init {
-        init()
-        initListeners()
+        options.forEach { item ->
+            item.size = cacheRepo.sizeOf(item.tag)
+            binding.options.addView(buildOptionView(item).root)
+        }
+        initButton()
+        updateFinishMessage()
     }
 
-    private fun init() {
-        binding.title.text =
-            "Selecciona el tipo de contenido que desea eliminar para liberar espacio."
-        binding.selectIMG.text = "Eliminar imagenes  ${sizeIMG.toRoundString()} MB."
-        binding.selectVIDEO.text = "Eliminar videos  ${sizeVIDEO.toRoundString()} MB."
-        binding.selectAUDIO.text = "Eliminar audios  ${sizeAUDIO.toRoundString()} MB."
-        binding.button.text = "Eliminar ${space.toRoundString()} MB"
-
+    private fun initButton() {
         binding.button.setOnClickListener {
-            if (isCheckIMG()) cacheRepo.clear("Imagen")
-            if (isCheckVIDEO()) cacheRepo.clear("Vídeo")
-            if (isCheckAUDIO()) cacheRepo.clear("Audio")
+            options.forEach {
+                if (it.isChecked)
+                    cacheRepo.clear(it.tag)
+            }
             dismiss()
         }
     }
 
-    private fun initListeners() {
-        getCBimg().setOnCheckedChangeListener { _, isChecked ->
-            space += isChecked.toInt() * sizeIMG
+    private fun buildOptionView(item: Option): ItemClearStorageBinding {
+        val option = ItemClearStorageBinding.inflate(inflater)
+        option.startText.text = item.tag
+        option.endText.text = context.getString(R.string.unit_mb, item.size)
+
+        option.root.setOnClickListener {
+            item.isChecked = !option.checkbox.isChecked
+            option.checkbox.isChecked = item.isChecked
             updateFinishMessage()
         }
-        getCBvideo().setOnCheckedChangeListener { _, isChecked ->
-            space += isChecked.toInt() * sizeVIDEO
+
+        option.checkbox.setOnClickListener {
+            item.isChecked = option.checkbox.isChecked
             updateFinishMessage()
         }
-        getCBaudio().setOnCheckedChangeListener { _, isChecked ->
-            space += isChecked.toInt() * sizeAUDIO
-            updateFinishMessage()
-        }
+        return option
     }
 
     private fun updateFinishMessage() {
-        binding.finishMessage.text =
-            "${space.toRoundString()}MB serán eliminados. Perderas los contenidos y deberás volver a descargarlos"
-        binding.button.text = "Eliminar ${space.toRoundString()} MB"
+        binding.button.isEnabled = options.any { it.isChecked }
+
+        val size = getSizeToClear()
+        binding.finishMessage.text = context.getString(R.string.clear_finish_text, size)
+        binding.button.text = context.getString(R.string.clear_button, size)
     }
 
-    private fun isCheckIMG(): Boolean = binding.selectIMG.isChecked
-    private fun isCheckVIDEO(): Boolean = binding.selectVIDEO.isChecked
-    private fun isCheckAUDIO(): Boolean = binding.selectAUDIO.isChecked
-
-    private fun getCBimg(): CheckBox = binding.selectIMG
-    private fun getCBvideo(): CheckBox = binding.selectVIDEO
-    private fun getCBaudio(): CheckBox = binding.selectAUDIO
+    private fun getSizeToClear() = options.fold(0.0) { acc, option ->
+        if (option.isChecked) acc + option.size else acc
+    }
 
     override fun setAnimation(rawRes: Int) = this.also { binding.animation.setAnimation(rawRes) }
-
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent">
@@ -39,75 +40,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/clear_title"
+        android:textAlignment="center"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header">
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <LinearLayout
+        android:id="@+id/options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
 
         <View
             android:layout_width="600dp"
             android:layout_height="0dp" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/montserrat_medium"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
-
-        <CheckBox
-            android:id="@+id/selectIMG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/eliminar_imagenes"
-            android:paddingHorizontal="8dp"
-            android:textColor="@color/white"
-            />
-        <CheckBox
-            android:id="@+id/selectVIDEO"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/eliminar_videos"
-            android:paddingHorizontal="8dp"
-            android:textColor="@color/white"
-            />
-        <CheckBox
-            android:id="@+id/selectAUDIO"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/eliminar_audios"
-            android:paddingHorizontal="8dp"
-            android:textColor="@color/white"
-            />
-
-        <TextView
-            android:id="@+id/finishMessage"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/_0_00_mb_ser_n_eliminados_perderas_los_contenidos_y_deber_s_volver_a_descargarlos"
-            />
-
-        <Button
-            android:id="@+id/button"
-            style="@style/AppWidget.IconButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/guardar"
-            android:visibility="visible" />
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/finishMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:text="@string/clear_finish_text"
+        app:layout_constraintTop_toBottomOf="@+id/options" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/AppWidget.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guardar"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/finishMessage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

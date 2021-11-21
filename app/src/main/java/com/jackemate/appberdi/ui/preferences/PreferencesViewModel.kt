@@ -5,12 +5,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.jackemate.appberdi.data.CacheRepository
 import com.jackemate.appberdi.data.PreferenceRepository
-import com.jackemate.appberdi.io.BasicIO.sizeStorage
+import com.jackemate.appberdi.entities.Content
 import kotlinx.coroutines.launch
 
 class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
     private val preferenceRepo = PreferenceRepository(app.applicationContext)
+    private val cacheRepo = CacheRepository(app.applicationContext)
 
     private val _data: MutableLiveData<PreferenceData> = MutableLiveData()
     val data: LiveData<PreferenceData> = _data
@@ -20,7 +22,7 @@ class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
             username = preferenceRepo.getUserName(),
             avatar = preferenceRepo.getAvatar(),
             storageLimit = preferenceRepo.getLimitStorage(),
-            storageSize = sizeStorage(getApplication()),
+            storageSize = getStorageSize(),
             mobilLimit = preferenceRepo.getLimitMovil(),
             siteProgress = preferenceRepo.getProgressSite()?.toFloat() ?: 0.1f,
             siteTotal = preferenceRepo.getAmountSites()?.toFloat() ?: 12f,
@@ -30,6 +32,9 @@ class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
             autoPlayVideo = preferenceRepo.getAutoPlayVideo()
         )
     }
+
+    private fun getStorageSize() = cacheRepo.sizeOf(Content.TAG_IMG) +
+            cacheRepo.sizeOf(Content.TAG_AUDIO)
 
     fun setName(name: String) = preferenceRepo.setUserName(name)
     fun setLimitStorage(limit: Int) = preferenceRepo.setLimitStorage(limit)

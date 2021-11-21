@@ -32,7 +32,7 @@ class PreferencesActivity : AppCompatActivity() {
 
                 setLimitStorage.text = "Límite de almacenamiento: ${data.storageLimit} MB."
                 setLimitMovil.text = "Límite de datos: ${data.mobilLimit} MB."
-                cleanStorage.text = "Borrar datos almacenados: ${data.storageSize} MB."
+                cleanStorage.text = getString(R.string.borrar_datos_almacenados, data.storageSize)
 
                 progressSite.apply {
                     setProgressWithAnimation(data.siteProgress, 3000) // =3s
