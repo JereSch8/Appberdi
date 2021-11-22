@@ -8,6 +8,7 @@ import com.jackemate.appberdi.entities.Content
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import java.io.File
 
 
@@ -38,6 +39,7 @@ class CacheRepository(private val context: Context) {
 
     fun get(content: Content.Cacheable) = liveData(Dispatchers.IO) {
         val diskCache = getCacheFileFor(content)
+//        delay(5000)
         if (diskCache.exists()) {
             Log.i(TAG, "Returning ${content.tag} from disk cache")
             emit(diskCache)

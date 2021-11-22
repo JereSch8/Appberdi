@@ -1,6 +1,5 @@
 package com.jackemate.appberdi.services
 
-import android.app.Service
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
@@ -15,8 +14,6 @@ import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.toTimeString
-import kotlinx.coroutines.coroutineScope
-import kotlin.coroutines.suspendCoroutine
 
 class AudioService : LifecycleService() {
     val mediaPlayer: MediaPlayer = MediaPlayer()
@@ -58,13 +55,17 @@ class AudioService : LifecycleService() {
         Log.i(TAG, "actionSelect: $audio")
 
         // Si es el mismo audio, no hago nada
-        if (content?.href == audio.href) return
+        if (content?.href == audio.href) {
+            broadcast()
+            return
+        }
 
         content = audio
-        notifyRepo.prepared(audio.title)
+        notifyRepo.audioRunning()
 
         // Parar lo que se esté reproduciendo y volver a empezar
         mediaPlayer.reset()
+        broadcast(AUDIO_PREPARING)
 
         observe(cacheRepo.get(audio)) { file ->
             Log.i(TAG, "input file: $file")
@@ -152,7 +153,7 @@ class AudioService : LifecycleService() {
             setWakeMode(applicationContext, PowerManager.PARTIAL_WAKE_LOCK)
             setOnPreparedListener {
                 Log.i(TAG, "setOnPreparedListener")
-                broadcast()
+                broadcast(AUDIO_READY)
             }
             setOnSeekCompleteListener {
                 Log.d(TAG, "setOnSeekCompleteListener")
@@ -192,15 +193,17 @@ class AudioService : LifecycleService() {
         const val ACTION_SEEK = "com.jackemate.appberdi.action.SEEK"
         const val ACTION_SEEK_BY = "com.jackemate.appberdi.action.SEEK_BY"
         const val ACTION_FORCE = "com.jackemate.appberdi.action.FORCE"
-        const val BROADCAST_UPDATES = "com.jackemate.TourService.STATUS"
 
         const val EXTRA_OFFSET = "offset"
         const val EXTRA_POSITION = "seek"
 
+        const val BROADCAST_UPDATES = "com.jackemate.TourService.STATUS"
         const val BROAD_PROGRESS_UPDATE = "com.jackemate.appberdi.action.PROGRESS"
-        const val AUDIO_READY = 0 // TODO
-        const val AUDIO_PLAYING = 1
-        const val AUDIO_PAUSED = 2
-        const val AUDIO_STOPPED = 3
+
+        const val AUDIO_PREPARING = 0 // todo
+        const val AUDIO_READY = 1 // TODO
+        const val AUDIO_PLAYING = 2
+        const val AUDIO_PAUSED = 3
+        const val AUDIO_STOPPED = 4
     }
 }

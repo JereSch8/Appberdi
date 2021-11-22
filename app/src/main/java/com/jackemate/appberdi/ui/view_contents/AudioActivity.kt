@@ -1,7 +1,6 @@
 package com.jackemate.appberdi.ui.view_contents
 
 import android.content.*
-import android.media.MediaPlayer
 import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +10,7 @@ import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.services.AudioService
 import com.jackemate.appberdi.ui.sites.ARG_CONTENT
-import com.jackemate.appberdi.ui.sites.ARG_ID_SITE
 import com.jackemate.appberdi.utils.*
-import java.util.concurrent.TimeUnit
 
 class AudioActivity : AppCompatActivity() {
 
@@ -62,10 +59,10 @@ class AudioActivity : AppCompatActivity() {
 
         // Setear el alto del playerContainer del mismo alto
         // que el scrollView, menos un pequeño offset (el alto del title)
-        // El 4 es un número mágico xD just works
+        // El último es un número que se multiplica es mágico xD just works
         binding.scrollView.post {
             val layout = binding.playerContainer.layoutParams
-            layout.height = binding.scrollView.height - binding.title.height * 4
+            layout.height = binding.scrollView.height - binding.title.height * 5
             binding.playerContainer.layoutParams = layout
             Log.w(TAG, "set height: ${layout.height}")
         }
@@ -89,7 +86,6 @@ class AudioActivity : AppCompatActivity() {
             this,
             Intent(this, AudioService::class.java)
         )
-        audioService?.actionForce()
     }
 
     override fun onPause() {
@@ -134,6 +130,9 @@ class AudioActivity : AppCompatActivity() {
     }
 
     fun updateUI(status: Int, time: Int, duration: Int) {
+        binding.sbProgress.invisible(status == AudioService.AUDIO_PREPARING)
+        binding.loading.invisible(status != AudioService.AUDIO_PREPARING)
+
         binding.sbProgress.max = duration
         binding.sbProgress.progress = time
         binding.tvCurrentAudio.text = time.toTimeString()
