@@ -35,12 +35,20 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/filters"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            app:singleSelection="false" />
+            android:scrollbarSize="0dp"
+            >
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                app:singleSelection="false" />
+
+        </HorizontalScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -49,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_mediateca_site"/>
+        tools:listitem="@layout/item_mediateca_site" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation"
