@@ -7,20 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
+import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.services.AudioService
-import com.jackemate.appberdi.services.AudioService.Companion.AUDIO_PLAYING
-import com.jackemate.appberdi.services.AudioService.Companion.BROADCAST_UPDATES
-import com.jackemate.appberdi.services.AudioService.Companion.BROAD_PROGRESS_UPDATE
-import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_OFFSET
-import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_POSITION
+import com.jackemate.appberdi.services.AudioService.Companion.AUDIO_UPDATES
 import com.jackemate.appberdi.ui.sites.ContentPageFragment
 import com.jackemate.appberdi.utils.*
-
 
 class SiteAudioFragment : ContentPageFragment() {
     private lateinit var binding: SiteAudioFragmentBinding
@@ -47,9 +42,9 @@ class SiteAudioFragment : ContentPageFragment() {
         override fun onReceive(context: Context, intent: Intent) {
             Log.v(TAG, "Action: ${intent.action}}")
 
-            if (intent.action == BROAD_PROGRESS_UPDATE) {
+            if (intent.action == AUDIO_UPDATES) {
                 val time = intent.getIntExtra("time", 0)
-                val status = intent.getIntExtra("status", 0)
+                val status = intent.getEnumExtra<AudioStatus>()
                 val duration = intent.getIntExtra("duration", 0)
                 updateUI(status, time, duration)
             }
@@ -58,11 +53,7 @@ class SiteAudioFragment : ContentPageFragment() {
 
     override fun onResume() {
         super.onResume()
-        requireActivity().registerReceiver(receiver,
-            IntentFilter(BROADCAST_UPDATES).apply {
-                addAction(BROAD_PROGRESS_UPDATE)
-            }
-        )
+        requireActivity().registerReceiver(receiver, IntentFilter(AUDIO_UPDATES))
 
         Intent(requireActivity(), AudioService::class.java).also { intent ->
             requireActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE)
@@ -150,14 +141,14 @@ class SiteAudioFragment : ContentPageFragment() {
         binding.sbProgress.visible(true)
     }
 
-    fun updateUI(status: Int, time: Int, duration: Int) {
+    fun updateUI(status: AudioStatus, time: Int, duration: Int) {
         binding.sbProgress.max = duration
         binding.sbProgress.progress = time
         binding.tvCurrentAudio.text = time.toTimeString()
         binding.tvDurationAudio.text = duration.toTimeString()
 
         binding.btnPlay.setImageResource(
-            if (status == AUDIO_PLAYING) R.drawable.ic_pause
+            if (status == AudioStatus.PLAYING) R.drawable.ic_pause
             else R.drawable.ic_play_circle
         )
         updatePreview(time.toTimeString())

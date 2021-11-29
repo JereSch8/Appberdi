@@ -5,6 +5,6 @@ import java.io.Serializable
 
 sealed class TourMode: Serializable {
     object Thinking: TourMode()
-    class Navigating(val best: SiteMarker, val distance: Int) : TourMode()
-    class Selected(val site: SiteMarker, val distance: Int?) : TourMode()
+    data class Navigating(val best: SiteMarker, val distance: Int) : TourMode()
+    data class Selected(val site: SiteMarker, val distance: Int?) : TourMode()
 }

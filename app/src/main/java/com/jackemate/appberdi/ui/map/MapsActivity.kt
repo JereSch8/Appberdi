@@ -42,7 +42,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
     inner class TrackingBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-            Log.i(TAG, "Action: ${intent.action}}")
+            Log.i(TAG, intent.pretty())
 
             val pos = intent.getParcelableExtra<LatLng>("pos")
             val mode = intent.getSerializableExtra("mode") as TourMode
@@ -75,7 +75,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         super.onResume()
         Log.d(TAG, "onResume")
         viewModel.updateSites()
-        registerReceiver(receiver, IntentFilter(TrackingService.TRACKING_UPDATE))
+        registerReceiver(receiver, IntentFilter(TrackingService.TRACKING_UPDATES))
 
         ContextCompat.startForegroundService(this,
             Intent(this, TrackingService::class.java)

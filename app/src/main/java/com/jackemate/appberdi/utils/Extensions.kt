@@ -3,6 +3,7 @@ package com.jackemate.appberdi.utils
 import android.Manifest
 import android.app.Activity
 import android.app.ActivityManager
+import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -58,6 +59,30 @@ fun Context.isServiceRunning(serviceClass: Class<*>): Boolean {
     return false
 }
 
+fun Intent.pretty() =
+    " \nAction=$action\nExtras=[${extras?.keySet()?.joinToString { "$it=${extras!!.get(it)}" }}]"
+
+fun Intent.toPendingIntent(context: Context): PendingIntent {
+    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+    return PendingIntent.getActivity(
+        context,
+        System.currentTimeMillis().toInt(),
+        this,
+        0
+    )
+}
+
+// https://stackoverflow.com/a/9753178
+inline fun <reified T : Enum<T>> Intent.putExtra(victim: T): Intent =
+    putExtra(T::class.java.name, victim.ordinal)
+
+inline fun <reified T: Enum<T>> Intent.getEnumExtra(): T =
+    getIntExtra(T::class.java.name, -1)
+        .takeUnless { it == -1 }
+        ?.let { T::class.java.enumConstants!![it] }!!
+// https://stackoverflow.com/a/9753178
+
+
 fun View.visible(show: Boolean) {
     visibility = if (show) View.VISIBLE else View.GONE
 }
@@ -69,7 +94,6 @@ fun View.invisible(isInvisible: Boolean) {
 inline fun <T> LifecycleOwner.observe(liveData: LiveData<T>, crossinline body: (T) -> Unit) {
     liveData.observe(this, { body.invoke(it) })
 }
-
 
 fun Activity.transparentStatusBar() {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {

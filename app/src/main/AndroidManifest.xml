@@ -34,9 +34,10 @@
             android:value="AIzaSyAMoZ4t6dtiy1oaVAwl7GOFAs6B5gFebBc" />
 
         <receiver android:name=".services.GeofenceBroadcastReceiver" />
-        <receiver android:name=".services.TourNotificationsReceiver" android:exported="false">
+        <receiver android:name=".services.NotificationsReceiver" android:exported="false">
             <intent-filter>
-                <action android:name="comjackemateappberdiactionTRACKING" />
+                <action android:name="com.jackemate.appberdi.tracking.broadcast" />
+                <action android:name="com.jackemate.appberdi.audio.broadcast" />
             </intent-filter>
         </receiver>
 

@@ -1,14 +1,18 @@
 package com.jackemate.appberdi.ui.view_contents
 
 import android.content.*
-import android.os.*
+import android.os.Bundle
+import android.os.IBinder
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
+import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.services.AudioService
+import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_DURATION
+import com.jackemate.appberdi.services.AudioService.Companion.EXTRA_TIME
 import com.jackemate.appberdi.ui.sites.ARG_CONTENT
 import com.jackemate.appberdi.utils.*
 
@@ -37,10 +41,10 @@ class AudioActivity : AppCompatActivity() {
         override fun onReceive(context: Context, intent: Intent) {
             Log.v(TAG, "Action: ${intent.action}}")
 
-            if (intent.action == AudioService.BROAD_PROGRESS_UPDATE) {
-                val time = intent.getIntExtra("time", 0)
-                val status = intent.getIntExtra("status", 0)
-                val duration = intent.getIntExtra("duration", 0)
+            if (intent.action == AudioService.AUDIO_UPDATES) {
+                val time = intent.getIntExtra(EXTRA_TIME, 0)
+                val status = intent.getEnumExtra<AudioStatus>()
+                val duration = intent.getIntExtra(EXTRA_DURATION, 0)
                 updateUI(status, time, duration)
             }
         }
@@ -72,11 +76,7 @@ class AudioActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        registerReceiver(receiver,
-            IntentFilter(AudioService.BROADCAST_UPDATES).apply {
-                addAction(AudioService.BROAD_PROGRESS_UPDATE)
-            }
-        )
+        registerReceiver(receiver, IntentFilter(AudioService.AUDIO_UPDATES))
 
         Intent(this, AudioService::class.java).also {
             bindService(it, connection, Context.BIND_AUTO_CREATE)
@@ -129,9 +129,9 @@ class AudioActivity : AppCompatActivity() {
         }
     }
 
-    fun updateUI(status: Int, time: Int, duration: Int) {
-        binding.sbProgress.invisible(status == AudioService.AUDIO_PREPARING)
-        binding.loading.invisible(status != AudioService.AUDIO_PREPARING)
+    fun updateUI(status: AudioStatus, time: Int, duration: Int) {
+        binding.sbProgress.invisible(status == AudioStatus.PREPARING)
+        binding.loading.invisible(status != AudioStatus.PREPARING)
 
         binding.sbProgress.max = duration
         binding.sbProgress.progress = time
@@ -139,7 +139,7 @@ class AudioActivity : AppCompatActivity() {
         binding.tvDurationAudio.text = duration.toTimeString()
 
         binding.btnPlay.setImageResource(
-            if (status == AudioService.AUDIO_PLAYING) R.drawable.ic_pause
+            if (status == AudioStatus.PLAYING) R.drawable.ic_pause
             else R.drawable.ic_play_circle
         )
     }

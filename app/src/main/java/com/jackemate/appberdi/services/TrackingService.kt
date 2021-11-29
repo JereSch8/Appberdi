@@ -57,18 +57,21 @@ class TrackingService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+
         Log.d(TAG, "onCreate")
         notifyRepo = NotifyRepository(this)
         siteRepo = SiteRepository()
         preferenceRepo = PreferenceRepository(this)
-        startForeground(NotifyRepository.NOTIFICATION_ID, notifyRepo.tourRunning())
+        startForeground(NotifyRepository.NOTIFICATION_ID, notifyRepo.foreground())
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         startLocationUpdates()
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        startForeground(NotifyRepository.NOTIFICATION_ID, notifyRepo.foreground())
         Log.d(TAG, "onStartCommand")
+
         initSites()
         when (intent.action) {
             ACTION_FORCE -> doUpdate()
@@ -168,9 +171,9 @@ class TrackingService : Service() {
 
     private fun broadcast() {
         val broadcast = Intent()
-        broadcast.action = TRACKING_UPDATE
-        broadcast.putExtra("pos", currentPos)
-        broadcast.putExtra("mode", currentMode)
+        broadcast.action = TRACKING_UPDATES
+        broadcast.putExtra(EXTRA_UPDATE_POS, currentPos)
+        broadcast.putExtra(EXTRA_UPDATE_MODE, currentMode)
         broadcast.setPackage("com.jackemate.appberdi")
         sendBroadcast(broadcast)
     }
@@ -191,10 +194,14 @@ class TrackingService : Service() {
     }
 
     companion object {
-        const val TRACKING_UPDATE = "comjackemateappberdiactionTRACKING"
-        const val ACTION_FORCE = "TRACKING_FORCE_UPDATE"
-        const val ACTION_SELECT = "TRACKING_SELECT_SITE"
-        const val ACTION_NAVIGATE = "TRACKING_NAVIGATE"
+        const val TRACKING_UPDATES = "com.jackemate.appberdi.tracking.broadcast"
+        const val EXTRA_UPDATE_POS = "pos"
+        const val EXTRA_UPDATE_MODE = "mode"
+
+
+        const val ACTION_FORCE = "com.jackemate.appberdi.tracking.action.UPDATE"
+        const val ACTION_SELECT = "com.jackemate.appberdi.tracking.action.SELECT"
+        const val ACTION_NAVIGATE = "com.jackemate.appberdi.tracking.action.NAVIGATE"
 
         const val EXTRA_SITE = "site"
     }
