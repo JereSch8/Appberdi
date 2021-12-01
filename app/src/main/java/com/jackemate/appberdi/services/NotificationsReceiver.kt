@@ -9,8 +9,8 @@ import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.entities.TourMode
 import com.jackemate.appberdi.ui.map.MapsActivity
-import com.jackemate.appberdi.ui.sites.ARG_CONTENT
-import com.jackemate.appberdi.ui.view_contents.AudioActivity
+import com.jackemate.appberdi.ui.shared.contents.ARG_CONTENT
+import com.jackemate.appberdi.ui.shared.contents.activities.AudioActivity
 import com.jackemate.appberdi.utils.*
 
 class NotificationsReceiver : BroadcastReceiver() {

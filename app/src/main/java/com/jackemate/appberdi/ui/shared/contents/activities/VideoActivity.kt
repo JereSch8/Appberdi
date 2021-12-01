@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.view_contents
+package com.jackemate.appberdi.ui.shared.contents.activities
 
 import android.content.ActivityNotFoundException
 import android.content.Intent

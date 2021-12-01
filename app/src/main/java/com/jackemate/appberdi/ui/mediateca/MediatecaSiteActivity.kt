@@ -11,10 +11,10 @@ import com.google.android.material.chip.Chip
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaSiteBinding
 import com.jackemate.appberdi.entities.Content
-import com.jackemate.appberdi.ui.sites.ARG_CONTENT
-import com.jackemate.appberdi.ui.view_contents.AudioActivity
-import com.jackemate.appberdi.ui.view_contents.ImageActivity
-import com.jackemate.appberdi.ui.view_contents.VideoActivity
+import com.jackemate.appberdi.ui.shared.contents.ARG_CONTENT
+import com.jackemate.appberdi.ui.shared.contents.activities.AudioActivity
+import com.jackemate.appberdi.ui.shared.contents.activities.ImageActivity
+import com.jackemate.appberdi.ui.shared.contents.activities.VideoActivity
 import com.jackemate.appberdi.utils.IntentName
 import com.jackemate.appberdi.utils.transparentStatusBar
 
@@ -104,13 +104,11 @@ class MediatecaSiteActivity : AppCompatActivity() {
 
     private fun onMultimediaClick(multimedia: Content) {
         when (multimedia) {
-            is Content.Image -> {
-                val intent = Intent(this, ImageActivity::class.java)
-                intent.putExtra(IntentName.TITLE, multimedia.title)
-                intent.putExtra(IntentName.DESCRIPTION, multimedia.description)
-                intent.putExtra(IntentName.HREF, multimedia.href)
-                startActivity(intent)
-            }
+            is Content.Image -> startActivity(
+                Intent(this, ImageActivity::class.java).apply {
+                    putExtra(ARG_CONTENT, multimedia)
+                }
+            )
             is Content.Gif -> Toast.makeText(
                 baseContext,
                 "Es un gif ${multimedia.site}",
@@ -131,13 +129,11 @@ class MediatecaSiteActivity : AppCompatActivity() {
                 intent.putExtra(IntentName.HREF, IntentName.NON_VALUE)
                 startActivity(intent)
             }
-            is Content.Audio -> {
-                val intent = Intent(this, AudioActivity::class.java)
-                intent.putExtra(ARG_CONTENT, multimedia)
-                startActivity(intent)
-            }
-            else -> {
-            }
+            is Content.Audio -> startActivity(
+                Intent(this, AudioActivity::class.java).apply {
+                    putExtra(ARG_CONTENT, multimedia)
+                }
+            )
         }
     }
 }

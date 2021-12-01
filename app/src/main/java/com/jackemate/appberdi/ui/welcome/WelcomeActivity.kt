@@ -44,10 +44,10 @@ class WelcomeActivity : AppCompatActivity() {
                 .setInputTypeText()
                 .setText("¿Cómo querés que te llamemos?")
                 .setInputListener { dialog, input ->
-                    dialog.setButtonEnabled(input.length in 3..15)
+                    dialog.setButtonEnabled(input.trim().length in 1..15)
                 }
                 .setButtonListener { dialog ->
-                    val name: String = dialog.getInput()
+                    val name: String = dialog.getInput().trim()
                     PreferenceRepository(this).setUserName(name)
                     PreferenceRepository(this).setFirstUsage()
                     dialog.cancel()

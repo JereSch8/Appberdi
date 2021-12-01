@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.sites
+package com.jackemate.appberdi.ui.shared.contents
 
 import android.os.Bundle
 import android.view.View
@@ -10,14 +10,14 @@ const val ARG_ID_SITE = "idSite"
 
 open class ContentPageFragment : Fragment() {
     lateinit var content: Content
-    lateinit var idSite: String
+    var idSite: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        content = arguments?.getSerializable(ARG_CONTENT) as Content?
+        content = requireArguments().getSerializable(ARG_CONTENT) as Content?
             ?: throw Exception("No argument ARG_CONTENT")
 
-        idSite = arguments?.getSerializable(ARG_ID_SITE) as String?
-            ?: throw Exception("No argument ARG_ID_SITE")
+        idSite = requireArguments().getSerializable(ARG_ID_SITE) as String?
+//            ?: throw Exception("No argument ARG_ID_SITE")
     }
 }

@@ -77,9 +77,9 @@
             android:name=".ui.about.AboutActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.mediateca.MediatecaStart" />
-        <activity android:name=".ui.view_contents.ImageActivity" />
-        <activity android:name=".ui.view_contents.VideoActivity" />
-        <activity android:name=".ui.view_contents.AudioActivity" />
+        <activity android:name=".ui.shared.contents.activities.ImageActivity" />
+        <activity android:name=".ui.shared.contents.activities.VideoActivity" />
+        <activity android:name=".ui.shared.contents.activities.AudioActivity" />
         <service
             android:name="com.jackemate.appberdi.services.AudioService"
             android:exported="false" />

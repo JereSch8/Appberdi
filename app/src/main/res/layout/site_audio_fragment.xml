@@ -26,6 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
                 app:cardPreventCornerOverlap="false"
@@ -62,9 +63,9 @@
                 android:id="@+id/loading"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:foregroundGravity="center"
                 android:indeterminate="true"
                 app:indicatorColor="@color/white"
-                android:foregroundGravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/sb_progress"
                 app:layout_constraintEnd_toEndOf="@+id/sb_progress"
                 app:layout_constraintStart_toStartOf="@+id/sb_progress"
@@ -104,34 +105,38 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_currentAudio"
                 tools:text="30:00m" />
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_play"
+                style="@style/AppWidget.IconOnly"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:icon="@drawable/ic_pause"
+                app:iconTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:rippleColor="@color/black10" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_rewind"
                 style="@style/AppWidget.IconOnly"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/ic_pause"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <ImageButton
-                android:id="@+id/btn_rewind"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/ic_rewind"
-                android:backgroundTint="@color/white"
+                android:layout_marginStart="32dp"
+                app:icon="@drawable/ic_rewind"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_play"
                 app:layout_constraintEnd_toStartOf="@+id/btn_play"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btn_play"
                 app:layout_constraintVertical_bias="0.5" />
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_forward"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/ic_forward"
-                android:backgroundTint="@color/white"
+                style="@style/AppWidget.IconOnly"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="32dp"
+                app:icon="@drawable/ic_forward"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_play"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_play"

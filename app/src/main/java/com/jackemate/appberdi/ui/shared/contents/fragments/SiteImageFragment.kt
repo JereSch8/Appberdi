@@ -1,24 +1,20 @@
-package com.jackemate.appberdi.ui.sites.contents
+package com.jackemate.appberdi.ui.shared.contents.fragments
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteImageFragmentBinding
 import com.jackemate.appberdi.entities.Content
-import com.jackemate.appberdi.ui.sites.ContentPageFragment
-import com.jackemate.appberdi.ui.sites.SiteViewModel
+import com.jackemate.appberdi.ui.shared.contents.ContentPageFragment
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.share
 
-
 class SiteImageFragment : ContentPageFragment() {
 
-    private val viewModel: SiteViewModel by viewModels()
     private lateinit var binding: SiteImageFragmentBinding
 
     override fun onCreateView(

@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.sites.contents
+package com.jackemate.appberdi.ui.shared.contents.fragments
 
 import android.content.*
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteAudioFragmentBinding
@@ -14,7 +15,7 @@ import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.services.AudioService
 import com.jackemate.appberdi.services.AudioService.Companion.AUDIO_UPDATES
-import com.jackemate.appberdi.ui.sites.ContentPageFragment
+import com.jackemate.appberdi.ui.shared.contents.ContentPageFragment
 import com.jackemate.appberdi.utils.*
 
 class SiteAudioFragment : ContentPageFragment() {
@@ -29,7 +30,6 @@ class SiteAudioFragment : ContentPageFragment() {
             val binder = service as AudioService.TourServiceBinder
             audioService = binder.service
             binder.service.actionSelect(content as Content.Audio)
-            binder.service.actionForce()
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {
@@ -40,7 +40,7 @@ class SiteAudioFragment : ContentPageFragment() {
     inner class AudioBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-            Log.v(TAG, "Action: ${intent.action}}")
+            Log.v(TAG, intent.pretty())
 
             if (intent.action == AUDIO_UPDATES) {
                 val time = intent.getIntExtra("time", 0)
@@ -49,24 +49,6 @@ class SiteAudioFragment : ContentPageFragment() {
                 updateUI(status, time, duration)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        requireActivity().registerReceiver(receiver, IntentFilter(AUDIO_UPDATES))
-
-        Intent(requireActivity(), AudioService::class.java).also { intent ->
-            requireActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE)
-        }
-
-        audioService?.actionForce()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        requireActivity().unbindService(connection)
-        audioService = null
-        requireActivity().unregisterReceiver(receiver)
     }
 
     override fun onCreateView(
@@ -88,13 +70,30 @@ class SiteAudioFragment : ContentPageFragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().registerReceiver(receiver, IntentFilter(AUDIO_UPDATES))
+
+        Intent(requireActivity(), AudioService::class.java).also { intent ->
+            requireActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
+
+        ContextCompat.startForegroundService(
+            requireActivity(),
+            Intent(requireActivity(), AudioService::class.java)
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().unbindService(connection)
+        audioService = null
+        requireActivity().unregisterReceiver(receiver)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val c = content
-        if (c is Content.Audio) {
-            initAudio(c)
-        }
+        initAudio(content as Content.Audio)
     }
 
     private fun initAudio(content: Content.Audio) {
@@ -107,7 +106,7 @@ class SiteAudioFragment : ContentPageFragment() {
             share(content.title, content.href)
         }
 
-        binding.btnPlay.setImageResource(R.drawable.ic_play_circle)
+        binding.btnPlay.setIconResource(R.drawable.ic_play_circle)
         binding.btnPlay.setOnClickListener {
             audioService?.actionPlay()
         }
@@ -134,20 +133,20 @@ class SiteAudioFragment : ContentPageFragment() {
         updatePreview("00:00")
     }
 
-    private fun onMediaPlayerPrepared() {
-        binding.btnPlay.isEnabled = true
-        binding.btnRewind.visible(true)
-        binding.btnForward.visible(true)
-        binding.sbProgress.visible(true)
-    }
-
     fun updateUI(status: AudioStatus, time: Int, duration: Int) {
+        binding.sbProgress.invisible(status == AudioStatus.PREPARING)
+        binding.loading.invisible(status != AudioStatus.PREPARING)
+
+        binding.btnPlay.isEnabled = status != AudioStatus.PREPARING
+        binding.btnRewind.isEnabled = status != AudioStatus.PREPARING
+        binding.btnForward.isEnabled = status != AudioStatus.PREPARING
+
         binding.sbProgress.max = duration
         binding.sbProgress.progress = time
         binding.tvCurrentAudio.text = time.toTimeString()
         binding.tvDurationAudio.text = duration.toTimeString()
 
-        binding.btnPlay.setImageResource(
+        binding.btnPlay.setIconResource(
             if (status == AudioStatus.PLAYING) R.drawable.ic_pause
             else R.drawable.ic_play_circle
         )

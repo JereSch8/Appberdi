@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.sites.contents
+package com.jackemate.appberdi.ui.shared.contents.fragments
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -11,9 +11,8 @@ import android.widget.Toast
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteVideoFragmentBinding
 import com.jackemate.appberdi.entities.Content
-import com.jackemate.appberdi.ui.sites.ContentPageFragment
+import com.jackemate.appberdi.ui.shared.contents.ContentPageFragment
 import com.jackemate.appberdi.utils.share
-
 
 class SiteVideoFragment : ContentPageFragment() {
 

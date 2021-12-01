@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.sites.contents
+package com.jackemate.appberdi.ui.shared.contents.fragments
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -8,19 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.jackemate.appberdi.databinding.SiteSummaryFragmentBinding
 import com.jackemate.appberdi.entities.Content
-import com.jackemate.appberdi.ui.sites.ContentPageFragment
+import com.jackemate.appberdi.ui.shared.contents.ContentPageFragment
 import com.jackemate.appberdi.ui.sites.SiteViewModel
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.visible
 
-
 class SiteSummaryFragment : ContentPageFragment() {
 
     private lateinit var binding: SiteSummaryFragmentBinding
-    private val viewModel: SiteViewModel by viewModels()
+    private val viewModel: SiteViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,10 +28,6 @@ class SiteSummaryFragment : ContentPageFragment() {
     ): View {
         binding = SiteSummaryFragmentBinding.inflate(layoutInflater)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onResume() {
@@ -50,7 +45,7 @@ class SiteSummaryFragment : ContentPageFragment() {
 
         binding.btnFin.setOnClickListener {
             Log.d(TAG, "fin del sitio: $idSite")
-            viewModel.setVisited(idSite)
+            viewModel.setVisited(idSite!!)
             activity?.finish()
         }
 

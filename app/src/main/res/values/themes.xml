@@ -67,7 +67,7 @@
 
     <style name="AppShapeAppearance">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">24dp</item>
+        <item name="cornerSize">48dp</item>
     </style>
 
     <style name="AppWidget.BackButton" parent="Widget.MaterialComponents.FloatingActionButton">
