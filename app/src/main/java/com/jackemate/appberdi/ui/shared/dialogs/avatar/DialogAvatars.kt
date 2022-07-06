@@ -14,26 +14,26 @@ class DialogAvatars(activity: Activity): DialogBuilder(activity) {
         Board(
             background = R.drawable.background,
             animation = R.raw.astronaut_dog,
-            title = "Albi Astronauta",
-            description = "Albi cuando decide subirse a la nave y salir del barrio."
+            title = context.getString(R.string.avatar_albi_astro),
+            description = context.getString(R.string.avatar_albi_astro_desc)
         ),
         Board(
             background = R.drawable.background,
             animation = R.raw.smiling_dog,
-            title = "Albi Feliz",
-            description = "Albi encontró un huesito en la calle y está muy feliz!!"
+            title = context.getString(R.string.avatar_albi_feliz),
+            description = context.getString(R.string.avatar_albi_feliz_desc)
         ),
         Board(
             background = R.drawable.background,
             animation = R.raw.unicorn_dog,
-            title = "Albi Unicornio",
-            description = "Albi se comio un honguito y está alucinando ser unicornio."
+            title = context.getString(R.string.avatar_albi_unicornio),
+            description = context.getString(R.string.avatar_albi_unicornio_desc)
         ),
         Board(
             background = R.drawable.background,
             animation = R.raw.flirting_dog,
-            title = "Albi Canchero",
-            description = "Albi volvió de la casa de Jardin Florido con piropos bajo la pata."
+            title = context.getString(R.string.avatar_albi_canchero),
+            description = context.getString(R.string.avatar_albi_canchero_desc)
         )
     )
 

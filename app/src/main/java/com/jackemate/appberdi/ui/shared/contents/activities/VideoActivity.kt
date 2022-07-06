@@ -40,7 +40,7 @@ class VideoActivity : AppCompatActivity() {
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(
                     this,
-                    "No pude abrir el video, ¿y si le compartís el link a alguien y lo ves en compañia?",
+                    getString(R.string.compartir),
                     Toast.LENGTH_LONG
                 ).show()
             }

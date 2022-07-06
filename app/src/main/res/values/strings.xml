@@ -1,23 +1,23 @@
 <resources>
-    <string name="app_name">AppBerdi</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">Appberdi</string>
+    <string name="title_activity_maps">Mapa</string>
     <string name="indicaciones">Indicaciones</string>
     <string name="est_s_en">Estás en:</string>
 
     <string name="permission_storage_required">
-        Para poder descargar contenidos, necesito permisos de almacenamiento!
+        ¡Para poder descargar contenidos necesito permisos de almacenamiento!
     </string>
     <string name="permission_location_required">
-        La parte mas interesante de la app no va andar sin el permiso de ubicación!
+        ¡La parte mas interesante de la app no va a andar sin el permiso de ubicación!
     </string>
     <string name="permission_background_required">
-        Algunas funciones no van a andar sin el permiso de la ubicación activada todo el tiempo
+        Algunas funciones no van a andar sin el permiso de ubicación activado todo el tiempo.
     </string>
     <string name="permission_default_required">
-        Por favor, edite los permisos de la aplicación.
+        Por favor, editá los permisos de la aplicación.
     </string>
 
-    <string name="permission_denied">El permiso ha sido denegado.</string>
+    <string name="permission_denied">No pudimos habilitar el permiso.</string>
     <string name="change">Cambiar</string>
 
     <string name="title_activity_mediateca">Mediateca</string>
@@ -110,29 +110,29 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="action_settings">Settings</string>
-    <string name="sitios">Sitios:</string>
-    <string name="input_name">Ingresa tu nombre</string>
+    <string name="action_settings">Configuración</string>
+    <string name="sitios">Lugares:</string>
+    <string name="input_name">Decinos tu nombre</string>
     <string name="guardar">Guardar</string>
     <string name="finalizar">Finalizar</string>
-    <string name="entrar">entrar</string>
+    <string name="entrar">Entrar</string>
     <string name="kill_tour">Detener</string>
     <string name="progreso">Progreso</string>
-    <string name="sitios_recorridos">Sitios recorridos</string>
+    <string name="sitios_recorridos">Lugares recorridos</string>
     <string name="reproducci_n_autom_tica_de_audio">Reproducir audio al toque</string>
-    <string name="reproducci_n_autom_tica_de_video">Reproducir vídeo al toque</string>
+    <string name="reproducci_n_autom_tica_de_video">Reproducir video al toque</string>
     <string name="l_mite_de_almacenamiento_sin_l_mite">Límite de almacenamiento: Sin límite</string>
     <string name="l_mite_de_datos_sin_l_mite">Límite de datos: Sin límite</string>
-    <string name="limit_storage">Establecer un límite de almacenamiento muy pequeño no es recomendable ya que no se podrán almacenar los datos obtenido de la nube y se volverán a descargar cada vez que vuelvas a visitar un sitio.</string>
-    <string name="limit_data">Establecer un límite de datos muy pequeño no es recomendable ya que es posible que no puedas obtener los recursos multimedia necesarios para navegar sobre los distintos sitios de Alberdi.</string>
+    <string name="limit_storage">No te recomendamos establecer un límite de almacenamiento muy pequeño, ya que no podremos almacenar los datos obtenidos de la nube y se volverán a descargar cada vez que visites un lugar.</string>
+    <string name="limit_data">No te recomendamos establecer un límite de datos muy pequeño, ya que es posible que no puedas obtener los recursos multimedia necesarios para navegar por Alberdi.</string>
     <string name="uso_de_datos">Uso de datos</string>
     <string name="borrar">Borrar</string>
     <string name="seleccionar">Seleccionar</string>
     <string name="avatar">Avatar</string>
-    <string name="str_clear_data">Borrar los datos almacenados implica que cuando vuelvas a visitar un sitio éstos deberán ser descargados nuevamente, lo cual significa que se volverán a consumir sus datos móviles. Puede seleccionar que dato borrar.</string>
+    <string name="str_clear_data">Borrar los datos almacenados implica que cuando visites un lugar de nuevo estos deberán ser descargados otra vez, por lo que se volverán a consumir tus datos móviles. Podés seleccionar qué datos borrar.</string>
     <string name="borrar_datos_almacenados">Borrar datos almacenados: %1$.2fMB</string>
     <string name="clear_title">Borrar datos almacenados</string>
-    <string name="clear_finish_text">%1$.2fMB van a ser borrados y tendrás que descargarlos de nuevo.</string>
+    <string name="clear_finish_text">%1$.2fMB se van a borrar y vas a tener que descargarlos de nuevo.</string>
     <string name="clear_button">Borrar %1$.2fMB</string>
     <string name="howToGet">¿Cómo llegar?</string>
     <string name="horarios">Horarios:</string>
@@ -144,6 +144,59 @@
 
     <string name="unit_mb">%1$.2fMB</string>
 
-    <string name="channel_description">Notificacion cuando se ejecuta el tour</string>
-    <string name="channel_name">Tour por Alberdi</string>
+    <string name="channel_description">Notificación cuando se ejecuta el paseo</string>
+    <string name="channel_name">Paseo por Alberdi</string>
+    <string name="iniciar_recorrido">Iniciar recorrido</string>
+    <string name="mediateca">mediateca</string>
+    <string name="actividades">actividades</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="quienes_somos">Quiénes somos</string>
+    <string name="tesoros_encontrados">Tesoros encontrados</string>
+    <string name="borrar_todo_el_progreso">Borrar todo el progreso</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="palabras">Palabras</string>
+    <string name="imagen_de_apoyo">Imagen de apoyo</string>
+    <string name="transcripci_n">Transcripción</string>
+    <string name="descripci_n">Descripción</string>
+    <string name="resumen_de_lo_vivido">¡Eso es todo por ahora! Mirá un resumen de lo que viviste:</string>
+    <string name="gracias_por_tu_visita">¡Gracias por tu visita!</string>
+    <string name="play_al_video">Comenzar el video</string>
+    <string name="desarrollada_por">Una app desarrollada por estudiantes de la UNC en el ¿marco? de blabla</string>
+    <string name="y_albi">¡Y Albi!</string>
+    <string name="welcome">Hola %1$s, soy Albi.\n¡Vamos a recorrer el barrio!</string>
+    <string name="ingrese_titulo">"Ingrese título o descripción"</string>
+    <string name="pensando">Pensando…</string>
+    <string name="sitio_mas_cercano">"Lugar más cercano:"</string>
+    <string name="estas_a">"Estás más o menos a %1$d metros"</string>
+    <string name="limite_almacenamiento">Límite de almacenamiento: %1$d MB.</string>
+    <string name="limite_datos">Límite de datos: %1$d MB.</string>
+    <string name="progress_site">%1%d/%2$d</string>
+    <string name="selecciona_avatar">¡Seleccioná el avatar que más te guste!</string>
+    <string name="audio_habilitado">Se habilitó la reproducción automática de audio.</string>
+    <string name="audio_deshabilitado">Se deshabilitó la reproducción automática de audio.</string>
+    <string name="video_habilitado">Se habilitó la reproducción automática de video.</string>
+    <string name="video_deshabilitado">Se habilitó la reproducción automática de video.</string>
+    <string name="cambiar_nombre">Cambiar nombre</string>
+    <string name="nuevo_nombre">"¡¡¡Genial tu nuevo nombre %1$s !!!"</string>
+    <string name="debes_ingresar">Debés ingresar un nombre válido, entre 3 y 15 caracteres.</string>
+    <string name="ahora_la_app_almacena">Ahora la aplicación solo puede almacenar %1$s MB."</string>
+    <string name="ahora_la_app_descarga">Ahora la aplicación solo puede descargar %1$s MB."</string>
+    <string name="debe_ser_mayor">"%1$s debe ser un número mayor a 20 MB."</string>
+    <string name="borrar_progreso">Estás a punto de borrar tu progreso.</string>
+    <string name="progress_reset">Tu progreso volvió a 0</string>
+    <string name="establecer_limite">"Establecer límite de %1$s en MB (MegaBytes)."</string>
+    <string name="limite_en">Límite de %1$s</string>
+    <string name="compartir">No pude abrir el video, ¿y si le compartís el link a alguien y lo ves en compañía?</string>
+    <string name="estas_escuchando">Estás escuchando:</string>
+    <string name="avatar_albi_astro">Albi astronauta</string>
+    <string name="avatar_albi_astro_desc">Albi cuando decide subirse a la nave y salir del barrio.</string>
+    <string name="avatar_albi_feliz">Albi feliz</string>
+    <string name="avatar_albi_feliz_desc">¡¡Albi encontró un huesito en la calle y está muy feliz!!</string>
+    <string name="avatar_albi_unicornio">Albi unicornio</string>
+    <string name="avatar_albi_unicornio_desc">Albi se comió un honguito y ahora piensa que es un unicornio.</string>
+    <string name="avatar_albi_canchero">Albi canchero</string>
+    <string name="avatar_albi_canchero_desc">Albi volvió de la casa de Jardín Florido con piropos bajo la pata.</string>
+    <string name="como_te_llamas">¿Cómo querés que te llamemos?</string>
+
+
 </resources>

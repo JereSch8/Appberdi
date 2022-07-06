@@ -6,6 +6,7 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityAttractionsBinding
 import com.jackemate.appberdi.entities.Attraction
 import com.jackemate.appberdi.ui.attractions.AttractionDetailActivity.Companion.ID_ATTRACTION
@@ -44,7 +45,7 @@ class AttractionActivity : AppCompatActivity() {
     }
 
     private fun onCreateOptionsMenu(searchView: SearchView) {
-        searchView.queryHint = "Ingrese título o descripción"
+        searchView.queryHint = getString(R.string.ingrese_titulo)
         searchView.setQueryListener { query ->
             (binding.attractionList.adapter as AttractionListAdapter)
                 .update(listAttraction.filter {

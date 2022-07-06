@@ -41,7 +41,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cv_footer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cv_header" />
+                    app:layout_constraintTop_toBottomOf="@+id/cv_header"
+                    android:contentDescription="@string/imagen_de_apoyo" />
 
 
             </androidx.cardview.widget.CardView>
@@ -75,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
-            android:text="Descripción"
+            android:text="@string/descripci_n"
             android:textColor="@color/white" />
 
         <androidx.cardview.widget.CardView

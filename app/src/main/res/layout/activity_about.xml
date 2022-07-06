@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="72dp"
             android:fontFamily="@font/lobstertwo_bold"
-            android:text="Appberdi"
+            android:text="@string/app_name"
             android:textAlignment="center"
             android:textSize="32sp" />
 
@@ -28,7 +28,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/montserrat_regular"
-            android:text="Una app desarrollada por estudiantes de la UNC en el ¿marco? de blabla"
+            android:text="@string/desarrollada_por"
             android:textAlignment="center"
             android:textSize="12sp" />
 
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/lobstertwo_bolditalic"
-            android:text="¡Y Albi!"
+            android:text="@string/y_albi"
             android:textAlignment="center"
             android:textSize="20sp" />
 

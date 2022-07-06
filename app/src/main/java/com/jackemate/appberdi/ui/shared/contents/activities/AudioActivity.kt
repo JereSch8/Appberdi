@@ -34,7 +34,7 @@ class AudioActivity : AppCompatActivity() {
             }
         }
 
-        binding.header.text = "Estás escuchando:"
+        binding.header.text = getString(R.string.estas_escuchando)
 
     }
 

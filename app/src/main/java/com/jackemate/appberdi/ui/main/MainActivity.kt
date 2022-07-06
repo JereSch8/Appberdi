@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
@@ -19,7 +18,6 @@ import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.databinding.ActivityMainBinding
 import com.jackemate.appberdi.entities.Site
 import com.jackemate.appberdi.services.GeofenceBroadcastReceiver
-import com.jackemate.appberdi.services.TrackingService
 import com.jackemate.appberdi.ui.about.AboutActivity
 import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
@@ -57,7 +55,7 @@ class MainActivity : RequesterPermissionsActivity() {
         geofencingClient = LocationServices.getGeofencingClient(this)
 
         val name: String = PreferenceRepository(this).getUserName()
-        binding.msgWelcome.text = "Hola $name, soy Albi.\n¡Vamos a recorrer el barrio!"
+        binding.msgWelcome.text = getString(R.string.welcome, name)
 
         // Pedimos el permiso de GPS
         withPermissions(gpsPermissions()) {

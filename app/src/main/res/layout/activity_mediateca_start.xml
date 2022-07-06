@@ -31,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
-        android:forceDarkAllowed="false"
         android:visibility="gone"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"

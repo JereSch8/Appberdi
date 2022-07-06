@@ -17,7 +17,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.maps.android.ui.IconGenerator
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMapsBinding
 import com.jackemate.appberdi.entities.TourMode
@@ -148,7 +147,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
     private fun addSiteMarker(site: SiteMarker) {
         // https://github.com/googlemaps/android-maps-utils/blob/main/demo/src/gms/java/com/google/maps/android/utils/demo/IconGeneratorDemoActivity.java
-        val iconFactory = IconGenerator(this)
+//        val iconFactory = IconGenerator(this)
         val marker = map.addMarker(
             MarkerOptions()
                 .position(site.pos.toLatLng())
@@ -200,16 +199,16 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
         when (mode) {
             is TourMode.Thinking -> {
                 binding.tvNextStop.text = ""
-                binding.tvNameSite.text = "Pensando..."
+                binding.tvNameSite.text = getString(R.string.pensando)
                 binding.tvDistance.text = ""
                 polyline.points = emptyList()
                 binding.btnAccessible.visible(false)
                 binding.btnEnter.hide()
             }
             is TourMode.Navigating -> {
-                binding.tvNextStop.text = "Sitio más cercano:"
+                binding.tvNextStop.text = getString(R.string.sitio_mas_cercano)
                 binding.tvNameSite.text = mode.best.title
-                binding.tvDistance.text = "Estás masomenos a ${mode.distance} metros"
+                binding.tvDistance.text = getString(R.string.estas_a, mode.distance)
                 binding.btnAccessible.visible(mode.best.accessible)
                 polyline.points = listOf(currentPos, mode.best.pos.toLatLng())
 
@@ -233,7 +232,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 binding.btnAccessible.visible(mode.site.accessible)
 
                 if (currentPos != null) {
-                    binding.tvDistance.text = "Estás a ${mode.distance} metros masomono."
+                    binding.tvDistance.text = getString(R.string.estas_a, mode.distance)
                     polyline.points = listOf(currentPos, mode.site.pos.toLatLng())
                 }
 
