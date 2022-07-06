@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.jackemate.appberdi.data.NotifyRepository
+import com.jackemate.appberdi.data.NotifyRepository.Companion.READY_ID
 import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.entities.TourMode
@@ -84,9 +85,32 @@ class NotificationsReceiver : BroadcastReceiver() {
             notifyRepo.update(newNotification)
         }
 
+        fun onTrackingReady() {
+            val mode = intent.getSerializableExtra(TrackingService.EXTRA_UPDATE_MODE) as TourMode
+
+            val notification = notifyRepo.build {
+                setContentIntent(
+                    Intent(context, MapsActivity::class.java)
+                        .toPendingIntent(context)
+                )
+
+                when (mode) {
+                    is TourMode.Navigating -> {
+                        setContentText("Ya estás en ${mode.best.title}")
+                    }
+                    is TourMode.Selected -> {
+                        setContentTitle("Ya estás en ${mode.site.title}")
+                    }
+                    else -> {}
+                }
+            }
+            notifyRepo.update(notification, READY_ID)
+        }
+
         when (intent.action) {
             AudioService.AUDIO_UPDATES -> onAudioUpdate()
             TrackingService.TRACKING_UPDATES -> onTrackingUpdate()
+            TrackingService.TRACKING_READY -> onTrackingReady()
         }
     }
 }

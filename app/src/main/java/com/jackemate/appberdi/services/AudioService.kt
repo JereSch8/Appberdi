@@ -9,7 +9,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleService
 import com.jackemate.appberdi.data.CacheRepository
 import com.jackemate.appberdi.data.NotifyRepository
-import com.jackemate.appberdi.data.NotifyRepository.Companion.NOTIFICATION_ID
+import com.jackemate.appberdi.data.NotifyRepository.Companion.DEFAULT_ID
 import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.AudioStatus.*
 import com.jackemate.appberdi.entities.Content
@@ -37,7 +37,7 @@ class AudioService : LifecycleService() {
 
     override fun onCreate() {
         super.onCreate()
-        startForeground(NOTIFICATION_ID, notifyRepo.foreground())
+        startForeground(DEFAULT_ID, notifyRepo.foreground())
 
         Log.d(TAG, "onCreate: initMediaPlayer")
         mediaPlayer.apply {
@@ -65,7 +65,7 @@ class AudioService : LifecycleService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        startForeground(NOTIFICATION_ID, notifyRepo.foreground())
+        startForeground(DEFAULT_ID, notifyRepo.foreground())
 
         when (intent?.action) {
             ACTION_SELECT -> actionSelect(intent.getSerializableExtra("content") as Content.Audio)

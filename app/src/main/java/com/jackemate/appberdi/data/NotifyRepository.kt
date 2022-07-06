@@ -17,7 +17,7 @@ class NotifyRepository(val context: Context) {
         }
     }
 
-    fun update(notification: Notification, id: Int = NOTIFICATION_ID) {
+    fun update(notification: Notification, id: Int = DEFAULT_ID) {
         with(NotificationManagerCompat.from(context)) {
             notify(id, notification)
         }
@@ -33,7 +33,7 @@ class NotifyRepository(val context: Context) {
     fun build(block: NotificationCompat.Builder.() -> Unit): Notification {
         val builder = NotificationCompat.Builder(context, CHANNEL_BACKGROUND_ID)
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setSmallIcon(R.drawable.ic_check)
+            .setSmallIcon(R.drawable.ic_circle_heart)
 
         block(builder)
 
@@ -54,6 +54,7 @@ class NotifyRepository(val context: Context) {
 
     companion object {
         const val CHANNEL_BACKGROUND_ID = "background"
-        const val NOTIFICATION_ID = 536218216
+        const val DEFAULT_ID = 536218216
+        const val READY_ID = 432143214
     }
 }

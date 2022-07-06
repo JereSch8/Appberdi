@@ -62,14 +62,14 @@ class TrackingService : Service() {
         notifyRepo = NotifyRepository(this)
         siteRepo = SiteRepository()
         preferenceRepo = PreferenceRepository(this)
-        startForeground(NotifyRepository.NOTIFICATION_ID, notifyRepo.foreground())
+        startForeground(NotifyRepository.DEFAULT_ID, notifyRepo.foreground())
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         startLocationUpdates()
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        startForeground(NotifyRepository.NOTIFICATION_ID, notifyRepo.foreground())
+        startForeground(NotifyRepository.DEFAULT_ID, notifyRepo.foreground())
         Log.d(TAG, "onStartCommand")
 
         initSites()
@@ -154,12 +154,12 @@ class TrackingService : Service() {
                 Log.d(TAG, "best: $best")
 
                 if (best != null) {
-                    val distance = distanceTo(best.pos).roundToInt()
-                    currentMode = TourMode.Navigating(best, distance)
+                    val distance = distanceTo(best.pos)
+                    currentMode = TourMode.Navigating(best, distance.roundToInt())
                     broadcast()
 
-                    if (distanceTo(best.pos) < Constants.GEOFENCE_RADIUS_IN_METERS) {
-                        // todo: notificacion! broadcast
+                    if (distance < Constants.GEOFENCE_RADIUS_IN_METERS) {
+                        broadcastInPlace()
                     }
                 }
             }
@@ -172,6 +172,15 @@ class TrackingService : Service() {
     private fun broadcast() {
         val broadcast = Intent()
         broadcast.action = TRACKING_UPDATES
+        broadcast.putExtra(EXTRA_UPDATE_POS, currentPos)
+        broadcast.putExtra(EXTRA_UPDATE_MODE, currentMode)
+        broadcast.setPackage("com.jackemate.appberdi")
+        sendBroadcast(broadcast)
+    }
+
+    private fun broadcastInPlace() {
+        val broadcast = Intent()
+        broadcast.action = TRACKING_READY
         broadcast.putExtra(EXTRA_UPDATE_POS, currentPos)
         broadcast.putExtra(EXTRA_UPDATE_MODE, currentMode)
         broadcast.setPackage("com.jackemate.appberdi")
@@ -198,6 +207,7 @@ class TrackingService : Service() {
         const val EXTRA_UPDATE_POS = "pos"
         const val EXTRA_UPDATE_MODE = "mode"
 
+        const val TRACKING_READY = "com.jackemate.appberdi.tracking.ready.broadcast"
 
         const val ACTION_FORCE = "com.jackemate.appberdi.tracking.action.UPDATE"
         const val ACTION_SELECT = "com.jackemate.appberdi.tracking.action.SELECT"
