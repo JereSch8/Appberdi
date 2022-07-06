@@ -14,6 +14,7 @@ import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.ui.shared.contents.ARG_CONTENT
 import com.jackemate.appberdi.ui.shared.contents.activities.AudioActivity
 import com.jackemate.appberdi.ui.shared.contents.activities.ImageActivity
+import com.jackemate.appberdi.ui.shared.contents.activities.TextActivity
 import com.jackemate.appberdi.ui.shared.contents.activities.VideoActivity
 import com.jackemate.appberdi.utils.IntentName
 import com.jackemate.appberdi.utils.transparentStatusBar
@@ -122,18 +123,21 @@ class MediatecaSiteActivity : AppCompatActivity() {
                 intent.putExtra(IntentName.DURATION, multimedia.duration)
                 startActivity(intent)
             }
-            is Content.Text -> {
-                val intent = Intent(this, ImageActivity::class.java)
-                intent.putExtra(IntentName.TITLE, multimedia.title)
-                intent.putExtra(IntentName.DESCRIPTION, multimedia.description)
-                intent.putExtra(IntentName.HREF, IntentName.NON_VALUE)
-                startActivity(intent)
-            }
+            is Content.Text -> startActivity(
+                Intent(this, TextActivity::class.java).apply {
+                    putExtra(ARG_CONTENT, multimedia)
+                }
+            )
             is Content.Audio -> startActivity(
                 Intent(this, AudioActivity::class.java).apply {
                     putExtra(ARG_CONTENT, multimedia)
                 }
             )
+            else -> Toast.makeText(
+                baseContext,
+                "No deberías ver esto :O",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 }

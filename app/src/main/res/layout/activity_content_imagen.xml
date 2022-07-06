@@ -51,9 +51,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginHorizontal="16dp"
+                android:visibility="gone"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="false">
+                app:cardPreventCornerOverlap="false"
+                tools:visibility="visible">
 
                 <ImageView
                     android:id="@+id/img"
@@ -86,6 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black10"
+        android:visibility="gone"
         tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

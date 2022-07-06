@@ -80,6 +80,8 @@
         <activity android:name=".ui.shared.contents.activities.ImageActivity" />
         <activity android:name=".ui.shared.contents.activities.VideoActivity" />
         <activity android:name=".ui.shared.contents.activities.AudioActivity" />
+        <activity android:name=".ui.shared.contents.activities.TextActivity" />
+
         <service
             android:name="com.jackemate.appberdi.services.AudioService"
             android:exported="false" />

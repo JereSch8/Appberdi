@@ -28,6 +28,8 @@ class ImageActivity : AppCompatActivity() {
 
         binding.btnShare.setOnClickListener { share(content.title, content.href) }
 
+        binding.cardView.visible(true)
+
         Glide.with(this)
             .load(content.href)
             .centerCrop()
