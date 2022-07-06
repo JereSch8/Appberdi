@@ -35,14 +35,12 @@ class MediatecaStartAdapter(
         fun bind(item: ContentMediateca) {
             Log.d(TAG, "bind: $item")
 
-            if (item.href.isNotEmpty()) {
-                Glide.with(binding.root)
-                    .load(item.href)
-                    .placeholder(R.drawable.loading)
-                    .error(R.drawable.no_image)
-                    .transform(CenterCrop())
-                    .into(binding.img)
-            }
+            Glide.with(binding.root)
+                .load(item.href)
+                .placeholder(R.drawable.no_image)
+                .error(R.drawable.no_image)
+                .transform(CenterCrop())
+                .into(binding.img)
 
             binding.title.text = item.title
             binding.root.setOnClickListener { onClick(item) }
