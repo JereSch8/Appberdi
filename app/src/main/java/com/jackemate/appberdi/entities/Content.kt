@@ -16,34 +16,34 @@ sealed class Content(
         override val href: String = "",
         val subtitle: String = "",
         val preview: Map<String, String> = emptyMap()
-    ) : Cacheable, Content(tag = TAG_AUDIO)
+    ) : Cacheable, Content(tag = TYPE_AUDIO)
 
     data class Image(
         override val href: String = "",
         val description: String = "",
-    ) : Cacheable, Content(tag = TAG_IMG)
+    ) : Cacheable, Content(tag = TYPE_IMG)
 
     data class Gif(
         override val href: String = "",
         val description: String = "",
-    ) : Cacheable, Content(tag = TAG_GIF)
+    ) : Cacheable, Content(tag = TYPE_GIF)
 
     data class Video(
         val href: String = "",
         val description: String = "",
         val duration: String = "",
-    ) : Content(tag = TAG_VIDEO)
+    ) : Content(tag = TYPE_VIDEO)
 
     data class Text(
         val description: String = "",
-    ) : Content(tag = TAG_TEXT)
+    ) : Content(tag = TYPE_TEXT)
 
     data class Summary(
         val words: SummaryCountable? = null,
         val years: SummaryYear? = null,
         val vecinos: SummaryCountable? = null,
         val love: SummaryLabelIcon? = null,
-    ) : Content(tag = TAG_SUMMARY)
+    ) : Content(tag = TYPE_SUMMARY)
 
     interface Cacheable {
         val href: String
@@ -51,11 +51,11 @@ sealed class Content(
     }
 
     companion object {
-        const val TAG_AUDIO = "audio"
-        const val TAG_IMG = "image"
-        const val TAG_VIDEO = "video"
-        const val TAG_GIF = "gif"
-        const val TAG_TEXT = "text"
-        const val TAG_SUMMARY = "summary"
+        const val TYPE_AUDIO = "audio"
+        const val TYPE_IMG = "image"
+        const val TYPE_VIDEO = "video"
+        const val TYPE_GIF = "gif"
+        const val TYPE_TEXT = "text"
+        const val TYPE_SUMMARY = "summary"
     }
 }

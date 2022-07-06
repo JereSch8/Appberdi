@@ -33,8 +33,8 @@ class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
         )
     }
 
-    private fun getStorageSize() = cacheRepo.sizeOf(Content.TAG_IMG) +
-            cacheRepo.sizeOf(Content.TAG_AUDIO)
+    private fun getStorageSize() = cacheRepo.sizeOf(Content.TYPE_IMG) +
+            cacheRepo.sizeOf(Content.TYPE_AUDIO)
 
     fun setName(name: String) = preferenceRepo.setUserName(name)
     fun setLimitStorage(limit: Int) = preferenceRepo.setLimitStorage(limit)

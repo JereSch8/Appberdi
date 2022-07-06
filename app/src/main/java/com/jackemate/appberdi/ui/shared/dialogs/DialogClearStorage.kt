@@ -15,9 +15,9 @@ class DialogClearStorage(val activity: Activity) : DialogBuilder(activity) {
     class Option(val tag: String, var size: Double = 0.0, var isChecked: Boolean = false)
 
     private val options = listOf(
-        Option(Content.TAG_AUDIO),
-        Option(Content.TAG_IMG),
-        Option(Content.TAG_GIF)
+        Option(Content.TYPE_AUDIO),
+        Option(Content.TYPE_IMG),
+        Option(Content.TYPE_GIF)
     )
 
     init {

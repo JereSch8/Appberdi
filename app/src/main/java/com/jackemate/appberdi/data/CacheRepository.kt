@@ -4,11 +4,13 @@ import android.content.Context
 import android.util.Log
 import android.webkit.URLUtil
 import androidx.lifecycle.liveData
+import com.bumptech.glide.Glide
 import com.jackemate.appberdi.entities.Content
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 
 
@@ -83,7 +85,16 @@ class CacheRepository(private val context: Context) {
      * Elimina el contenido del $tag
      */
     fun clear(tag: String) {
-        getCacheDirFor(tag).deleteRecursively()
+        if (tag == Content.TYPE_IMG)
+            clearGlideCache()
+        else
+            getCacheDirFor(tag).deleteRecursively()
+    }
+
+    private fun clearGlideCache() {
+        GlobalScope.launch(Dispatchers.IO) {
+            Glide.get(context).clearDiskCache()
+        }
     }
 
     companion object {

@@ -14,7 +14,7 @@ class GladeModule : AppGlideModule() {
         builder.setDiskCache(
             InternalCacheDiskCacheFactory(
                 context,
-                Content.TAG_IMG,
+                Content.TYPE_IMG,
                 diskCacheSizeBytes.toLong()
             )
         )
