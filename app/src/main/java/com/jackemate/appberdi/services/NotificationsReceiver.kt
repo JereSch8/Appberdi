@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.core.app.NotificationCompat.PRIORITY_MAX
 import com.jackemate.appberdi.data.NotifyRepository
 import com.jackemate.appberdi.data.NotifyRepository.Companion.READY_ID
 import com.jackemate.appberdi.entities.AudioStatus
@@ -80,37 +81,19 @@ class NotificationsReceiver : BroadcastReceiver() {
                         setContentTitle("¡Tour Activado!")
                         setContentText("Pensando…")
                     }
+                    is TourMode.Ready -> {
+                        setContentTitle("Ya estás en ${mode.site.title}")
+                        setContentText("¡Abrí la app para iniciar el recorrido!")
+                        priority = PRIORITY_MAX
+                    }
                 }
             }
             notifyRepo.update(newNotification)
         }
 
-        fun onTrackingReady() {
-            val mode = intent.getSerializableExtra(TrackingService.EXTRA_UPDATE_MODE) as TourMode
-
-            val notification = notifyRepo.build {
-                setContentIntent(
-                    Intent(context, MapsActivity::class.java)
-                        .toPendingIntent(context)
-                )
-
-                when (mode) {
-                    is TourMode.Navigating -> {
-                        setContentText("Ya estás en ${mode.best.title}")
-                    }
-                    is TourMode.Selected -> {
-                        setContentTitle("Ya estás en ${mode.site.title}")
-                    }
-                    else -> {}
-                }
-            }
-            notifyRepo.update(notification, READY_ID)
-        }
-
         when (intent.action) {
             AudioService.AUDIO_UPDATES -> onAudioUpdate()
             TrackingService.TRACKING_UPDATES -> onTrackingUpdate()
-            TrackingService.TRACKING_READY -> onTrackingReady()
         }
     }
 }

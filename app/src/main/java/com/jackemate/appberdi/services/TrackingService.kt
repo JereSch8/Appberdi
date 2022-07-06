@@ -149,18 +149,21 @@ class TrackingService : Service() {
 
         when (currentMode) {
             is TourMode.Thinking,
-            is TourMode.Navigating -> {
+            is TourMode.Navigating,
+            is TourMode.Ready -> {
                 val best = computeBestSite()
                 Log.d(TAG, "best: $best")
 
                 if (best != null) {
                     val distance = distanceTo(best.pos)
-                    currentMode = TourMode.Navigating(best, distance.roundToInt())
-                    broadcast()
 
-                    if (distance < Constants.GEOFENCE_RADIUS_IN_METERS) {
-                        broadcastInPlace()
+                    currentMode = if (distance < Constants.GEOFENCE_RADIUS_IN_METERS) {
+                        TourMode.Ready(best)
+                    } else {
+                        TourMode.Navigating(best, distance.roundToInt())
                     }
+
+                    broadcast()
                 }
             }
             is TourMode.Selected -> {
@@ -172,15 +175,6 @@ class TrackingService : Service() {
     private fun broadcast() {
         val broadcast = Intent()
         broadcast.action = TRACKING_UPDATES
-        broadcast.putExtra(EXTRA_UPDATE_POS, currentPos)
-        broadcast.putExtra(EXTRA_UPDATE_MODE, currentMode)
-        broadcast.setPackage("com.jackemate.appberdi")
-        sendBroadcast(broadcast)
-    }
-
-    private fun broadcastInPlace() {
-        val broadcast = Intent()
-        broadcast.action = TRACKING_READY
         broadcast.putExtra(EXTRA_UPDATE_POS, currentPos)
         broadcast.putExtra(EXTRA_UPDATE_MODE, currentMode)
         broadcast.setPackage("com.jackemate.appberdi")
@@ -206,8 +200,6 @@ class TrackingService : Service() {
         const val TRACKING_UPDATES = "com.jackemate.appberdi.tracking.broadcast"
         const val EXTRA_UPDATE_POS = "pos"
         const val EXTRA_UPDATE_MODE = "mode"
-
-        const val TRACKING_READY = "com.jackemate.appberdi.tracking.ready.broadcast"
 
         const val ACTION_FORCE = "com.jackemate.appberdi.tracking.action.UPDATE"
         const val ACTION_SELECT = "com.jackemate.appberdi.tracking.action.SELECT"

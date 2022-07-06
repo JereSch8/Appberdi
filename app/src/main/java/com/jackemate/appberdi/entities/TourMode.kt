@@ -7,4 +7,5 @@ sealed class TourMode: Serializable {
     object Thinking: TourMode()
     data class Navigating(val best: SiteMarker, val distance: Int) : TourMode()
     data class Selected(val site: SiteMarker, val distance: Int?) : TourMode()
+    data class Ready(val site: SiteMarker) : TourMode()
 }

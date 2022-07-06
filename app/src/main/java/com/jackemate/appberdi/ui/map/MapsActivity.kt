@@ -212,13 +212,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 binding.btnAccessible.visible(mode.best.accessible)
                 polyline.points = listOf(currentPos, mode.best.pos.toLatLng())
 
-
-                if (mode.distance < Constants.GEOFENCE_RADIUS_IN_METERS) {
-                    binding.btnEnter.show()
-                } else {
-                    binding.btnEnter.hide()
-                }
-
+                binding.btnEnter.hide()
                 binding.btnEnter.setOnClickListener {
                     Log.i(TAG, "btnEnter: $mode")
                     openSite(mode.best.id)
@@ -233,6 +227,22 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
                 if (currentPos != null) {
                     binding.tvDistance.text = getString(R.string.estas_a, mode.distance)
+                    polyline.points = listOf(currentPos, mode.site.pos.toLatLng())
+                }
+
+                binding.btnEnter.show()
+                binding.btnEnter.setOnClickListener {
+                    Log.i(TAG, "btnEnter: $mode")
+                    openSite(mode.site.id)
+                }
+            }
+            is TourMode.Ready -> {
+                binding.tvNextStop.text = "Estás en"
+                binding.tvNameSite.text = mode.site.title
+                binding.tvDistance.text = "Ya podés iniciar el recorrido!"
+                binding.btnAccessible.visible(mode.site.accessible)
+
+                if (currentPos != null) {
                     polyline.points = listOf(currentPos, mode.site.pos.toLatLng())
                 }
 
