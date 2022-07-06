@@ -60,12 +60,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/header" />
 
         </androidx.cardview.widget.CardView>
-
     </LinearLayout>
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

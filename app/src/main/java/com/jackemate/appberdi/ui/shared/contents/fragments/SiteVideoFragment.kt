@@ -53,7 +53,7 @@ class SiteVideoFragment : ContentPageFragment() {
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(
                     requireContext(),
-                    "No pude abrir el video, ¿y si le compartís el link a alguien y lo ves en compañia?",
+                    getString(R.string.compartir),
                     Toast.LENGTH_LONG
                 ).show()
             }

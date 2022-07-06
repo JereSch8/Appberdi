@@ -30,22 +30,29 @@ class PreferencesActivity : AppCompatActivity() {
                 avatarUser.setAnimation(data.avatar ?: R.raw.astronaut_dog)
                 avatarUser.playAnimation()
 
-                setLimitStorage.text = "Límite de almacenamiento: ${data.storageLimit} MB."
-                setLimitMovil.text = "Límite de datos: ${data.mobilLimit} MB."
+                setLimitStorage.text = getString(R.string.limite_almacenamiento, data.storageLimit)
+                setLimitMovil.text = getString(R.string.limite_datos, data.mobilLimit)
                 cleanStorage.text = getString(R.string.borrar_datos_almacenados, data.storageSize)
 
                 progressSite.apply {
                     setProgressWithAnimation(data.siteProgress, 3000) // =3s
                     progressMax = data.siteTotal
-                    binding.txtProgressSite.text =
-                        "${data.siteProgress.toInt()}/${progressMax.toInt()}"
+                    binding.txtProgressSite.text = getString(
+                        R.string.progress_site,
+                        data.siteProgress.toInt(),
+                        progressMax.toInt()
+                    )
+
                 }
 
                 progressTreasure.apply {
                     setProgressWithAnimation(data.treasureProgress, 3000) // =3s
                     progressMax = data.treasureTotal
-                    binding.txtProgressTreasure.text =
-                        "${data.treasureProgress.toInt()}/${progressMax.toInt()}"
+                    binding.txtProgressTreasure.text = getString(
+                        R.string.progress_site,
+                        data.treasureProgress.toInt(),
+                        progressMax.toInt()
+                    )
                 }
 
                 autoPlayAudio.isChecked = data.autoPlayAudio
@@ -57,7 +64,7 @@ class PreferencesActivity : AppCompatActivity() {
 
         binding.avatarUser.setOnClickListener {
             DialogAvatars(this)
-                .setText("Selecciona el avatar que más te guste!")
+                .setText(getString(R.string.selecciona_avatar))
                 .setOnDismissListener {
                     viewModel.load()
                 }.show()
@@ -74,10 +81,8 @@ class PreferencesActivity : AppCompatActivity() {
             viewModel.setAutoPlayAudio(isChecked)
             Toast.makeText(
                 this,
-                if (isChecked)
-                    "Se habilitó la reproducción automatica de audio."
-                else
-                    "Se deshabilitó la reproducción automatica de audio.",
+                if (isChecked) getString(R.string.audio_habilitado)
+                else getString(R.string.audio_deshabilitado),
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -87,10 +92,8 @@ class PreferencesActivity : AppCompatActivity() {
             viewModel.setAutoPlayVideo(isChecked)
             Toast.makeText(
                 this,
-                if (isChecked)
-                    "Se habilitó la reproducción automatica de video."
-                else
-                    "Se deshabilitó la reproducción automatica de video.",
+                if (isChecked) getString(R.string.video_habilitado)
+                else getString(R.string.video_deshabilitado),
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -105,7 +108,7 @@ class PreferencesActivity : AppCompatActivity() {
     private fun createDialogChangeName(oldName: String) {
         BasicDialog(this)
             .setInputTypeText()
-            .setText("Cambiar nombre")
+            .setText(getString(R.string.cambiar_nombre))
             .setInputText(oldName)
             .requestFocus()
             .setButtonListener { dialog ->
@@ -115,14 +118,14 @@ class PreferencesActivity : AppCompatActivity() {
                     viewModel.load()
                     Toast.makeText(
                         this,
-                        "Genial tu nuevo nombre $name !!!",
+                        getString(R.string.nuevo_nombre, name),
                         Toast.LENGTH_SHORT
                     ).show()
                     dialog.dismiss()
                 } else {
                     Toast.makeText(
                         this,
-                        "Debes Ingresar un nombre válido, entre 3 y 15 caracteres.",
+                        getString(R.string.debes_ingresar),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -130,11 +133,17 @@ class PreferencesActivity : AppCompatActivity() {
     }
 
     private fun createDialogLimit(isStorage: Boolean) {
-        val text: String =
-            ("Establecer limite de " + (if (isStorage) "almacenamiento, " else "datos, ") + "en MB (MegaBytes).")
+        val text: String = getString(
+            R.string.establecer_limite,
+            (if (isStorage) "almacenamiento, " else "datos, ")
+        )
         BasicDialog(this)
             .setText(text)
-            .setHintText("Límite de " + if (isStorage) "almacenamiento." else "datos.")
+            .setHintText( getString(
+                    R.string.limite_en,
+                    ( if (isStorage) "almacenamiento." else "datos." )
+                )
+            )
             .setInputTypeNumber()
             .setButtonListener { dialog ->
                 val input = dialog.getInput()
@@ -143,14 +152,14 @@ class PreferencesActivity : AppCompatActivity() {
                         viewModel.setLimitStorage(input.toInt())
                         Toast.makeText(
                             this,
-                            "Ahora la aplicacion solo puede almacenar $input MB.",
+                            getString(R.string.ahora_la_app_almacena, input),
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
                         viewModel.setLimitMovil(input.toInt())
                         Toast.makeText(
                             this,
-                            "Ahora la aplicacion solo puede descargar $input MB.",
+                            getString(R.string.ahora_la_app_descarga, input),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -159,7 +168,7 @@ class PreferencesActivity : AppCompatActivity() {
                 } else
                     Toast.makeText(
                         this,
-                        "$input debe ser un número mayor a 20 MB.",
+                        getString(R.string.debe_ser_mayor, input),
                         Toast.LENGTH_SHORT
                     ).show()
             }.show()
@@ -167,12 +176,12 @@ class PreferencesActivity : AppCompatActivity() {
 
     private fun createDialogDelete() {
         BasicDialog(this)
-            .setText("Estas a punto de borrar tu progreso. Deberás volver a comenzar.")
-            .setButtonText("Borrar")
+            .setText(getString(R.string.borrar_progreso))
+            .setButtonText(getString(R.string.borrar))
             .setButtonListener { dialog ->
                 viewModel.clearData()
                 viewModel.load()
-                Toast.makeText(this, "Tu progreso volvió a 0", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.progress_reset), Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }.show()
     }
