@@ -47,15 +47,15 @@ sealed class Content(
 
     interface Cacheable {
         val href: String
-        val tag: String
+        val type: String
     }
 
     companion object {
-        const val TAG_AUDIO = "Audios"
-        const val TAG_IMG = "Imágenes"
-        const val TAG_VIDEO = "Vídeos"
-        const val TAG_GIF = "Gifs"
-        const val TAG_TEXT = "Textos"
-        const val TAG_SUMMARY = "Resumen"
+        const val TAG_AUDIO = "audio"
+        const val TAG_IMG = "image"
+        const val TAG_VIDEO = "video"
+        const val TAG_GIF = "gif"
+        const val TAG_TEXT = "text"
+        const val TAG_SUMMARY = "summary"
     }
 }

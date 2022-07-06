@@ -170,7 +170,7 @@
     <string name="estas_a">"Estás más o menos a %1$d metros"</string>
     <string name="limite_almacenamiento">Límite de almacenamiento: %1$d MB.</string>
     <string name="limite_datos">Límite de datos: %1$d MB.</string>
-    <string name="progress_site">%1%d/%2$d</string>
+    <string name="progress_site">%1$d/%2$d</string>
     <string name="selecciona_avatar">¡Seleccioná el avatar que más te guste!</string>
     <string name="audio_habilitado">Se habilitó la reproducción automática de audio.</string>
     <string name="audio_deshabilitado">Se deshabilitó la reproducción automática de audio.</string>

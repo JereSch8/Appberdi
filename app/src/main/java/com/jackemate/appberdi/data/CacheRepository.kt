@@ -23,7 +23,7 @@ class CacheRepository(private val context: Context) {
         return file
     }
 
-    private fun getCacheDirFor(content: Content.Cacheable): File = getCacheDirFor(content.tag)
+    private fun getCacheDirFor(content: Content.Cacheable): File = getCacheDirFor(content.type)
 
     private fun getCacheFileFor(content: Content.Cacheable): File {
         val filename = URLUtil.guessFileName(content.href, null, null)
@@ -41,7 +41,7 @@ class CacheRepository(private val context: Context) {
         val diskCache = getCacheFileFor(content)
 //        delay(5000)
         if (diskCache.exists()) {
-            Log.i(TAG, "Returning ${content.tag} from disk cache")
+            Log.i(TAG, "Returning ${content.type} from disk cache")
             emit(diskCache)
         } else {
             val persisted = persist(content)
@@ -82,7 +82,9 @@ class CacheRepository(private val context: Context) {
     /*
      * Elimina el contenido del $tag
      */
-    fun clear(tag: String) = getCacheDirFor(tag).deleteRecursively()
+    fun clear(tag: String) {
+        getCacheDirFor(tag).deleteRecursively()
+    }
 
     companion object {
         const val TAG = "CacheRepository"
