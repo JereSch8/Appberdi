@@ -19,11 +19,15 @@ class TextActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
         binding = ActivityContentImagenBinding.inflate(layoutInflater)
+        binding.back.setOnClickListener { finish() }
         setContentView(binding.root)
 
         val content = intent.getSerializableExtra(ARG_CONTENT) as Content.Text
 
         binding.header.text = content.title
         binding.transcription.text = content.description
+        binding.btnShare.setOnClickListener {
+            share(content.title, content.description)
+        }
     }
 }

@@ -21,6 +21,7 @@ class AudioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
         binding = ActivityContentAudioBinding.inflate(layoutInflater)
+        binding.header.back.setOnClickListener { finish() }
         setContentView(binding.root)
 
         content = intent?.getSerializableExtra(ARG_CONTENT) as Content.Audio?
@@ -34,7 +35,7 @@ class AudioActivity : AppCompatActivity() {
             }
         }
 
-        binding.header.text = getString(R.string.estas_escuchando)
+        binding.header.title.text = getString(R.string.estas_escuchando)
 
     }
 

@@ -8,15 +8,9 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.mediateca.MediatecaSiteActivity">
 
-    <TextView
+    <include
         android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:fontFamily="@font/lobstertwo_bold"
-        android:text="@string/mediateca_de_appberdi"
-        android:textSize="30sp" />
+        layout="@layout/view_header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contents"

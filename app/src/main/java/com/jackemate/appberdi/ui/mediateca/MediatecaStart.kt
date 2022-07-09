@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaStartBinding
 import com.jackemate.appberdi.entities.ContentMediateca
 import com.jackemate.appberdi.utils.transparentStatusBar
@@ -19,6 +20,8 @@ class MediatecaStart : AppCompatActivity() {
         transparentStatusBar()
         binding = ActivityMediatecaStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.header.title.text = getString(R.string.mediateca_title)
+        binding.header.back.setOnClickListener { finish() }
         binding.contents.layoutManager = GridLayoutManager(this, 2)
 
         viewModel.contents.observe(this) { listContents ->

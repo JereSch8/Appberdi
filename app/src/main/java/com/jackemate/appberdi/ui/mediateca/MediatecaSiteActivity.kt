@@ -29,6 +29,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
         binding = ActivityMediatecaSiteBinding.inflate(layoutInflater)
+        binding.header.back.setOnClickListener { finish() }
         setContentView(binding.root)
 
         setupRecyclerView()
@@ -40,7 +41,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
         }
 
         val nameSite = intent.getStringExtra("title")!!
-        binding.header.text = nameSite
+        binding.header.title.text = nameSite
         viewModel.getContents(nameSite)
     }
 

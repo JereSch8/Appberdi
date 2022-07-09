@@ -22,24 +22,17 @@
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:scrimAnimationDuration="200">
 
-            <TextView
+            <include
                 android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                android:fontFamily="@font/lobstertwo_bold"
-                android:textSize="30sp"
-                app:layout_collapseMode="pin"
-                tools:text="Sitio" />
+                layout="@layout/view_header"
+                app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbarSize="0dp"
-            >
+            android:scrollbarSize="0dp">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/filters"

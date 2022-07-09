@@ -4,17 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back"
+        style="@style/AppWidget.IconOnly"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        app:icon="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_share" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginHorizontal="4dp"
         android:fontFamily="@font/montserrat_semibold"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_share"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="@+id/btn_share"
         tools:text="Titulo del video" />
 
@@ -22,13 +33,12 @@
         android:id="@+id/description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/montserrat_medium"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_share"
+        app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title"
         tools:text="Intro al video" />
 
@@ -69,12 +79,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        tools:text="12 minutos de duración"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_play" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_play"
+        tools:text="12 minutos de duración" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

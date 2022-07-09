@@ -9,11 +9,9 @@ import com.jackemate.appberdi.databinding.ViewTitleBinding
 
 class TitleView : ConstraintLayout {
 
-    private lateinit var binding: ViewTitleBinding
-
     constructor(context: Context) : super(context, null)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        binding = ViewTitleBinding.inflate(LayoutInflater.from(context), this, true)
+        val binding = ViewTitleBinding.inflate(LayoutInflater.from(context), this, true)
 
         context.theme.obtainStyledAttributes(
             attrs,

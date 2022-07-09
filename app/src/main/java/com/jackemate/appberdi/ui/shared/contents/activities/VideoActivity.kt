@@ -18,7 +18,7 @@ class VideoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
         val binding = SiteVideoFragmentBinding.inflate(layoutInflater)
-
+        binding.back.setOnClickListener { finish() }
         val title = intent.getStringExtra(IntentName.TITLE).toString()
         val description = intent.getStringExtra(IntentName.DESCRIPTION).toString()
         val href = intent.getStringExtra(IntentName.HREF).toString()
