@@ -147,6 +147,7 @@
     <string name="channel_description">Notificación cuando se ejecuta el paseo</string>
     <string name="channel_name">Paseo por Alberdi</string>
     <string name="iniciar_recorrido">Iniciar recorrido</string>
+    <string name="continuar_recorrido">Continuar recorrido</string>
     <string name="mediateca">mediateca</string>
     <string name="actividades">actividades</string>
     <string name="preferencias">Preferencias</string>

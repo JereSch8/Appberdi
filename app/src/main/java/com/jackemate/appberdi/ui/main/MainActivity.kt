@@ -18,6 +18,7 @@ import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.databinding.ActivityMainBinding
 import com.jackemate.appberdi.entities.Site
 import com.jackemate.appberdi.services.GeofenceBroadcastReceiver
+import com.jackemate.appberdi.services.TrackingService
 import com.jackemate.appberdi.ui.about.AboutActivity
 import com.jackemate.appberdi.ui.attractions.AttractionActivity
 import com.jackemate.appberdi.ui.map.MapsActivity
@@ -71,8 +72,7 @@ class MainActivity : RequesterPermissionsActivity() {
         }
 
         binding.launchTour.setOnClickListener {
-            val intent = Intent(this, MapsActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MapsActivity::class.java))
         }
 
         binding.launchPreferences.setOnClickListener {
@@ -90,6 +90,15 @@ class MainActivity : RequesterPermissionsActivity() {
         binding.launchAbout.setOnClickListener {
             startActivity(Intent(this, AboutActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val running = isServiceRunning(TrackingService::class.java)
+        binding.launchTour.text = getString(
+            if (running) R.string.continuar_recorrido
+            else R.string.iniciar_recorrido
+        )
     }
 
     @SuppressLint("MissingPermission")

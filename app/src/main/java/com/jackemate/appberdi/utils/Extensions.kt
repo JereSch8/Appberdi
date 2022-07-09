@@ -49,6 +49,7 @@ fun Context?.isOnline(): Boolean {
 
 fun Context.colorOf(id: Int) = ContextCompat.getColor(this, id)
 
+// https://stackoverflow.com/a/5921190
 fun Context.isServiceRunning(serviceClass: Class<*>): Boolean {
     val manager: ActivityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     for (service in manager.getRunningServices(Int.MAX_VALUE)) {
