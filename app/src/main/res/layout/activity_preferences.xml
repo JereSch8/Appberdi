@@ -12,6 +12,10 @@
         android:layout_marginBottom="16dp"
         android:fitsSystemWindows="true">
 
+        <include
+            android:id="@+id/header"
+            layout="@layout/view_header" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/containerImgUser"
             android:layout_width="160dp"

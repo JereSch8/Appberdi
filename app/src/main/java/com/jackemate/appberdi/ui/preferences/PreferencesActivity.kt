@@ -22,6 +22,7 @@ class PreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
         binding = ActivityPreferencesBinding.inflate(layoutInflater)
+        binding.header.back.setOnClickListener { finish() }
         setContentView(binding.root)
 
         observe(viewModel.data) { data ->
