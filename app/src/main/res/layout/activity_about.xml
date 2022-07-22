@@ -33,21 +33,28 @@
             android:textAlignment="center"
             android:textSize="12sp" />
 
-
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            custom:title="JackeMate" />
+            android:layout_marginBottom="4dp"
+            custom:title="Equipo ganador" />
+
+        <com.jackemate.appberdi.ui.about.StudentView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            custom:name="JackeMate" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <com.jackemate.appberdi.ui.about.StudentView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             custom:facu="FAUD"
             custom:name="Agustina Aldana Bustos"
-            custom:social_face="https://www.facebook.com/agus.bustos.94"
             custom:social_insta="https://www.instagram.com/agus.bustos"
             custom:social_linkedin="https://www.linkedin.com/in/agustina-bustos-95864a214" />
 
@@ -87,9 +94,9 @@
             android:layout_height="wrap_content"
             custom:facu="FFyH"
             custom:name="Maia Milman"
-            custom:social_face="https://www.facebook.com/maia.milman"
-            custom:social_insta="https://www.instagram.com/maiarandom" />
-
+            custom:social_insta="https://www.instagram.com/maiarandom"
+            custom:social_linkedin="linkedIn.com/in/maiamilman"
+            />
 
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
@@ -97,25 +104,129 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            custom:title="Organización" />
+            custom:title="Voces" />
 
-        <TextView
+        <com.jackemate.appberdi.ui.about.VocesView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Diego Pigini"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:entries="@array/albi_voces" />
 
-        <TextView
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Virginia Bustos"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:entries="@array/sitio1" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio2" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio3" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio4" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio5" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio6" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio7" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio8" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio9" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio10" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio11" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio12" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.about.VocesView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sitio13" />
 
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
@@ -158,122 +269,6 @@
             android:layout_marginHorizontal="16dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Pablo Madoery"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <com.jackemate.appberdi.ui.shared.TitleView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            custom:title="Voces" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Carla Dogliani"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Matías Barzola"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Dani Fontanetto"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Silvia Pérez Ruiz"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Hecatombes"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Ximena Salkind"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Cheché Caudana"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Fabiana Bringas"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Rally Barrionuevo"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Valdy"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Mara Santucho"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Juan Cruz Taborda Varela"
             android:textColor="@color/white"
             android:textSize="12sp" />
 

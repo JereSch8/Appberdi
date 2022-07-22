@@ -162,7 +162,12 @@
     <string name="resumen_de_lo_vivido">¡Eso es todo por ahora! Mirá un resumen de lo que viviste:</string>
     <string name="gracias_por_tu_visita">¡Gracias por tu visita!</string>
     <string name="play_al_video">Comenzar el video</string>
-    <string name="desarrollada_por">Una app desarrollada por estudiantes de la UNC en el marco de la convocatoria \"Una App para Pueblo Alberdi\"</string>
+    <string name="desarrollada_por">
+        Una app desarrollada por estudiantes de la Universidad Nacional de Córdoba
+        en el marco del proyecto extensionista “Una App para Pueblo Alberdi” de la
+        Secretaría de Extensión de la UNC y la Facultad de Ciencias Exactas, Físicas y Naturales,
+        en conjunto con la Red Pueblo Alberdi.
+    </string>
     <string name="y_albi">¡Y Albi!</string>
     <string name="welcome">Hola %1$s, soy Albi.\n¡Vamos a recorrer el barrio!</string>
     <string name="ingrese_titulo">"Ingrese título o descripción"</string>
@@ -199,5 +204,102 @@
     <string name="avatar_albi_canchero_desc">Albi volvió de la casa de Jardín Florido con piropos bajo la pata.</string>
     <string name="como_te_llamas">¿Cómo querés que te llamemos?</string>
 
+    <string-array name="albi_voces">
+        <item>Albi:|Carla Dogliani</item>
+    </string-array>
+
+    <string-array name="sitio1">
+        <item>Sitios|Plaza Colón\nEscuela Carbó</item>
+        <item>Narrador|Cacho Buenaventura </item>
+        <item>Entrevistada|Lina del Castillo </item>
+        <item>Fragmentos musicales|“Plaza Colón” (Los 4 del Suquía), “Zamba de Alberdi”\nversión instrumental (Los de Córdoba)\n“Love” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio2">
+        <item>Sitio|Centro Cultural La Piojera</item>
+        <item>Narradora|Daniela Fontanetto</item>
+        <item>Entrevistada|Myriam Vélez</item>
+        <item>Archivo|Fragmento del documental “La Piojera Reapertura 2019” (usuario Accor Córdoba - Youtube)</item>
+        <item>Fragmento musical|“Luna Cautiva”- versión instrumental (Chango Rodríguez)</item>
+    </string-array>
+
+    <string-array name="sitio3">
+        <item>Sitio|Paseo de la Reforma Universitaria</item>
+        <item>Narrador|Osvaldo “Valdy” Bobadilla</item>
+        <item>Entrevistado|Martín Merciadri</item>
+        <item>Fragmento musical|“Imagination” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio4">
+        <item>Sitios|Pasaje Verna\nPrimer comedor de la FUC</item>
+        <item>Narradora|María José “Cheché” Caudana</item>
+        <item>Fragmento musical|“Beauty” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio5">
+        <item>Sitio|Museo Casa de la Reforma Universitaria</item>
+        <item>Narrador|Juan Cruz Taborda Varela</item>
+        <item>Entrevistado|Martín Merciadri</item>
+        <item>Fragmento musical|“Peace” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio6">
+        <item>Sitio|Antiguo Mercado</item>
+        <item>Narradora|Ximena Salkind</item>
+        <item>Entrevistado|Aldo Francomano</item>
+        <item>Fragmento musical|“Inspiring Acoustic” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio7">
+        <item>Sitio|Esquina del Cordobazo</item>
+        <item>Narradora|Mara Santucho</item>
+        <item>Entrevistado|Guillermo Galíndez</item>
+        <item>Archivo|Fragmento de Noticiero Canal 10 (Centro de Conservación y Documentación audiovisual - Facultad de Artes - UNC)</item>
+        <item>Fragmentos musicales|“Honrar la vida” (Eladia Blázquez)\n“Emotional Ambient” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio8">
+        <item>Sitio|Escuela Superior de Comercio Manuel Belgrano</item>
+        <item>Narradores|Agustín Parra\nAgustín Peralta\n(Grupo Hecatombe!)</item>
+        <item>Entrevistados|Francisco “Paco” Ferreyra\nCamilo Miotti</item>
+        <item>Fragmento musical|“Nature” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio9">
+        <item>Sitio|Club Atlético Belgrano</item>
+        <item>Narrador|Matías Barzola</item>
+        <item>Entrevistada|Julieta Ferrería</item>
+        <item>Fragmentos musicales|“Dale la B!” (La Mona Jiménez)\n“My Family” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio10">
+        <item>Sitio|Hospital de Clínicas</item>
+        <item>Narradora|Silvia Pérez Ruiz</item>
+        <item>Entrevistado|Armando Rios</item>
+        <item>Fragmento musical|“Time” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio11">
+        <item>Sitio|Esquina del Chango Rodríguez</item>
+        <item>Narrador|Raly Barrionuevo</item>
+        <item>Entrevistados|Armando Ríos\nGloria Patricia Rodríguez Molina</item>
+        <item>Archivo|Fragmento de “Reportaje al Chango Rodríguez Memorias de Córdoba” (usuario Comunicación FA UNC - YouTube)</item>
+        <item>Fragmento musical|“Memory” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio12">
+        <item>Sitio|Ex-Cervecería</item>
+        <item>Narrador|Santiago “Colorete” Gianola</item>
+        <item>Entrevistado|Dante Martínez</item>
+        <item>Archivo|Fragmento de la publicidad Queremos Córdoba Dorada (YouTube)</item>
+        <item>Fragmentos musicales|“Luna Cautiva” (Chango Rodriguez)\n“Sun” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="sitio13">
+        <item>Sitios|Cementerio\nCapilla San Jerónimo</item>
+        <item>Narradora|Fabiana Bringas</item>
+        <item>Entrevistado|Horacio Saravia</item>
+        <item>Fragmentos musicales|“Destiny” (Background music de soundcloud.com)</item>
+    </string-array>
 
 </resources>

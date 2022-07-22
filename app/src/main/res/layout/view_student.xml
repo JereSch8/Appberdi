@@ -56,12 +56,6 @@
             tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/social_twitter"
-            style="@style/AppWidget.SocialIcon"
-            android:layout_marginEnd="8dp"
-            app:icon="@drawable/ic_social_twitter" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/social_linkedin"
             style="@style/AppWidget.SocialIcon"
             android:layout_marginEnd="8dp"
@@ -70,7 +64,13 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/social_github"
             style="@style/AppWidget.SocialIcon"
+            android:layout_marginEnd="8dp"
             app:icon="@drawable/ic_social_github" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/social_twitter"
+            style="@style/AppWidget.SocialIcon"
+            app:icon="@drawable/ic_social_twitter" />
 
     </LinearLayout>
 

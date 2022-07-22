@@ -13,4 +13,8 @@
     <declare-styleable name="TitleView">
         <attr name="title" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="VocesView">
+        <attr name="android:entries" />
+    </declare-styleable>
 </resources>
