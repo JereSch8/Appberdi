@@ -13,6 +13,18 @@ class DialogAvatars(activity: Activity): DialogBuilder(activity) {
     private val avatars = listOf(
         Board(
             background = R.drawable.background,
+            animation = R.raw.albi,
+            title = context.getString(R.string.avatar_albi_amigable),
+            description = context.getString(R.string.avatar_albi_amigable_desc)
+        ),
+        Board(
+            background = R.drawable.background,
+            animation = R.raw.albi_abajo,
+            title = context.getString(R.string.avatar_albi_observador),
+            description = context.getString(R.string.avatar_albi_observador_desc)
+        ),
+        Board(
+            background = R.drawable.background,
             animation = R.raw.astronaut_dog,
             title = context.getString(R.string.avatar_albi_astro),
             description = context.getString(R.string.avatar_albi_astro_desc)

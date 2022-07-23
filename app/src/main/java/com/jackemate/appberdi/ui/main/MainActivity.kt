@@ -95,10 +95,12 @@ class MainActivity : RequesterPermissionsActivity() {
     override fun onResume() {
         super.onResume()
         val running = isServiceRunning(TrackingService::class.java)
-        binding.launchTour.text = getString(
-            if (running) R.string.continuar_recorrido
-            else R.string.iniciar_recorrido
-        )
+        if (this::binding.isInitialized){
+            binding.launchTour.text = getString(
+                if (running) R.string.continuar_recorrido
+                else R.string.iniciar_recorrido
+            )
+        }
     }
 
     @SuppressLint("MissingPermission")

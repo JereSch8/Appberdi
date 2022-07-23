@@ -28,7 +28,7 @@ class PreferencesActivity : AppCompatActivity() {
         observe(viewModel.data) { data ->
             binding.apply {
                 nameUser.text = data.username
-                avatarUser.setAnimation(data.avatar ?: R.raw.astronaut_dog)
+                avatarUser.setAnimation(data.avatar ?: R.raw.albi_abajo)
                 avatarUser.playAnimation()
 
                 setLimitStorage.text = getString(R.string.limite_almacenamiento, data.storageLimit)

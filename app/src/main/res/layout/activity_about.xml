@@ -341,7 +341,7 @@
             android:layout_marginTop="16dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/astronaut_dog" />
+            app:lottie_rawRes="@raw/albi" />
 
     </LinearLayout>
 
