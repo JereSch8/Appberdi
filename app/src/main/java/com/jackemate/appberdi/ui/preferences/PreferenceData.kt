@@ -16,5 +16,4 @@ data class PreferenceData(
     val treasureTotal: Float,
 
     val autoPlayAudio: Boolean,
-    val autoPlayVideo: Boolean
 )

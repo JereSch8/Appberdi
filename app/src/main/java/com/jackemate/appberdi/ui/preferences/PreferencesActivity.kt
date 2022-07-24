@@ -57,7 +57,6 @@ class PreferencesActivity : AppCompatActivity() {
                 }
 
                 autoPlayAudio.isChecked = data.autoPlayAudio
-                autoPlayVideo.isChecked = data.autoPlayVideo
             }
 
             binding.nameUser.setOnClickListener { createDialogChangeName(data.username) }
@@ -84,17 +83,6 @@ class PreferencesActivity : AppCompatActivity() {
                 this,
                 if (isChecked) getString(R.string.audio_habilitado)
                 else getString(R.string.audio_deshabilitado),
-                Toast.LENGTH_SHORT
-            ).show()
-
-        }
-        binding.autoPlayVideo.setOnClickListener { v ->
-            val isChecked = (v as SwitchMaterial).isChecked
-            viewModel.setAutoPlayVideo(isChecked)
-            Toast.makeText(
-                this,
-                if (isChecked) getString(R.string.video_habilitado)
-                else getString(R.string.video_deshabilitado),
                 Toast.LENGTH_SHORT
             ).show()
 

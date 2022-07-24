@@ -29,7 +29,6 @@ class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
             treasureProgress = preferenceRepo.getProgressTreasure()?.toFloat() ?: 0.1f,
             treasureTotal = preferenceRepo.getAmountTreasures()?.toFloat() ?: 2f,
             autoPlayAudio = preferenceRepo.getAutoPlayAudio(),
-            autoPlayVideo = preferenceRepo.getAutoPlayVideo()
         )
     }
 
@@ -40,7 +39,6 @@ class PreferencesViewModel(app: Application) : AndroidViewModel(app) {
     fun setLimitStorage(limit: Int) = preferenceRepo.setLimitStorage(limit)
     fun setLimitMovil(limit: Int) = preferenceRepo.setLimitMovil(limit)
     fun setAutoPlayAudio(isChecked: Boolean) = preferenceRepo.setAutoPlayAudio(isChecked)
-    fun setAutoPlayVideo(isChecked: Boolean) = preferenceRepo.setAutoPlayVideo(isChecked)
 
     // Limpiar, pero dejar unas cositas
     fun clearData() {

@@ -91,10 +91,6 @@ class PreferenceRepository(context: Context) {
 
     fun getAutoPlayAudio() : Boolean = getDataBoolean("autoPlayAudio")
 
-    fun setAutoPlayVideo(b : Boolean) = setDataBoolean("autoPlayVideo", b)
-
-    fun getAutoPlayVideo() : Boolean = getDataBoolean("autoPlayVideo")
-
     fun getLastAdTimestamp() = getDataString("AdTimestamp")
     fun updateAdTimestamp() = setDataString("AdTimestamp", LocalDateTime.now().toString())
 

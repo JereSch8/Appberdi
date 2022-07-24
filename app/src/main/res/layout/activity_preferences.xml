@@ -190,20 +190,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/autoPlayVideo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="@string/reproducci_n_autom_tica_de_video"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/autoPlayAudio" />
-
         <com.jackemate.appberdi.ui.shared.TitleView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
@@ -212,7 +198,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/autoPlayVideo"
+            app:layout_constraintTop_toBottomOf="@+id/autoPlayAudio"
             app:title="Uso de almacenamiento" />
 
         <Button

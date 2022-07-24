@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleService
 import com.jackemate.appberdi.data.CacheRepository
 import com.jackemate.appberdi.data.NotifyRepository
 import com.jackemate.appberdi.data.NotifyRepository.Companion.DEFAULT_ID
+import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.AudioStatus.*
 import com.jackemate.appberdi.entities.Content
@@ -20,9 +21,9 @@ import com.jackemate.appberdi.utils.putExtra
 class AudioService : LifecycleService() {
     val mediaPlayer: MediaPlayer = MediaPlayer()
     private val binder = TourServiceBinder()
-    private val cacheRepo = CacheRepository(this)
-
     private val notifyRepo = NotifyRepository(this)
+    private val preferenceRepo by lazy { PreferenceRepository(this) }
+    private val cacheRepo by lazy { CacheRepository(this) }
 
     private var content: Content.Audio? = null
 
@@ -46,6 +47,9 @@ class AudioService : LifecycleService() {
             setOnPreparedListener {
                 Log.i(TAG, "setOnPreparedListener")
                 broadcast(READY)
+                if (preferenceRepo.getAutoPlayAudio()) {
+                    actionPlay()
+                }
             }
             setOnSeekCompleteListener {
                 Log.d(TAG, "setOnSeekCompleteListener")
@@ -73,7 +77,8 @@ class AudioService : LifecycleService() {
             ACTION_SEEK -> actionSeek(intent.getIntExtra(EXTRA_POSITION, -1))
             ACTION_SEEK_BY -> actionSeekBy(intent.getIntExtra(EXTRA_OFFSET, -1))
             ACTION_FORCE -> actionForce()
-            else -> {}
+            else -> {
+            }
         }
         return START_STICKY
     }
