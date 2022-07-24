@@ -147,6 +147,7 @@ class AudioService : LifecycleService() {
         release()
         stopSelf()
         handler.removeCallbacks(runnable)
+        stopForeground(true)
         super.onDestroy()
     }
 

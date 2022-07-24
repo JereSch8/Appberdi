@@ -6,7 +6,6 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat.PRIORITY_MAX
 import com.jackemate.appberdi.data.NotifyRepository
-import com.jackemate.appberdi.data.NotifyRepository.Companion.READY_ID
 import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.entities.TourMode

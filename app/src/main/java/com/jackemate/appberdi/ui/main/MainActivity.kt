@@ -34,6 +34,7 @@ class MainActivity : RequesterPermissionsActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var geofencingClient: GeofencingClient
+    private val preferenceRepo by lazy { PreferenceRepository(applicationContext) }
     private val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(this, GeofenceBroadcastReceiver::class.java)
         PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -42,12 +43,12 @@ class MainActivity : RequesterPermissionsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
-        if (!PreferenceRepository(this).isntFirstUsage()) {
+        transparentStatusBar()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        if (!preferenceRepo.isntFirstUsage()) {
             goWelcome()
             return
         }
-        transparentStatusBar()
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Indispensable para el RequesterPermissionsActivity
@@ -55,7 +56,7 @@ class MainActivity : RequesterPermissionsActivity() {
 
         geofencingClient = LocationServices.getGeofencingClient(this)
 
-        val name: String = PreferenceRepository(this).getUserName()
+        val name: String = preferenceRepo.getUserName()
         binding.msgWelcome.text = getString(R.string.welcome, name)
 
         // Pedimos el permiso de GPS
@@ -95,12 +96,10 @@ class MainActivity : RequesterPermissionsActivity() {
     override fun onResume() {
         super.onResume()
         val running = isServiceRunning(TrackingService::class.java)
-        if (this::binding.isInitialized){
-            binding.launchTour.text = getString(
-                if (running) R.string.continuar_recorrido
-                else R.string.iniciar_recorrido
-            )
-        }
+        binding.launchTour.text = getString(
+            if (running) R.string.continuar_recorrido
+            else R.string.iniciar_recorrido
+        )
     }
 
     @SuppressLint("MissingPermission")
@@ -156,6 +155,7 @@ class MainActivity : RequesterPermissionsActivity() {
                     or Intent.FLAG_ACTIVITY_NEW_TASK
         )
         startActivity(intent)
+        finish()
     }
 
     private fun getGeofencingRequest(list: List<Geofence>): GeofencingRequest {
@@ -166,11 +166,6 @@ class MainActivity : RequesterPermissionsActivity() {
 
     private fun gpsPermissions(): Array<String> = listOfNotNull(
         Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            Manifest.permission.ACCESS_BACKGROUND_LOCATION
-        } else {
-            null
-        }
+        Manifest.permission.ACCESS_FINE_LOCATION
     ).toTypedArray()
 }

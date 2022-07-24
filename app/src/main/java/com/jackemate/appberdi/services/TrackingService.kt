@@ -44,10 +44,8 @@ class TrackingService : Service() {
     }
 
     private val locationRequest = LocationRequest.create().apply {
-        interval = 20000
-        // Es poco tiempo pero para las pruebas se ve bien
-        // Sinó queda desfazada la linea con el puntito azul
-        fastestInterval = 10000
+        interval = 10000
+        fastestInterval = 1000
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
 
@@ -105,6 +103,7 @@ class TrackingService : Service() {
     override fun onDestroy() {
         stopSelf()
         stopLocationUpdates()
+        stopForeground(true)
         super.onDestroy()
     }
 
