@@ -12,6 +12,7 @@ import com.jackemate.appberdi.entities.TourMode
 import com.jackemate.appberdi.ui.map.MapsActivity
 import com.jackemate.appberdi.ui.shared.contents.ARG_CONTENT
 import com.jackemate.appberdi.ui.shared.contents.activities.AudioActivity
+import com.jackemate.appberdi.ui.sites.SiteActivity
 import com.jackemate.appberdi.utils.*
 
 class NotificationsReceiver : BroadcastReceiver() {
@@ -84,6 +85,11 @@ class NotificationsReceiver : BroadcastReceiver() {
                         setContentTitle("Ya estás en ${mode.site.title}")
                         setContentText("¡Abrí la app para iniciar el recorrido!")
                         priority = PRIORITY_MAX
+                        setContentIntent(
+                            Intent(context, SiteActivity::class.java)
+                                .apply { putExtra("idSite", mode.site.id) }
+                                .toPendingIntent(context)
+                        )
                     }
                 }
             }
