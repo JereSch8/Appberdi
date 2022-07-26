@@ -16,18 +16,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="48dp"
             android:fontFamily="@font/lobstertwo_bold"
             android:text="@string/app_name"
             android:textAlignment="center"
-            android:textSize="32sp" />
+            android:textSize="48sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginHorizontal="16dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="@string/desarrollada_por"
             android:textAlignment="center"
@@ -103,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             custom:title="Voces" />
 
         <com.jackemate.appberdi.ui.about.VocesView
@@ -113,7 +112,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="16dp" />
+            android:layout_height="8dp" />
 
         <com.jackemate.appberdi.ui.about.VocesView
             android:layout_width="match_parent"
@@ -234,43 +233,41 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            custom:title="Tutores" />
+            custom:title="Instituciones" />
 
-        <TextView
+        <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Eugenia Monti"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:entries="@array/institution1"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
-        <TextView
+        <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Lina Del Castillo"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:entries="@array/institution2"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
-        <TextView
+        <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Juan Pascual"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
+            android:entries="@array/institution3"
+            />
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Pablo Madoery"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:layout_height="16dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_unc_logo"
+            />
 
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
@@ -278,52 +275,67 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            custom:title="Red" />
+            custom:title="Programa Puntos de Extensión (SEU – UNC)" />
 
-        <TextView
+        <com.jackemate.appberdi.ui.about.InstitutionView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/unc_people"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Luis Salcedo"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            custom:title="Facultad de Ciencias Exactas, Físicas y Naturales (UNC)" />
 
-        <TextView
+        <com.jackemate.appberdi.ui.about.InstitutionView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/fcefyn_people"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Nahuel"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            custom:title="Tutores" />
 
-        <TextView
+        <com.jackemate.appberdi.ui.about.InstitutionView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/tutores_people"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Fer Castello"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            custom:title="Jurado de evaluación" />
 
-        <TextView
+        <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Nati Arriola"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
+            android:entries="@array/jury_people"
+            />
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="José Manuel"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -342,6 +354,15 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/albi" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/derechos"
+            />
 
     </LinearLayout>
 

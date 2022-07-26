@@ -207,6 +207,7 @@
     <string name="avatar_albi_amigable_desc">Albi te está esperando para salir a pasear.</string>
     <string name="avatar_albi_observador">Albi observador</string>
     <string name="avatar_albi_observador_desc">Albi encontro algo y te lo está indicando.</string>
+    <string name="derechos">“Appberdi” - Derechos Universidad Nacional de Córdoba, 2022</string>
 
     <string-array name="albi_voces">
         <item>Albi:|Carla Dogliani</item>
@@ -304,6 +305,57 @@
         <item>Narradora|Fabiana Bringas</item>
         <item>Entrevistado|Horacio Saravia</item>
         <item>Fragmentos musicales|“Destiny” (Background music de soundcloud.com)</item>
+    </string-array>
+
+    <string-array name="institution1">
+        <item>image|ic_belgrano</item>
+        <item>site|Punto de Extensión Club Atlético Belgrano</item>
+        <item>people|Presidente: Luis Fabián Artime</item>
+        <item>people|Vocal 2: Claudio Marcelo Giomi</item>
+    </string-array>
+
+    <string-array name="institution2">
+        <item>image|ic_redalberdi</item>
+        <item>site|Red Pueblo Alberdi</item>
+        <item>people|Integrada por organizaciones e instituciones de barrio Alberdi, Alto Alberdi, Marechal y Villa Páez.</item>
+        <item>web|https://puebloalberdi.sociales.unc.edu.ar/</item>
+    </string-array>
+
+    <string-array name="institution3">
+        <item>image|ic_alberdi</item>
+        <item>site|Centro vecinal Alberdi</item>
+        <item>people|Presidente: Dante Martínez</item>
+        <item>people|Secretaria: Vanessa Ullúa</item>
+        <item>people|Cultura: Eugenia Monti</item>
+        <item>people|Colaboradores: Natalia Arriola, Fernando Castello, Lina del Castillo y Nahuel Quintana Vicente</item>
+    </string-array>
+
+    <string-array name="unc_people">
+        <item>people|Rector: Dr. Hugo Oscar Juri</item>
+        <item>people|Vicerrector: Dr. Ramón Pedro Yanzi Ferreira</item>
+        <item>people|Secretario de Extensión: Ab. Conrado Storani</item>
+        <item>people|Subsecretario de Cultura: Mg. Pedro Sorrentino</item>
+    </string-array>
+
+    <string-array name="fcefyn_people">
+        <item>people|Decano:Ing. Pablo Recabarren</item>
+        <item>people|Vicedecana: Dra. Magalí Carro Pérez</item>
+        <item>people|Secretario de Extensión: Ing. Luis Bosch</item>
+        <item>people|Prosecretario de Vinculación Social: Dr. José Manuel Díaz Lozada</item>
+    </string-array>
+
+    <string-array name="tutores_people">
+        <item>people|Por la Facultad de Ciencias Exactas, Físicas y Naturales: Ing. Pablo Gustavo Madoery</item>
+        <item>people|Por la Facultad de Artes: Lic. Juan Pascual Sgro</item>
+        <item>people|Por la Facultad de Ciencias de la Comunicación: Lic. Luis Salcedo Okuma</item>
+    </string-array>
+
+    <string-array name="jury_people">
+        <item>people|Por la Secretaría de Extensión Universitaria: Lic. María Virgina Bustos</item>
+        <item>people|Por la Facultad de Ciencias Exactas, Físicas y Naturales: Ing. Horacio A. Mendoza</item>
+        <item>people|Por la Facultad de Artes: Lic. Alejandro González</item>
+        <item>people|Por la Facultad de Ciencias de la Comunicación: Lic. Pablo Natta</item>
+        <item>people|Por la Red Pueblo Alberdi: Sr. Dante Martínez (presidente del Centro Vecinal Alberdi)</item>
     </string-array>
 
 </resources>

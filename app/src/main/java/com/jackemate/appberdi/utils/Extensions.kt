@@ -36,6 +36,11 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+fun Context.PxtoDP(sizeInDp : Int) : Int{
+    val scale: Float = resources.displayMetrics.density
+    return (sizeInDp * scale + 0.5f).toInt()
+}
+
 val Any.TAG: String
     get() {
         val tag = javaClass.simpleName

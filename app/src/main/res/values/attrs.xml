@@ -17,4 +17,8 @@
     <declare-styleable name="VocesView">
         <attr name="android:entries" />
     </declare-styleable>
+
+    <declare-styleable name="InstitutionView">
+        <attr name="android:entries" />
+    </declare-styleable>
 </resources>
