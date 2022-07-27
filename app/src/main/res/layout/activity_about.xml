@@ -268,6 +268,14 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_unc_logo"
             />
+        <com.jackemate.appberdi.ui.about.InstitutionView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/unc_people"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
@@ -280,7 +288,7 @@
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/unc_people"
+            android:entries="@array/extension_people"
             />
         <Space
             android:layout_width="match_parent"
@@ -309,7 +317,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            custom:title="Tutores" />
+            custom:title="Docentes tutores" />
 
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
@@ -359,6 +367,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:textSize="10sp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/derechos"

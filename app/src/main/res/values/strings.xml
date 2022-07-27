@@ -358,4 +358,12 @@
         <item>people|Por la Red Pueblo Alberdi: Sr. Dante Martínez (presidente del Centro Vecinal Alberdi)</item>
     </string-array>
 
+    <string-array name="extension_people">
+        <item>people|Virginia Bustos</item>
+        <item>people|Antonella Daghero</item>
+        <item>people|Daniel Sosa González</item>
+        <item>people|Lucrecia Meossi</item>
+        <item>people|Diego Pigini</item>
+    </string-array>
+
 </resources>
