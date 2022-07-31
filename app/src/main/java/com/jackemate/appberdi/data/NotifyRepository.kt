@@ -33,7 +33,7 @@ class NotifyRepository(val context: Context) {
     fun build(block: NotificationCompat.Builder.() -> Unit): Notification {
         val builder = NotificationCompat.Builder(context, CHANNEL_BACKGROUND_ID)
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setSmallIcon(R.drawable.ic_circle_heart)
+            .setSmallIcon(R.mipmap.ic_launcher)
 
         block(builder)
 

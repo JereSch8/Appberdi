@@ -21,7 +21,7 @@ import com.jackemate.appberdi.utils.putExtra
 class AudioService : LifecycleService() {
     val mediaPlayer: MediaPlayer = MediaPlayer()
     private val binder = TourServiceBinder()
-    private val notifyRepo = NotifyRepository(this)
+    private val notifyRepo by lazy { NotifyRepository(this) }
     private val preferenceRepo by lazy { PreferenceRepository(this) }
     private val cacheRepo by lazy { CacheRepository(this) }
 
@@ -80,7 +80,7 @@ class AudioService : LifecycleService() {
             else -> {
             }
         }
-        return START_STICKY
+        return START_REDELIVER_INTENT
     }
 
     fun actionSelect(audio: Content.Audio) {
@@ -121,10 +121,12 @@ class AudioService : LifecycleService() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
             handler.removeCallbacks(runnable)
+            stopForeground(false)
             broadcast(PAUSED)
         } else {
             mediaPlayer.start()
             handler.post(runnable)
+            startForeground(DEFAULT_ID, notifyRepo.foreground())
             broadcast(PLAYING)
         }
     }
@@ -170,10 +172,10 @@ class AudioService : LifecycleService() {
         broadcast.action = AUDIO_UPDATES
         broadcast.putExtra(status ?: playingOrPaused())
         if (status != PREPARING) {
-            broadcast.putExtra("time", mediaPlayer.currentPosition)
-            broadcast.putExtra("duration", mediaPlayer.duration)
+            broadcast.putExtra(EXTRA_TIME, mediaPlayer.currentPosition)
+            broadcast.putExtra(EXTRA_DURATION, mediaPlayer.duration)
         }
-        broadcast.putExtra("content", content)
+        broadcast.putExtra(EXTRA_CONTENT, content)
         broadcast.setPackage("com.jackemate.appberdi")
         sendBroadcast(broadcast)
     }
@@ -202,7 +204,6 @@ class AudioService : LifecycleService() {
 
         const val AUDIO_UPDATES = "com.jackemate.appberdi.audio.broadcast"
         const val EXTRA_TIME = "time"
-        const val EXTRA_STATUS = "status"
         const val EXTRA_DURATION = "duration"
         const val EXTRA_CONTENT = "content"
     }

@@ -1,5 +1,6 @@
 package com.jackemate.appberdi.ui.sites
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -10,6 +11,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.jackemate.appberdi.databinding.ActivitySiteBinding
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.entities.ContentSite
+import com.jackemate.appberdi.services.AudioService
+import com.jackemate.appberdi.services.TrackingService
 import com.jackemate.appberdi.ui.shared.contents.ARG_CONTENT
 import com.jackemate.appberdi.ui.shared.contents.ARG_ID_SITE
 import com.jackemate.appberdi.ui.shared.contents.ContentPageFragment
@@ -48,6 +51,10 @@ class SiteActivity : FragmentActivity() {
             initStepper()
             initViewPager()
         }
+
+        // Parar el tracking mientras estamos en un sitio
+        // Cuando vuelva al mapa el tracker se reiniciará
+        stopService(Intent(this, TrackingService::class.java))
     }
 
     private fun initStepper() {
@@ -56,6 +63,9 @@ class SiteActivity : FragmentActivity() {
         }
         binding.btnBack.setOnClickListener {
             if (isFirst()) {
+                // TODO: mostrar AlertDialog para confirmar que quiere abandonar el sitio
+                //       y hacer stopService del audio antes del finish
+                stopService(Intent(this, AudioService::class.java))
                 finish()
                 return@setOnClickListener
             }
@@ -65,6 +75,12 @@ class SiteActivity : FragmentActivity() {
         binding.steps.setOnStepClickListener {
             setPage(it)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // TODO: AlertDialog
+        stopService(Intent(this, AudioService::class.java))
     }
 
     private fun initViewPager() {

@@ -28,11 +28,20 @@ class NotificationsReceiver : BroadcastReceiver() {
             val status = intent.getEnumExtra<AudioStatus>()
 
             val newNotification = notifyRepo.build {
-                setContentIntent(
-                    Intent(context, AudioActivity::class.java)
-                        .putExtra(ARG_CONTENT, content)
-                        .toPendingIntent(context)
-                )
+
+                if (!content?.idSite.isNullOrEmpty()) {
+                    setContentIntent(
+                        Intent(context, SiteActivity::class.java)
+                            .apply { putExtra("idSite", content?.idSite) }
+                            .toPendingIntent(context)
+                    )
+                } else {
+                    setContentIntent(
+                        Intent(context, AudioActivity::class.java)
+                            .putExtra(ARG_CONTENT, content)
+                            .toPendingIntent(context)
+                    )
+                }
 
                 when (status) {
                     AudioStatus.PREPARING -> {

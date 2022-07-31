@@ -59,7 +59,6 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate")
-//        transparentStatusBar()
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -76,8 +75,6 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         binding.offline.setOnClickListener {
             // TODO mostrar dialogo
         }
-
-        ContextCompat.startForegroundService(this, Intent(this, AudioService::class.java))
     }
 
     override fun onResume() {

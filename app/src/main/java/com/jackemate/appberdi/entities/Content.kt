@@ -16,12 +16,21 @@ sealed class Content(
         override val href: String = "",
         val subtitle: String = "",
         val preview: Map<String, String> = emptyMap()
-    ) : Cacheable, Content(tag = TYPE_AUDIO)
+    ) : Cacheable, Content(tag = TYPE_AUDIO) {
+
+        override fun toString(): String {
+            return "Audio(href='$href')"
+        }
+    }
 
     data class Image(
         override val href: String = "",
         val description: String = "",
-    ) : Cacheable, Content(tag = TYPE_IMG)
+    ) : Cacheable, Content(tag = TYPE_IMG) {
+        override fun toString(): String {
+            return "Image(href='$href')"
+        }
+    }
 
     data class Gif(
         override val href: String = "",
@@ -36,7 +45,11 @@ sealed class Content(
 
     data class Text(
         val description: String = "",
-    ) : Content(tag = TYPE_TEXT)
+    ) : Content(tag = TYPE_TEXT) {
+        override fun toString(): String {
+            return "Text(description='${description.substring(0, 20)}')"
+        }
+    }
 
     data class Summary(
         val words: SummaryCountable? = null,
