@@ -71,11 +71,12 @@ class NotificationsReceiver : BroadcastReceiver() {
 
                 when (mode) {
                     is TourMode.Navigating -> {
-                        setContentText("Yendo a ${mode.best.title}")
+                        setContentTitle("${mode.best.title} está mas cerca")
                         setContentText("Estás a ${mode.distance} metros")
                     }
                     is TourMode.Selected -> {
                         setContentTitle("Yendo a ${mode.site.title}")
+                        setContentText("Estás a ${mode.distance} metros")
                     }
                     is TourMode.Thinking -> {
                         setContentTitle("¡Tour Activado!")

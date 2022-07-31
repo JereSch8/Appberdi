@@ -25,8 +25,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="@string/desarrollada_por"
             android:textAlignment="center"
@@ -94,8 +94,7 @@
             custom:facu="FFyH"
             custom:name="Maia Milman"
             custom:social_insta="https://www.instagram.com/maiarandom"
-            custom:social_linkedin="linkedIn.com/in/maiamilman"
-            />
+            custom:social_linkedin="linkedIn.com/in/maiamilman" />
 
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
@@ -238,8 +237,8 @@
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/institution1"
-            />
+            android:entries="@array/institution1" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -247,8 +246,8 @@
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/institution2"
-            />
+            android:entries="@array/institution2" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -256,8 +255,8 @@
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/institution3"
-            />
+            android:entries="@array/institution3" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -266,13 +265,13 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_unc_logo"
-            />
+            android:src="@drawable/ic_unc_logo" />
+
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/unc_people"
-            />
+            android:entries="@array/unc_people" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -288,8 +287,8 @@
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/extension_people"
-            />
+            android:entries="@array/extension_people" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -305,8 +304,8 @@
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/fcefyn_people"
-            />
+            android:entries="@array/fcefyn_people" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -322,8 +321,8 @@
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/tutores_people"
-            />
+            android:entries="@array/tutores_people" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -339,8 +338,8 @@
         <com.jackemate.appberdi.ui.about.InstitutionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/jury_people"
-            />
+            android:entries="@array/jury_people" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -366,12 +365,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="10sp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/derechos"
-            />
+            android:textAlignment="center"
+            android:textColor="@color/white80"
+            android:textSize="10sp" />
 
     </LinearLayout>
 

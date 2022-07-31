@@ -18,15 +18,14 @@ import com.jackemate.appberdi.entities.Position
 import com.jackemate.appberdi.entities.Site
 import com.jackemate.appberdi.entities.TourMode
 import com.jackemate.appberdi.ui.map.SiteMarker
-import com.jackemate.appberdi.utils.Constants
 import com.jackemate.appberdi.utils.TAG
 import com.jackemate.appberdi.utils.hasPermission
 import kotlin.math.roundToInt
 
 class TrackingService : Service() {
-    private lateinit var notifyRepo: NotifyRepository
-    private lateinit var siteRepo: SiteRepository
-    private lateinit var preferenceRepo: PreferenceRepository
+    private val notifyRepo by lazy { NotifyRepository(this) }
+    private val siteRepo by lazy { SiteRepository() }
+    private val preferenceRepo by lazy { PreferenceRepository(this) }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -55,11 +54,7 @@ class TrackingService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-
         Log.d(TAG, "onCreate")
-        notifyRepo = NotifyRepository(this)
-        siteRepo = SiteRepository()
-        preferenceRepo = PreferenceRepository(this)
         startForeground(NotifyRepository.DEFAULT_ID, notifyRepo.foreground())
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -73,26 +68,11 @@ class TrackingService : Service() {
         initSites()
         when (intent.action) {
             ACTION_FORCE -> doUpdate()
-            ACTION_SELECT -> {
-                val id = intent.getStringExtra(EXTRA_SITE)!!
-                val site = currentSites!!.find { it.id == id }!!
-                val distance = currentPos?.let { distanceTo(site.pos).toInt() }
-                currentMode = TourMode.Selected(site, distance)
-                broadcast()
-            }
-            ACTION_NAVIGATE -> {
-                val best = computeBestSite()
-                currentMode = if (best != null) {
-                    val distance = distanceTo(best.pos).roundToInt()
-                    TourMode.Navigating(best, distance)
-                } else {
-                    TourMode.Thinking
-                }
-                broadcast()
-            }
+            ACTION_SELECT -> doSelect(intent)
+            ACTION_NAVIGATE -> doNavigate()
         }
 
-        return START_STICKY
+        return START_REDELIVER_INTENT
     }
 
     override fun onLowMemory() {
@@ -138,26 +118,59 @@ class TrackingService : Service() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
+    private fun doSelect(intent: Intent) {
+        val id = intent.getStringExtra(EXTRA_SITE)!!
+
+        if (currentSites == null) {
+            Log.w(TAG, "no select! currentSites is null")
+            return
+        }
+        val site = currentSites!!.find { it.id == id }!!
+        val distance = currentPos?.let { distanceTo(site.pos) }
+        currentMode = if (isReady(site, distance)) {
+            TourMode.Ready(site, site)
+        } else {
+            TourMode.Selected(site, distance?.roundToInt())
+        }
+        broadcast()
+    }
+
+    private fun doNavigate() {
+        val best = computeBestSite()
+        currentMode = if (best != null) {
+            val distance = distanceTo(best.pos)
+            if (isReady(best, distance)) {
+                TourMode.Ready(best, null)
+            } else {
+                TourMode.Navigating(best, distance.roundToInt())
+            }
+        } else {
+            TourMode.Thinking
+        }
+        broadcast()
+    }
+
     private fun doUpdate() {
-        Log.d(TAG, "doUpdate: currentPos: $currentPos, status: $currentMode")
+        val mode = currentMode
+
+        Log.d(TAG, "doUpdate: currentPos: $currentPos, status: $mode")
 
         if (currentSites == null) {
             Log.w(TAG, "no update! currentSites is null")
             return
         }
 
-        when (currentMode) {
+        when (mode) {
             is TourMode.Thinking,
-            is TourMode.Navigating,
-            is TourMode.Ready -> {
+            is TourMode.Navigating -> {
                 val best = computeBestSite()
                 Log.d(TAG, "best: $best")
 
                 if (best != null) {
                     val distance = distanceTo(best.pos)
 
-                    currentMode = if (distance < Constants.GEOFENCE_RADIUS_IN_METERS) {
-                        TourMode.Ready(best)
+                    currentMode = if (isReady(best, distance)) {
+                        TourMode.Ready(best, null)
                     } else {
                         TourMode.Navigating(best, distance.roundToInt())
                     }
@@ -165,7 +178,24 @@ class TrackingService : Service() {
                     broadcast()
                 }
             }
+            is TourMode.Ready -> {
+                val distance = distanceTo(mode.site.pos)
+                currentMode = when {
+                    isReady(mode.site, distance) -> mode // Noop
+                    mode.selected != null -> TourMode.Selected(mode.selected, distance.roundToInt())
+                    else -> TourMode.Thinking
+                }
+
+                broadcast()
+            }
             is TourMode.Selected -> {
+                val distance = currentPos?.let { distanceTo(mode.site.pos) }
+                currentMode = if (isReady(mode.site, distance)) {
+                    TourMode.Ready(mode.site, mode.site)
+                } else {
+                    TourMode.Selected(mode.site, distance?.roundToInt())
+                }
+
                 broadcast()
             }
         }
@@ -195,6 +225,15 @@ class TrackingService : Service() {
         return SphericalUtil.computeDistanceBetween(pos.toLatLng(), currentPos)
     }
 
+    private fun isReady(site: SiteMarker, distance: Double?): Boolean {
+        if (distance == null) return false
+
+        // Hardcode caso especial para plaza colón
+        if (site.id == "plaza-colon") return distance < READY_RADIUS_IN_METERS_PLAZA
+
+        return distance < READY_RADIUS_IN_METERS
+    }
+
     companion object {
         const val TRACKING_UPDATES = "com.jackemate.appberdi.tracking.broadcast"
         const val EXTRA_UPDATE_POS = "pos"
@@ -205,5 +244,8 @@ class TrackingService : Service() {
         const val ACTION_NAVIGATE = "com.jackemate.appberdi.tracking.action.NAVIGATE"
 
         const val EXTRA_SITE = "site"
+
+        const val READY_RADIUS_IN_METERS = 50f
+        const val READY_RADIUS_IN_METERS_PLAZA = 100f
     }
 }
