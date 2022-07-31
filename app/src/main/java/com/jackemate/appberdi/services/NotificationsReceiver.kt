@@ -36,7 +36,7 @@ class NotificationsReceiver : BroadcastReceiver() {
 
                 when (status) {
                     AudioStatus.PREPARING -> {
-                        setContentTitle("Descargando Audio")
+                        setContentTitle("Descargando audio")
                         setContentText("Perame un cachito")
                     }
                     AudioStatus.READY -> {

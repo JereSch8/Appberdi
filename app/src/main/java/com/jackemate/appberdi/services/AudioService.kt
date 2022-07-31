@@ -169,8 +169,10 @@ class AudioService : LifecycleService() {
         val broadcast = Intent()
         broadcast.action = AUDIO_UPDATES
         broadcast.putExtra(status ?: playingOrPaused())
-        broadcast.putExtra("time", mediaPlayer.currentPosition)
-        broadcast.putExtra("duration", mediaPlayer.duration)
+        if (status != PREPARING) {
+            broadcast.putExtra("time", mediaPlayer.currentPosition)
+            broadcast.putExtra("duration", mediaPlayer.duration)
+        }
         broadcast.putExtra("content", content)
         broadcast.setPackage("com.jackemate.appberdi")
         sendBroadcast(broadcast)
