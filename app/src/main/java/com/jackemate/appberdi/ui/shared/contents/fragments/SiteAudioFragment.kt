@@ -111,11 +111,6 @@ class SiteAudioFragment : ContentPageFragment() {
             audioService?.actionPlay()
         }
 
-        fun seekBy(change: Int) {
-            if (!binding.btnPlay.isEnabled) return // MediaPlayer not ready
-            audioService?.actionSeekBy(change)
-        }
-
         binding.btnForward.setOnClickListener {
             seekBy(5000)
         }
@@ -131,6 +126,11 @@ class SiteAudioFragment : ContentPageFragment() {
 
         // Prefech la primera imagen
         updatePreview("00:00")
+    }
+
+    private fun seekBy(change: Int) {
+        if (!binding.btnPlay.isEnabled) return // MediaPlayer not ready
+        audioService?.actionSeekBy(change)
     }
 
     fun updateUI(status: AudioStatus, time: Int, duration: Int) {
