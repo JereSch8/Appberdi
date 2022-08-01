@@ -65,10 +65,7 @@
             android:name=".ui.sites.SiteActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.attractions.AttractionActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.attractions.AttractionDetailActivity"
+            android:name=".ui.cultural.CulturalActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.preferences.PreferencesActivity"

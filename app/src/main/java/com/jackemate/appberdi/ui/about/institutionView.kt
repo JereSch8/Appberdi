@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.jackemate.appberdi.R
-import com.jackemate.appberdi.utils.PxtoDP
+import com.jackemate.appberdi.utils.dp
 
 class InstitutionView :  LinearLayout {
     constructor(context: Context) : super(context, null)
@@ -17,7 +17,7 @@ class InstitutionView :  LinearLayout {
 
         orientation = VERTICAL
         gravity = Gravity.CENTER
-        setPadding(context.PxtoDP(16))
+        setPadding(dp(16))
 
         context.theme.obtainStyledAttributes(
             attrs,
