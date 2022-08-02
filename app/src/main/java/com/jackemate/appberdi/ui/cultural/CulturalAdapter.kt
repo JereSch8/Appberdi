@@ -1,6 +1,5 @@
 package com.jackemate.appberdi.ui.cultural
 
-import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jackemate.appberdi.entities.CulturalActivity
@@ -19,12 +18,6 @@ class CulturalAdapter constructor(
 
     override fun getItemCount(): Int {
         return list.size
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun update(list: List<CulturalActivity>) {
-        this.list = list
-        notifyDataSetChanged()
     }
 
     inner class Holder(private val v: CulturalItem) : RecyclerView.ViewHolder(v) {

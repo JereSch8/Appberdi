@@ -3,16 +3,15 @@ package com.jackemate.appberdi.ui.welcome
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.databinding.ActivityWelcomeBinding
+import com.jackemate.appberdi.entities.Board
 import com.jackemate.appberdi.ui.main.MainActivity
 import com.jackemate.appberdi.ui.shared.dialogs.BasicDialog
 import com.jackemate.appberdi.utils.transparentStatusBar
 
 class WelcomeActivity : AppCompatActivity() {
-    private lateinit var viewModel: WelcomeViewModel
     private lateinit var binding: ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,25 +19,14 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
 
-        val limitStorage = PreferenceRepository(this).getLimitStorage()
-        val limitMovil = PreferenceRepository(this).getLimitMovil()
-        if (limitStorage == -8)
-            PreferenceRepository(this).setLimitStorage(150)
-        if (limitMovil != -8)
-            PreferenceRepository(this).setLimitMovil(150)
-
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(WelcomeViewModel::class.java)
-
-        val adapter = ViewPageAdapter(viewModel.getListBoard(), this::onClickListener)
-
-        binding.viewPager.adapter = adapter
+        binding.viewPager.adapter = ViewPageAdapter(boards, this::onClickListener)
     }
 
     private fun onClickListener(position: Int) {
-        if (position == (viewModel.getListBoard().size - 1)) {
+        if (position == (boards.size - 1)) {
             BasicDialog(this)
                 .setButtonEnabled(false)
                 .setInputTypeText()
@@ -54,8 +42,9 @@ class WelcomeActivity : AppCompatActivity() {
                     goToMain()
                 }
                 .show()
-        } else
+        } else {
             binding.viewPager.setCurrentItem((position + 1), true)
+        }
     }
 
     private fun goToMain() {
@@ -67,5 +56,38 @@ class WelcomeActivity : AppCompatActivity() {
         )
         startActivity(intent)
     }
+
+    private val boards = listOf(
+        Board(
+            background = R.drawable.background,
+            animation = R.raw.neighborhood,
+            title = "Bienvenida/o al barrio Alberdi",
+            description = "Estás a punto de comenzar un gran viaje a través de barrio Alberdi."
+        ),
+        Board(
+            background = R.drawable.background,
+            animation = R.raw.tour_walking,
+            title = "Recorrido Presencial",
+            description = "Te guiaremos durante tu visita para que aproveches al máximo tu recorrido."
+        ),
+        Board(
+            background = R.drawable.background,
+            animation = R.raw.tour_virtual,
+            title = "Recorrido Virtual",
+            description = "Si no podés visitar el barrio no te preocupes: podés hacerlo desde donde estés."
+        ),
+        Board(
+            background = R.drawable.background,
+            animation = R.raw.girl_mediateca,
+            title = "Mediateca",
+            description = "Acceso a increíbles documentos del barrio Alberdi"
+        ),
+        Board(
+            background = R.drawable.background,
+            animation = R.raw.attraction,
+            title = "Actividades",
+            description = "Descubrí todas las actividades culturales que tiene el barrio para vos."
+        )
+    )
 
 }

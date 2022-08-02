@@ -49,53 +49,43 @@ class PreferenceRepository(context: Context) {
         editor.apply()
     }
 
-    //"isnt porque por defecto la variable se inicializa en false y queda mal si se llama "is"
+    // "isnt porque por defecto la variable se inicializa en false y queda mal si se llama "is"
     fun isntFirstUsage(): Boolean = getDataBoolean("Welcome")
-
     fun setFirstUsage() = setDataBoolean("Welcome", true)
 
     fun getUserName() : String = getDataString("UserName")
-
     fun setUserName(name : String) = setDataString("UserName", name)
 
     /*
      * Limites en MB
      */
     fun getLimitStorage() : Int = getDataInt("limiteStorage").takeIf { it != -8 } ?: 150
-
     fun setLimitStorage(limit : Int) = setDataInt("limiteStorage", limit)
 
     fun getLimitMovil() : Int = getDataInt("limiteMovil").takeIf { it != -8 } ?: 150
-
     fun setLimitMovil(limit : Int) = setDataInt("limiteMovil", limit)
 
     // Cantidad de sitios obtenidos en DB
     fun getAmountSites() : Int? = getDataInt("amountSite").takeIf { it != -8 }
-
     fun setAmountSites(amount : Int) = setDataInt("amountSite", amount)
 
     fun getProgressSite() : Int? = getDataInt("progressSite").takeIf { it != -8 }
-
     fun setProgressSite(progress : Int) = setDataInt("progressSite", progress)
 
     // Cantidad de tesoros obtenidos en DB
     fun getAmountTreasures() : Int? = getDataInt("amountTreasure").takeIf { it != -8 }
-
     fun setAmountTreasures(amount : Int) = setDataInt("amountTreasure", amount)
 
     fun getProgressTreasure() : Int? = getDataInt("progressTreasure").takeIf { it != -8 }
-
     fun setProgressTreasure(progress : Int) = setDataInt("progressTreasure", progress)
 
     fun setAutoPlayAudio(b : Boolean) = setDataBoolean("autoPlayAudio", b)
-
     fun getAutoPlayAudio() : Boolean = getDataBoolean("autoPlayAudio")
 
-    fun getLastAdTimestamp() = getDataString("AdTimestamp")
-    fun updateAdTimestamp() = setDataString("AdTimestamp", LocalDateTime.now().toString())
+    fun getLastAdTimestamp() = getDataString("adTimestamp")
+    fun updateAdTimestamp() = setDataString("adTimestamp", LocalDateTime.now().toString())
 
     fun getAvatar() = getDataInt("selectedAvatar").takeIf { it != -8 }
-
     fun setAvatar(resource : Int) = setDataInt("selectedAvatar", resource)
 
     fun getVirtualMode() = getDataBoolean("virtualMode")
