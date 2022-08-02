@@ -209,6 +209,7 @@
     <string name="avatar_albi_observador">Albi observador</string>
     <string name="avatar_albi_observador_desc">Albi encontro algo y te lo está indicando.</string>
     <string name="derechos">“Appberdi” - Derechos Universidad Nacional de Córdoba, 2022</string>
+    <string name="copied">¡Copiado al portapapeles!</string>
 
     <string-array name="albi_voces">
         <item>Albi:|Carla Dogliani</item>

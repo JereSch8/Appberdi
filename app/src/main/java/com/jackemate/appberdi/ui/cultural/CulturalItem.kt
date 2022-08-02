@@ -11,11 +11,13 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.google.firebase.firestore.GeoPoint
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.entities.CulturalActivity
 import com.jackemate.appberdi.entities.Link
 import com.jackemate.appberdi.ui.shared.TitleView
 import com.jackemate.appberdi.utils.addRipple
+import com.jackemate.appberdi.utils.copyToClipboard
 import com.jackemate.appberdi.utils.dp
 
 class CulturalItem : LinearLayoutCompat {
@@ -34,6 +36,7 @@ class CulturalItem : LinearLayoutCompat {
     }
 
     fun set(item: CulturalActivity) {
+        removeAllViews()
         addView(TitleView(context).withText(item.name).withPadding(16))
         getStreetView(item)?.let(::addView)
         getPhoneView(item)?.let(::addView)
@@ -48,17 +51,33 @@ class CulturalItem : LinearLayoutCompat {
 
         val button = getBaseButton(R.drawable.ic_social_pin, item.street)
         button.setOnClickListener {
+            if (item.pos == null) {
+                context.copyToClipboard(item.street)
+                Toast.makeText(context, R.string.copied, Toast.LENGTH_SHORT).show()
+            } else {
+                openGoogleMap(item.pos, item)
+            }
             Log.e("TARST", item.pos.toString())
         }
         return button
+    }
+
+    private fun openGoogleMap(pos: GeoPoint, item: CulturalActivity) {
+        val uri = Uri.parse("geo:${pos.latitude},${pos.longitude}?q=" + Uri.encode(item.name))
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        intent.resolveActivity(context.packageManager)?.let {
+            context.startActivity(intent)
+        }
     }
 
     private fun getPhoneView(item: CulturalActivity): AppCompatButton? {
         if (item.phone.isEmpty()) return null
         return getBaseButton(R.drawable.ic_social_phone, item.phone).apply {
             setOnClickListener {
+                // Por si tiene algo entre paréntesis (Museo de la Reforma Univesitaria)
+                val number = item.phone.split("(").first()
                 val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:${item.phone}")
+                intent.data = Uri.parse("tel:$number")
                 ContextCompat.startActivity(context, intent, null)
             }
         }

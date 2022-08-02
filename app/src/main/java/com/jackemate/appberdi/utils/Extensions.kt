@@ -4,9 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.PendingIntent
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
@@ -94,7 +92,7 @@ fun Intent.toPendingIntent(context: Context): PendingIntent {
 inline fun <reified T : Enum<T>> Intent.putExtra(victim: T): Intent =
     putExtra(T::class.java.name, victim.ordinal)
 
-inline fun <reified T: Enum<T>> Intent.getEnumExtra(): T =
+inline fun <reified T : Enum<T>> Intent.getEnumExtra(): T =
     getIntExtra(T::class.java.name, -1)
         .takeUnless { it == -1 }
         ?.let { T::class.java.enumConstants!![it] }!!
@@ -326,3 +324,9 @@ fun Int.toTimeString() = String.format(
     TimeUnit.MILLISECONDS.toMinutes(toLong()),
     TimeUnit.MILLISECONDS.toSeconds(toLong()) % 60
 )
+
+fun Context.copyToClipboard(text: CharSequence) {
+    val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
+    val clip = ClipData.newPlainText("label", text)
+    clipboard?.setPrimaryClip(clip)
+}
