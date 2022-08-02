@@ -36,7 +36,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var markers = emptyMap<String, Marker>()
     private lateinit var binding: ActivityMapsBinding
 
-    private lateinit var polyline: Polyline
+    private var polyline: Polyline? = null
     private val receiver = TrackingBroadcastReceiver()
 
     private val markerIconDefault by lazy { BitmapDescriptorFactory.defaultMarker(210f) }
@@ -69,6 +69,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.btnOptions.setOnClickListener {
             createDialogOptions()
         }
+        updateUI(null, TourMode.Thinking)
     }
 
     private fun createDialogOptions() {
@@ -77,6 +78,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 viewModel.setVirtualMode(isVirtual)
                 if (isVirtual) {
                     stopServices()
+                    updateUI(null, TourMode.Thinking)
                 } else {
                     startTracking()
                 }
@@ -138,6 +140,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     // val iconFactory = IconGenerator(this)
     private fun initMarkers(sites: List<SiteMarker>) {
         markers = sites.map { site -> Pair(site.id, buildMarker(site)) }.toMap()
+        setMarkerFocus(null)
         moveCameraByBounds(sites)
     }
 
@@ -210,18 +213,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val site = marker.tag as SiteMarker
         Log.i(TAG, "onMarkerClick: site: ${site.title}")
 
-        val intent = Intent(this, TrackingService::class.java)
-        intent.action = TrackingService.ACTION_SELECT
-        intent.putExtra(EXTRA_SITE, site.id)
-        ContextCompat.startForegroundService(this, intent)
+        if (viewModel.getVirtualMode()) {
+            updateUI(null, TourMode.Ready(site, null))
+        } else {
+            val intent = Intent(this, TrackingService::class.java)
+            intent.action = TrackingService.ACTION_SELECT
+            intent.putExtra(EXTRA_SITE, site.id)
+            ContextCompat.startForegroundService(this, intent)
+        }
 
         return false
     }
 
     private fun toNavigate() {
-        val intent = Intent(this, TrackingService::class.java)
-        intent.action = TrackingService.ACTION_NAVIGATE
-        ContextCompat.startForegroundService(this, intent)
+        if (viewModel.getVirtualMode()) {
+            updateUI(null, TourMode.Thinking)
+        } else {
+            val intent = Intent(this, TrackingService::class.java)
+            intent.action = TrackingService.ACTION_NAVIGATE
+            ContextCompat.startForegroundService(this, intent)
+        }
     }
 
     private fun updateUI(currentPos: LatLng?, mode: TourMode) {
@@ -229,10 +240,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         when (mode) {
             is TourMode.Thinking -> {
+                binding.tvNameSite.text = getString(
+                    if (viewModel.getVirtualMode()) R.string.pensando_virtual
+                    else R.string.pensando
+                )
                 binding.tvNextStop.text = ""
-                binding.tvNameSite.text = getString(R.string.pensando)
                 binding.tvDistance.text = ""
-                polyline.points = emptyList()
+                polyline?.points = emptyList()
                 binding.btnAccessible.visible(false)
                 binding.btnEnter.hide()
                 setMarkerFocus(null)
@@ -242,7 +256,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 binding.tvNameSite.text = mode.best.title
                 binding.tvDistance.text = getString(R.string.estas_a, mode.distance)
                 binding.btnAccessible.visible(mode.best.accessible)
-                polyline.points = listOf(currentPos, mode.best.pos.toLatLng())
+                polyline?.points = listOf(currentPos, mode.best.pos.toLatLng())
 
                 binding.btnEnter.hide()
                 binding.btnEnter.setOnClickListener(null)
@@ -257,28 +271,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 if (currentPos != null) {
                     binding.tvDistance.text = getString(R.string.estas_a, mode.distance)
-                    polyline.points = listOf(currentPos, mode.site.pos.toLatLng())
+                    polyline?.points = listOf(currentPos, mode.site.pos.toLatLng())
                 }
 
-//                if (mode.ready) {
-//                    binding.btnEnter.show()
-//                    binding.btnEnter.setOnClickListener { openSite(mode.site.id) }
-//                } else {
                 binding.btnEnter.hide()
                 binding.btnEnter.setOnClickListener(null)
-//                }
-
 
                 setMarkerFocus(markers[mode.site.id])
             }
             is TourMode.Ready -> {
-                binding.tvNextStop.text = "Estás en"
+                binding.tvNextStop.text =
+                    if (mode.site.visited) "Estás de nuevo en"
+                    else "Estás en"
                 binding.tvNameSite.text = mode.site.title
                 binding.tvDistance.text = "Ya podés iniciar el recorrido!"
                 binding.btnAccessible.visible(mode.site.accessible)
 
                 if (currentPos != null) {
-                    polyline.points = listOf(currentPos, mode.site.pos.toLatLng())
+                    polyline?.points = listOf(currentPos, mode.site.pos.toLatLng())
                 }
 
                 binding.btnEnter.show()

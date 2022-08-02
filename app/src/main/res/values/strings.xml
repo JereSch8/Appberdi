@@ -170,6 +170,7 @@
     <string name="welcome">Hola %1$s, soy Albi.\n¡Vamos a recorrer el barrio!</string>
     <string name="ingrese_titulo">"Ingrese título o descripción"</string>
     <string name="pensando">Pensando…</string>
+    <string name="pensando_virtual">Selecciona un sitio para visitarlo</string>
     <string name="sitio_mas_cercano">"Lugar más cercano:"</string>
     <string name="estas_a">"Estás más o menos a %1$d metros"</string>
     <string name="limite_almacenamiento">Límite de almacenamiento: %1$d MB.</string>
