@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.DialogAvatarsBinding
 import com.jackemate.appberdi.entities.Board
-import com.jackemate.appberdi.ui.shared.DialogBuilder
+import com.jackemate.appberdi.ui.shared.dialogs.DialogBuilder
 
 class DialogAvatars(activity: Activity): DialogBuilder(activity) {
     override val binding = DialogAvatarsBinding.inflate(inflater)

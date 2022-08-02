@@ -1,4 +1,4 @@
-package com.jackemate.appberdi.ui.shared
+package com.jackemate.appberdi.ui.shared.dialogs
 
 import android.app.Dialog
 import android.content.Context
@@ -12,7 +12,7 @@ import androidx.viewbinding.ViewBinding
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.PreferenceRepository
 
-abstract class DialogBuilder(context: Context): Dialog(context) {
+abstract class DialogBuilder(context: Context) : Dialog(context) {
 
     protected val inflater: LayoutInflater = LayoutInflater.from(context)
     protected abstract val binding: ViewBinding
@@ -21,7 +21,7 @@ abstract class DialogBuilder(context: Context): Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setAnimation(preferenceRepo.getAvatar() ?: R.raw.astronaut_dog)
+        setAnimation(preferenceRepo.getAvatar() ?: R.raw.albi_abajo)
     }
 
     override fun show() {
@@ -31,11 +31,11 @@ abstract class DialogBuilder(context: Context): Dialog(context) {
         super.show()
     }
 
-    fun setOnDismissListener(listener: () -> Unit) : DialogBuilder {
-        super.setOnDismissListener{ listener() }
+    fun setOnDismissListener(listener: () -> Unit): DialogBuilder {
+        super.setOnDismissListener { listener() }
         return this
     }
 
-    abstract fun setAnimation(rawRes : Int) : DialogBuilder
+    abstract fun setAnimation(rawRes: Int): DialogBuilder
 
 }

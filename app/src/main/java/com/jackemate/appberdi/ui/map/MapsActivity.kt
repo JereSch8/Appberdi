@@ -11,8 +11,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -28,7 +28,7 @@ import com.jackemate.appberdi.services.TrackingService.Companion.EXTRA_SITE
 import com.jackemate.appberdi.ui.sites.SiteActivity
 import com.jackemate.appberdi.utils.*
 
-class MapsActivity : FragmentActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val viewModel by viewModels<MapViewModel>()
     private lateinit var map: GoogleMap
@@ -66,21 +66,42 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        binding.back.setOnClickListener {
-            stopService(Intent(this, AudioService::class.java))
-            stopService(Intent(this, TrackingService::class.java))
-            finish()
+        binding.btnOptions.setOnClickListener {
+            createDialogOptions()
         }
+    }
 
-        binding.offline.setOnClickListener {
-            // TODO mostrar dialogo
-        }
+    private fun createDialogOptions() {
+        DialogOptions(this, viewModel.getVirtualMode())
+            .setVirtualModeListener { isVirtual ->
+                viewModel.setVirtualMode(isVirtual)
+                if (isVirtual) {
+                    stopServices()
+                } else {
+                    startTracking()
+                }
+            }
+            .setStopButtonListener {
+                stopServices()
+                finish()
+            }
+            .show()
+    }
+
+    private fun stopServices() {
+        stopService(Intent(this, AudioService::class.java))
+        stopService(Intent(this, TrackingService::class.java))
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume")
         viewModel.updateSites()
+        if (!viewModel.getVirtualMode()) {
+            startTracking()
+        }
+    }
+
+    private fun startTracking() {
         registerReceiver(receiver, IntentFilter(TrackingService.TRACKING_UPDATES))
 
         ContextCompat.startForegroundService(this,
@@ -92,7 +113,11 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "onPause")
-        unregisterReceiver(receiver)
+        try {
+            unregisterReceiver(receiver)
+        } catch (_: Exception) {
+        }
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -239,8 +264,8 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
 //                    binding.btnEnter.show()
 //                    binding.btnEnter.setOnClickListener { openSite(mode.site.id) }
 //                } else {
-                    binding.btnEnter.hide()
-                    binding.btnEnter.setOnClickListener(null)
+                binding.btnEnter.hide()
+                binding.btnEnter.setOnClickListener(null)
 //                }
 
 

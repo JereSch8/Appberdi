@@ -21,6 +21,9 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
     private val _sites: MutableLiveData<List<SiteMarker>> = MutableLiveData()
     val sites: LiveData<List<SiteMarker>> = _sites
 
+    fun getVirtualMode() = localInfo.getVirtualMode()
+    fun setVirtualMode(b: Boolean) = localInfo.setVirtualMode(b)
+
     fun updateSites() = viewModelScope.launch(Dispatchers.IO) {
         siteRepo.getSites().addSnapshotListener { value, e ->
             if (e != null) {

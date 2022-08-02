@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tool="http://schemas.android.com/tools"
     android:background="@android:color/transparent">
 
     <androidx.cardview.widget.CardView
@@ -40,73 +39,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/opciones_title"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
     <LinearLayout
+        android:id="@+id/options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:paddingVertical="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header">
+        app:layout_constraintTop_toBottomOf="@+id/title">
 
         <View
             android:layout_width="600dp"
             android:layout_height="0dp" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/montserrat_medium"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            tool:text="Title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
-
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:visibility="gone"
-            tool:text="Subtitle"
-            tool:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_name"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_virtual_mode"
+            style="@style/AppWidget.IconButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/input_name"
-            android:textAlignment="center"
-            android:visibility="gone"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/opciones_virtual_on"
+            android:textColor="@color/cab400"
+            app:icon="@drawable/ic_gps_off"
+            app:iconTint="@color/cab400" />
+
+        <TextView
+            android:id="@+id/tv_virtual_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="@string/opciones_virtual_on_desc"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/stop_tour"
+            style="@style/AppWidget.IconButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            tool:visibility="visible"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:endIconMode="custom"
-            app:helperTextTextColor="@color/white">
+            android:text="@string/opciones_stop"
+            app:icon="@drawable/ic_close"
+            app:iconTint="@color/black" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="@string/opciones_stop_desc"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/button"
@@ -114,8 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/guardar"
-            android:visibility="visible" />
+            android:text="@string/volver" />
 
     </LinearLayout>
 

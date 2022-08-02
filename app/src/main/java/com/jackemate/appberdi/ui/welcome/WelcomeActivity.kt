@@ -42,7 +42,7 @@ class WelcomeActivity : AppCompatActivity() {
             BasicDialog(this)
                 .setButtonEnabled(false)
                 .setInputTypeText()
-                .setText(getString(R.string.como_te_llamas))
+                .setTitle(getString(R.string.como_te_llamas))
                 .setInputListener { dialog, input ->
                     dialog.setButtonEnabled(input.trim().length in 1..15)
                 }

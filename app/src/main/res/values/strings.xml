@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Appberdi</string>
-    <string name="title_activity_maps">Mapa</string>
     <string name="indicaciones">Indicaciones</string>
     <string name="est_s_en">Estás en:</string>
 
@@ -20,7 +19,6 @@
     <string name="permission_denied">No pudimos habilitar el permiso.</string>
     <string name="change">Cambiar</string>
 
-    <string name="title_activity_mediateca">Mediateca</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -116,7 +114,6 @@
     <string name="guardar">Guardar</string>
     <string name="finalizar">Finalizar</string>
     <string name="entrar">Entrar</string>
-    <string name="kill_tour">Detener</string>
     <string name="progreso">Progreso</string>
     <string name="sitios_recorridos">Lugares recorridos</string>
     <string name="reproducci_n_autom_tica_de_audio">Reproducir audio al toque</string>
@@ -210,6 +207,17 @@
     <string name="avatar_albi_observador_desc">Albi encontro algo y te lo está indicando.</string>
     <string name="derechos">“Appberdi” - Derechos Universidad Nacional de Córdoba, 2022</string>
     <string name="copied">¡Copiado al portapapeles!</string>
+    <string name="confirmar_salir_title">¿Seguro que deseas salir?</string>
+    <string name="confirmar_salir_subtitle">¡Se perderá tu progreso!</string>
+    <string name="salir">Salir</string>
+    <string name="volver">Volver</string>
+    <string name="opciones_title">Opciones del recorrido</string>
+    <string name="opciones_virtual_on">modo virtual</string>
+    <string name="opciones_virtual_on_desc">Si no puedes dirigirte presencialmente hasta los lugares, prueba usar el modo recorrido virtual.</string>
+    <string name="opciones_virtual_off">modo presencial</string>
+    <string name="opciones_virtual_off_desc">¡Vistar los lugares presencialmente es una experiencia completamente distinta!</string>
+    <string name="opciones_stop">Detener el recorrido</string>
+    <string name="opciones_stop_desc">Suficiente por hoy, detener el recorrido (se guardará los sitios que ya visitaste)</string>
 
     <string-array name="albi_voces">
         <item>Albi:|Carla Dogliani</item>

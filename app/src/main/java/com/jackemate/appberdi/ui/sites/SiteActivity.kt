@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivitySiteBinding
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.entities.ContentSite
@@ -20,9 +22,10 @@ import com.jackemate.appberdi.ui.shared.contents.fragments.SiteAudioFragment
 import com.jackemate.appberdi.ui.shared.contents.fragments.SiteImageFragment
 import com.jackemate.appberdi.ui.shared.contents.fragments.SiteSummaryFragment
 import com.jackemate.appberdi.ui.shared.contents.fragments.SiteVideoFragment
+import com.jackemate.appberdi.ui.shared.dialogs.BasicDialog
 import com.jackemate.appberdi.utils.*
 
-class SiteActivity : FragmentActivity() {
+class SiteActivity : AppCompatActivity() {
 
     private val viewModel: SiteViewModel by viewModels()
     private lateinit var binding: ActivitySiteBinding
@@ -63,14 +66,11 @@ class SiteActivity : FragmentActivity() {
         }
         binding.btnBack.setOnClickListener {
             if (isFirst()) {
-                // TODO: mostrar AlertDialog para confirmar que quiere abandonar el sitio
-                //       y hacer stopService del audio antes del finish
-                stopService(Intent(this, AudioService::class.java))
-                finish()
-                return@setOnClickListener
+                createDialogExit()
+            } else {
+                binding.steps.done(false)
+                previousPage()
             }
-            binding.steps.done(false)
-            previousPage()
         }
         binding.steps.setOnStepClickListener {
             setPage(it)
@@ -78,9 +78,19 @@ class SiteActivity : FragmentActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        // TODO: AlertDialog
-        stopService(Intent(this, AudioService::class.java))
+        createDialogExit()
+    }
+
+    private fun createDialogExit() {
+        BasicDialog(this)
+            .setTitle(getString(R.string.confirmar_salir_title))
+            .setSubtitle(getString(R.string.confirmar_salir_subtitle))
+            .setButtonText(getString(R.string.salir))
+            .setButtonListener { dialog ->
+                stopService(Intent(this, AudioService::class.java))
+                dialog.dismiss()
+                finish()
+            }.show()
     }
 
     private fun initViewPager() {

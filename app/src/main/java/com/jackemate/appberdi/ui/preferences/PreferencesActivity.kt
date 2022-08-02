@@ -97,7 +97,7 @@ class PreferencesActivity : AppCompatActivity() {
     private fun createDialogChangeName(oldName: String) {
         BasicDialog(this)
             .setInputTypeText()
-            .setText(getString(R.string.cambiar_nombre))
+            .setTitle(getString(R.string.cambiar_nombre))
             .setInputText(oldName)
             .requestFocus()
             .setButtonListener { dialog ->
@@ -127,7 +127,7 @@ class PreferencesActivity : AppCompatActivity() {
             (if (isStorage) "almacenamiento, " else "datos, ")
         )
         BasicDialog(this)
-            .setText(text)
+            .setTitle(text)
             .setHintText( getString(
                     R.string.limite_en,
                     ( if (isStorage) "almacenamiento." else "datos." )
@@ -165,7 +165,7 @@ class PreferencesActivity : AppCompatActivity() {
 
     private fun createDialogDelete() {
         BasicDialog(this)
-            .setText(getString(R.string.borrar_progreso))
+            .setTitle(getString(R.string.borrar_progreso))
             .setButtonText(getString(R.string.borrar))
             .setButtonListener { dialog ->
                 viewModel.clearData()

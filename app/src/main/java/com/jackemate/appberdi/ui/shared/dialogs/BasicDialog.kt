@@ -6,8 +6,8 @@ import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
 import com.jackemate.appberdi.databinding.DialogCustomBinding
-import com.jackemate.appberdi.ui.shared.DialogBuilder
 import com.jackemate.appberdi.utils.onTextChanged
+import com.jackemate.appberdi.utils.visible
 
 class BasicDialog(context: Context) : DialogBuilder(context) {
     override val binding = DialogCustomBinding.inflate(inflater)
@@ -51,8 +51,14 @@ class BasicDialog(context: Context) : DialogBuilder(context) {
         return this
     }
 
-    fun setText(text: String): BasicDialog {
+    fun setTitle(text: String): BasicDialog {
         binding.title.text = text
+        return this
+    }
+
+    fun setSubtitle(text: String): BasicDialog {
+        binding.subtitle.visible(text.isNotEmpty())
+        binding.subtitle.text = text
         return this
     }
 

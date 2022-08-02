@@ -6,7 +6,6 @@ import com.jackemate.appberdi.data.CacheRepository
 import com.jackemate.appberdi.databinding.DialogClearstorageBinding
 import com.jackemate.appberdi.databinding.ItemClearStorageBinding
 import com.jackemate.appberdi.entities.Content
-import com.jackemate.appberdi.ui.shared.DialogBuilder
 
 class DialogClearStorage(val activity: Activity) : DialogBuilder(activity) {
     override val binding = DialogClearstorageBinding.inflate(inflater)

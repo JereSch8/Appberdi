@@ -97,4 +97,8 @@ class PreferenceRepository(context: Context) {
     fun getAvatar() = getDataInt("selectedAvatar").takeIf { it != -8 }
 
     fun setAvatar(resource : Int) = setDataInt("selectedAvatar", resource)
+
+    fun getVirtualMode() = getDataBoolean("virtualMode")
+    fun setVirtualMode(b : Boolean) = setDataBoolean("virtualMode", b)
+
 }
