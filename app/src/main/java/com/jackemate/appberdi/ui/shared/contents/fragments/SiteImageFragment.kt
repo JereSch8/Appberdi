@@ -11,6 +11,7 @@ import com.jackemate.appberdi.databinding.SiteImageFragmentBinding
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.ui.shared.contents.ContentPageFragment
 import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.parseNewLines
 import com.jackemate.appberdi.utils.share
 
 class SiteImageFragment : ContentPageFragment() {
@@ -47,7 +48,7 @@ class SiteImageFragment : ContentPageFragment() {
 
     private fun initImage(content: Content.Image) {
         binding.title.text = content.title
-        binding.transcription.text = content.description
+        binding.transcription.text = content.description.parseNewLines()
 
         binding.btnShare.setOnClickListener {
             share(content.title, content.href)

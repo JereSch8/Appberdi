@@ -330,3 +330,6 @@ fun Context.copyToClipboard(text: CharSequence) {
     val clip = ClipData.newPlainText("label", text)
     clipboard?.setPrimaryClip(clip)
 }
+
+fun String.parseNewLines() = replace("\\n", "\n")
+fun String.removeNewLines() = replace("\\n", "")

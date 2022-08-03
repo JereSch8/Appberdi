@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ItemMediatecaSiteBinding
 import com.jackemate.appberdi.entities.Content
+import com.jackemate.appberdi.utils.removeNewLines
 import java.lang.Integer.max
 
 class MediatecaSiteAdapter(
@@ -41,11 +42,11 @@ class MediatecaSiteAdapter(
         fun bind(item: Content) {
             binding.title.text = item.title
             binding.description.text = when (item) {
-                is Content.Audio -> item.subtitle
-                is Content.Video -> item.description
-                is Content.Gif -> item.description
-                is Content.Image -> item.description
-                is Content.Text -> item.description
+                is Content.Audio -> item.subtitle.removeNewLines()
+                is Content.Video -> item.description.removeNewLines()
+                is Content.Gif -> item.description.removeNewLines()
+                is Content.Image -> item.description.removeNewLines()
+                is Content.Text -> item.description.removeNewLines()
                 else -> ""
             }
             binding.typeData.cancelAnimation()

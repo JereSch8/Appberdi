@@ -41,8 +41,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/imagen_de_apoyo"
-                    android:src="@drawable/placeholder"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder"
                     app:layout_constraintBottom_toTopOf="@+id/cv_footer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -186,9 +186,11 @@
                     android:layout_height="fill_parent"
                     android:layout_margin="16dp"
                     android:layout_weight="1.0"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:lineSpacingExtra="4sp"
                     android:scrollbars="vertical"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black90"
+                    android:textIsSelectable="true"
                     android:textSize="16sp"
                     tools:text="@tools:sample/lorem/random" />
             </androidx.core.widget.NestedScrollView>

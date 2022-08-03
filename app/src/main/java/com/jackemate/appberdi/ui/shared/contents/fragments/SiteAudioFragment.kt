@@ -100,7 +100,7 @@ class SiteAudioFragment : ContentPageFragment() {
         Log.i(TAG, "initAudio: $content")
 
         binding.title.text = content.title
-        binding.transcription.text = content.subtitle
+        binding.transcription.text = content.subtitle.parseNewLines()
 
         binding.btnShare.setOnClickListener {
             share(content.title, content.href)

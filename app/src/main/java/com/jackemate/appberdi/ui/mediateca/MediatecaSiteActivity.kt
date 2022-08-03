@@ -54,7 +54,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
         )
     }
 
-    private fun getAllTags() = listContents.map { it.type }.toSet().toList()
+    private fun getAllTags() = listContents.map { it.tab }.toSet().toList()
 
     private fun setupChips() {
         // Si se restaura el estado de la Activity
