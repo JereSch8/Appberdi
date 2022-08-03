@@ -48,8 +48,8 @@ class SiteActivity : AppCompatActivity() {
             binding.siteName.text = contentSite.name
 
             Log.i(TAG, "site contentSite size: ${site.contents.size}")
-            val tags = site.contents.map { it.tag }
-            binding.steps.setSteps(tags)
+            val tabs = site.contents.map { it.tab }
+            binding.steps.setSteps(tabs)
 
             initStepper()
             initViewPager()

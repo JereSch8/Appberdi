@@ -54,7 +54,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
         )
     }
 
-    private fun getAllTags() = listContents.map { it.tag }.toSet().toList()
+    private fun getAllTags() = listContents.map { it.type }.toSet().toList()
 
     private fun setupChips() {
         // Si se restaura el estado de la Activity
@@ -80,7 +80,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
         changeAnimation("Loading")
         val listToShow = if (getCheckedTags().isEmpty()) listContents
         else listContents.filter {
-            getCheckedTags().contains(it.tag)
+            getCheckedTags().contains(it.type)
         }
 
         if (listToShow.isNullOrEmpty())

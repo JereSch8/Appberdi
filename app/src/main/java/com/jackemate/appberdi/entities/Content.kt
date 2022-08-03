@@ -7,16 +7,16 @@ sealed class Content(
     @DocumentId
     val id: String = "",
     val type: String = "",
-    val tag: String = "",
     val title: String = "Sin título",
     val site: String = "",
-    val idSite: String = ""
+    val idSite: String = "",
+    val tab: String = "",
 ) : Serializable {
     data class Audio(
         override val href: String = "",
         val subtitle: String = "",
         val preview: Map<String, String> = emptyMap()
-    ) : Cacheable, Content(tag = TYPE_AUDIO) {
+    ) : Cacheable, Content(type = TYPE_AUDIO, tab = "Audio") {
 
         override fun toString(): String {
             return "Audio(href='$href')"
@@ -26,7 +26,7 @@ sealed class Content(
     data class Image(
         override val href: String = "",
         val description: String = "",
-    ) : Cacheable, Content(tag = TYPE_IMG) {
+    ) : Cacheable, Content(type = TYPE_IMG, tab = "Imágen") {
         override fun toString(): String {
             return "Image(href='$href')"
         }
@@ -35,17 +35,17 @@ sealed class Content(
     data class Gif(
         override val href: String = "",
         val description: String = "",
-    ) : Cacheable, Content(tag = TYPE_GIF)
+    ) : Cacheable, Content(type = TYPE_GIF, tab = "GIF")
 
     data class Video(
         val href: String = "",
         val description: String = "",
         val duration: String = "",
-    ) : Content(tag = TYPE_VIDEO)
+    ) : Content(type = TYPE_VIDEO, tab = "Vídeo")
 
     data class Text(
         val description: String = "",
-    ) : Content(tag = TYPE_TEXT) {
+    ) : Content(type = TYPE_TEXT, tab = "Texto") {
         override fun toString(): String {
             return "Text(description='${description.substring(0, 20)}')"
         }
@@ -56,7 +56,7 @@ sealed class Content(
         val years: SummaryYear? = null,
         val vecinos: SummaryCountable? = null,
         val love: SummaryLabelIcon? = null,
-    ) : Content(tag = TYPE_SUMMARY)
+    ) : Content(type = TYPE_SUMMARY, tab = "Resumen")
 
     interface Cacheable {
         val href: String
