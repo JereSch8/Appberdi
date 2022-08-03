@@ -95,6 +95,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun stopServices() {
         stopService(Intent(this, AudioService::class.java))
         stopService(Intent(this, TrackingService::class.java))
+        lastPos = null
     }
 
     override fun onResume() {
