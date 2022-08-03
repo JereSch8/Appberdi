@@ -177,8 +177,7 @@ class SiteAudioFragment : ContentPageFragment() {
                 currentPreview = it
                 Glide.with(requireContext())
                     .load(c.preview[it])
-                    .error(R.drawable.no_image)
-                    .placeholder(R.drawable.no_image)
+                    .placeholder(R.drawable.placeholder)
                     .centerCrop()
                     .into(binding.img)
             }

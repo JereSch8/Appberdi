@@ -3,29 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="top"
-    android:orientation="vertical"
+    android:layout_margin="8dp"
     android:background="?selectableItemBackgroundBorderless"
     android:clickable="true"
     android:focusable="true"
-    android:layout_margin="8dp">
+    android:gravity="top"
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_gravity="center"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="10dp">
+        android:backgroundTint="@android:color/transparent"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false">
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:contentDescription="@string/imagen"
-            android:scaleX="1.1"
-            android:scaleY="1.1"
-            android:src="@drawable/no_image" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder" />
 
     </com.google.android.material.card.MaterialCardView>
 

@@ -37,8 +37,7 @@ class MediatecaStartAdapter(
 
             Glide.with(binding.root)
                 .load(item.href)
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
+                .placeholder(R.drawable.placeholder)
                 .transform(CenterCrop())
                 .into(binding.img)
 

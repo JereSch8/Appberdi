@@ -55,8 +55,7 @@ class SiteImageFragment : ContentPageFragment() {
 
         Glide.with(requireContext())
             .load(content.href)
-            .error(R.drawable.no_image)
-            .placeholder(R.drawable.loading)
+            .placeholder(R.drawable.placeholder)
             .centerCrop()
             .into(binding.img)
     }
