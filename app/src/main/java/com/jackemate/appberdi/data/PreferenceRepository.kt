@@ -8,12 +8,12 @@ class PreferenceRepository(context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val editor = prefs.edit()
 
-    fun setDataString(key: String, value : String){
+    private fun setDataString(key: String, value : String){
         editor.putString(key, value)
         editor.apply()
     }
 
-    fun getDataString(key: String): String {
+    private fun getDataString(key: String): String {
         return prefs.getString(key, "none").toString()
     }
 

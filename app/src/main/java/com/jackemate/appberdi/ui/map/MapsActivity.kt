@@ -31,28 +31,28 @@ import com.jackemate.appberdi.utils.*
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val viewModel by viewModels<MapViewModel>()
-    private lateinit var map: GoogleMap
-
-    private var markers = emptyMap<String, Marker>()
     private lateinit var binding: ActivityMapsBinding
 
+    private lateinit var map: GoogleMap
     private var polyline: Polyline? = null
+
+    private var markers = emptyMap<String, Marker>()
+    private var lastPos: LatLng? = null
+
     private val receiver = TrackingBroadcastReceiver()
 
     private val markerIconDefault by lazy { BitmapDescriptorFactory.defaultMarker(210f) }
-    private val markerIconFocus by lazy { BitmapDescriptorFactory.defaultMarker(190f) }
     private val markerIconVisited by lazy { BitmapDescriptorFactory.defaultMarker(59f) }
-    private val markerIconVisitedFocus by lazy { BitmapDescriptorFactory.defaultMarker(45f) }
 
     inner class TrackingBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
             Log.i(TAG, intent.pretty())
 
-            val pos = intent.getParcelableExtra<LatLng>("pos")
+            lastPos = intent.getParcelableExtra("pos")
             val mode = intent.getSerializableExtra("mode") as TourMode
 
-            updateUI(pos, mode)
+            viewModel.setMode(mode)
         }
     }
 
@@ -69,7 +69,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.btnOptions.setOnClickListener {
             createDialogOptions()
         }
-        updateUI(null, TourMode.Thinking)
+
+        observe(viewModel.mode, ::updateUI)
+        viewModel.setMode(TourMode.Thinking)
     }
 
     private fun createDialogOptions() {
@@ -78,7 +80,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 viewModel.setVirtualMode(isVirtual)
                 if (isVirtual) {
                     stopServices()
-                    updateUI(null, TourMode.Thinking)
+                    viewModel.setMode(TourMode.Thinking)
                 } else {
                     startTracking()
                 }
@@ -132,16 +134,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         observe(viewModel.sites) { sitesMarkers ->
             Log.i(TAG, "sitesMarkers: ${sitesMarkers.size}")
-            initMarkers(sitesMarkers)
+            rebuildMarkers(sitesMarkers)
+            viewModel.triggerModeUpdate()
         }
     }
 
     // https://github.com/googlemaps/android-maps-utils/blob/main/demo/src/gms/java/com/google/maps/android/utils/demo/IconGeneratorDemoActivity.java
     // val iconFactory = IconGenerator(this)
-    private fun initMarkers(sites: List<SiteMarker>) {
+    private fun rebuildMarkers(sites: List<SiteMarker>) {
+        if (markers.isEmpty()) {
+            moveCameraByBounds(sites)
+        }
+        markers.values.forEach { it.remove() }
         markers = sites.map { site -> Pair(site.id, buildMarker(site)) }.toMap()
-        setMarkerFocus(null)
-        moveCameraByBounds(sites)
     }
 
     private fun buildMarker(site: SiteMarker): Marker {
@@ -214,7 +219,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.i(TAG, "onMarkerClick: site: ${site.title}")
 
         if (viewModel.getVirtualMode()) {
-            updateUI(null, TourMode.Ready(site, null))
+            viewModel.setMode(TourMode.Ready(site, null))
         } else {
             val intent = Intent(this, TrackingService::class.java)
             intent.action = TrackingService.ACTION_SELECT
@@ -227,7 +232,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun toNavigate() {
         if (viewModel.getVirtualMode()) {
-            updateUI(null, TourMode.Thinking)
+            viewModel.setMode(TourMode.Thinking)
         } else {
             val intent = Intent(this, TrackingService::class.java)
             intent.action = TrackingService.ACTION_NAVIGATE
@@ -235,8 +240,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun updateUI(currentPos: LatLng?, mode: TourMode) {
+    private fun updateUI(mode: TourMode) {
         Log.d(TAG, "updateUI")
+        val currentPos = lastPos
 
         when (mode) {
             is TourMode.Thinking -> {
