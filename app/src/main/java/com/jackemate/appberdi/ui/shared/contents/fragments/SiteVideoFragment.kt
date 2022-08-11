@@ -42,7 +42,7 @@ class SiteVideoFragment : ContentPageFragment() {
         binding.duration.text = getString(R.string.site_video_duration, content.duration)
 
         binding.btnShare.setOnClickListener {
-            share(content.title, content.href)
+            requireContext().share(content.title, content.href)
         }
 
         binding.btnPlay.setOnClickListener {

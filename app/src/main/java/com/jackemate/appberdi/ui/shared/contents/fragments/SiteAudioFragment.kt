@@ -103,7 +103,7 @@ class SiteAudioFragment : ContentPageFragment() {
         binding.transcription.text = content.subtitle.parseNewLines()
 
         binding.btnShare.setOnClickListener {
-            share(content.title, content.href)
+            requireContext().share(content.title, content.href)
         }
 
         binding.btnPlay.setIconResource(R.drawable.ic_play_circle)

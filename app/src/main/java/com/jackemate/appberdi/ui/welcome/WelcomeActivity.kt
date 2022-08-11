@@ -31,12 +31,10 @@ class WelcomeActivity : AppCompatActivity() {
                 .setButtonEnabled(false)
                 .setInputTypeText()
                 .setTitle(getString(R.string.como_te_llamas))
-                .setInputListener { dialog, input ->
-                    dialog.setButtonEnabled(input.trim().length in 1..15)
-                }
+                .setButtonEnabled(true)
                 .setButtonListener { dialog ->
                     val name: String = dialog.getInput().trim()
-                    PreferenceRepository(this).setUserName(name)
+                    PreferenceRepository(this).setUserName(name.ifEmpty { "Firulais" })
                     PreferenceRepository(this).setFirstUsage()
                     dialog.cancel()
                     goToMain()

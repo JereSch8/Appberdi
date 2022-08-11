@@ -1,25 +1,22 @@
 package com.jackemate.appberdi.ui.about
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ViewStudentBinding
+import com.jackemate.appberdi.utils.open
 import com.jackemate.appberdi.utils.visible
 
 class StudentView : ConstraintLayout {
 
-    private lateinit var binding: ViewStudentBinding
+    private var binding: ViewStudentBinding =
+        ViewStudentBinding.inflate(LayoutInflater.from(context), this, true)
 
     constructor(context: Context) : super(context, null)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        binding = ViewStudentBinding.inflate(LayoutInflater.from(context), this, true)
-
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.StudentView,
@@ -42,13 +39,6 @@ class StudentView : ConstraintLayout {
 
     private fun setSocial(button: Button, url: String?) {
         button.visible(!url.isNullOrEmpty())
-        button.setOnClickListener {
-            try {
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                FirebaseCrashlytics.getInstance().recordException(e)
-            }
-        }
+        button.setOnClickListener { context.open(url) }
     }
 }

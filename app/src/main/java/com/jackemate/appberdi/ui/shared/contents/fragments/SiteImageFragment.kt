@@ -51,7 +51,7 @@ class SiteImageFragment : ContentPageFragment() {
         binding.transcription.text = content.description.parseNewLines()
 
         binding.btnShare.setOnClickListener {
-            share(content.title, content.href)
+            requireContext().share(content.title, content.href)
         }
 
         Glide.with(requireContext())

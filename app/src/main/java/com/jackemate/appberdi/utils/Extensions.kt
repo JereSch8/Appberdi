@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.*
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,12 +22,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.GeoPoint
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -139,7 +140,7 @@ fun FragmentActivity.showDialogFragment(
     fragment.show(supportFragmentManager, tag)
 }
 
-fun Activity.share(subject: String, text: String) {
+fun Context.share(subject: String, text: String) {
     try {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
@@ -151,15 +152,12 @@ fun Activity.share(subject: String, text: String) {
     }
 }
 
-fun Fragment.share(subject: String, text: String) {
+fun Context.open(url: String?) {
     try {
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "text/plain"
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        shareIntent.putExtra(Intent.EXTRA_TEXT, text)
-        startActivity(Intent.createChooser(shareIntent, "¿A quién se lo compartís?"))
-    } catch (e: ActivityNotFoundException) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+    } catch (e: Exception) {
         e.printStackTrace()
+        FirebaseCrashlytics.getInstance().recordException(e)
     }
 }
 
