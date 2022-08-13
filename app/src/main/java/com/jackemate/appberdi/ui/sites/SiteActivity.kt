@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivitySiteBinding
 import com.jackemate.appberdi.entities.Content
@@ -40,6 +42,7 @@ class SiteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val idSite: String = intent.getStringExtra("idSite")!!
+        Firebase.crashlytics.log("Site selected: $idSite")
 
         binding.loading.visible(true)
         observe(viewModel.getSite(idSite)) { contentSite ->

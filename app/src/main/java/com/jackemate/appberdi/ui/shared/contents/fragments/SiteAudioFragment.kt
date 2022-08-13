@@ -87,8 +87,8 @@ class SiteAudioFragment : ContentPageFragment() {
     override fun onPause() {
         super.onPause()
         requireActivity().unbindService(connection)
-        audioService = null
         requireActivity().unregisterReceiver(receiver)
+        audioService = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

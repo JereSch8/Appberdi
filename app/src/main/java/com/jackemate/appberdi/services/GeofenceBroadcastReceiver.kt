@@ -4,24 +4,17 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.preference.PreferenceManager
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
-import com.jackemate.appberdi.entities.TourTransition
 import com.jackemate.appberdi.utils.TAG
-import java.util.*
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
-            val errorMessage = GeofenceStatusCodes
-                .getStatusCodeString(geofencingEvent.errorCode)
-            Log.e(TAG, errorMessage)
+            Log.e(TAG, GeofenceStatusCodes.getStatusCodeString(geofencingEvent.errorCode))
             return
         }
 
@@ -30,32 +23,17 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
         // Test that the reported transition was of interest.
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
-            geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-
-            val tourTransition = toTourTransition(geofenceTransition).name
+            geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT
+        ) {
             val triggeringGeofences = geofencingEvent.triggeringGeofences
             val id = triggeringGeofences.last().requestId
 
-            Log.i(TAG, "onReceive: $geofenceTransition $triggeringGeofences")
+            Log.i(TAG, "onReceive: $geofenceTransition $id $triggeringGeofences")
 
-            val editor = prefs.edit()
-            editor.putString("tour_site", id)
-            editor.putString("tour_transition", tourTransition)
-            editor.putLong("tour_timestamp", Date().time)
-            editor.apply()
-
+            // TODO: mandar notificación de que el usuario está cerca de un sitio!
             // Send notification and log the transition details.
 //            sendNotification(geofenceTransitionDetails)
-        } else {
-            Log.e(TAG, "Invalid type: $geofenceTransition")
         }
     }
 
-    private fun toTourTransition(transition: Int): TourTransition {
-        return when (transition) {
-            Geofence.GEOFENCE_TRANSITION_ENTER -> TourTransition.ENTER
-            Geofence.GEOFENCE_TRANSITION_EXIT -> TourTransition.EXIT
-            else -> throw Exception("No valid geofence transition")
-        }
-    }
 }

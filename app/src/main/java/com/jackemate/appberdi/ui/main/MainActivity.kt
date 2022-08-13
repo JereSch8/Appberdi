@@ -67,10 +67,6 @@ class MainActivity : RequesterPermissionsActivity() {
             }
         }
 
-        observe(viewModel.tourEvents()) {
-            Log.e(TAG, "Hubo un cambio para el tour!!: $it")
-        }
-
         binding.launchTour.setOnClickListener {
             startActivity(Intent(this, MapsActivity::class.java))
         }

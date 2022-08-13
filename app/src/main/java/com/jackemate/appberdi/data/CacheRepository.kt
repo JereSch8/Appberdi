@@ -5,6 +5,8 @@ import android.util.Log
 import android.webkit.URLUtil
 import androidx.lifecycle.liveData
 import com.bumptech.glide.Glide
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.entities.Content
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
@@ -55,12 +57,13 @@ class CacheRepository(private val context: Context) {
         val request = Request.Builder().url(link).build()
 
         Log.i(TAG, "Downloading $link")
+        Firebase.crashlytics.log("Downloading $link")
+
         val response = client.newCall(request).execute()
 
-        response.body().byteStream().apply {
-            out.outputStream().use { fileOut ->
-                copyTo(fileOut)
-            }
+        val input = response.body().byteStream()
+        out.outputStream().use { fileOut ->
+            input.copyTo(fileOut)
         }
     }
 

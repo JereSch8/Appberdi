@@ -263,7 +263,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 binding.tvNameSite.text = mode.best.title
                 binding.tvDistance.text = getString(R.string.estas_a, mode.distance)
                 binding.btnAccessible.visible(mode.best.accessible)
-                polyline?.points = listOf(currentPos, mode.best.pos.toLatLng())
+
+                if (currentPos != null) {
+                    polyline?.points = listOf(currentPos, mode.best.pos.toLatLng())
+                }
 
                 binding.btnEnter.hide()
                 binding.btnEnter.setOnClickListener(null)
