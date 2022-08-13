@@ -19,7 +19,7 @@ class AboutActivity : AppCompatActivity() {
             open("https://www.instagram.com/appberdi/")
         }
         binding.albiGithub.setOnClickListener {
-            open("https://github.com/JereSch8/AppBerdi")
+            open("https://github.com/JereSch8/appberdi")
         }
     }
 }
