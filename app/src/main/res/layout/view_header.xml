@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="wrap_content"
     android:layout_marginHorizontal="4dp"
     android:gravity="center"
     android:orientation="horizontal">
@@ -13,6 +13,7 @@
         style="@style/AppWidget.IconOnly"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginVertical="4dp"
         app:icon="@drawable/ic_back" />
 
     <TextView
@@ -22,6 +23,6 @@
         android:layout_marginHorizontal="4dp"
         android:fontFamily="@font/lobstertwo_bold"
         android:textSize="30sp"
-        tools:text="Título" />
+        tools:text="Título que puede ser un toque medio largo" />
 
 </LinearLayout>

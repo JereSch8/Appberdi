@@ -17,6 +17,8 @@ import com.jackemate.appberdi.services.AudioService
 import com.jackemate.appberdi.services.AudioService.Companion.AUDIO_UPDATES
 import com.jackemate.appberdi.ui.shared.contents.ContentPageFragment
 import com.jackemate.appberdi.utils.*
+import kotlin.math.abs
+
 
 class SiteAudioFragment : ContentPageFragment() {
     private lateinit var binding: SiteAudioFragmentBinding
@@ -59,15 +61,38 @@ class SiteAudioFragment : ContentPageFragment() {
         binding = SiteAudioFragmentBinding.inflate(layoutInflater)
 
         // Setear el alto del playerContainer del mismo alto
-        // que el scrollView, menos un pequeño offset (el alto del title)
+        // que el scrollView, menos un pequeño offset
         binding.scrollView.post {
-            val layout = binding.playerContainer.layoutParams
-            layout.height = binding.scrollView.height - binding.title.height * 2
-            binding.playerContainer.layoutParams = layout
-            Log.w(TAG, "set height: ${layout.height}")
+            val scrollHeight = binding.scrollView.height
+
+            binding.playerContainer.apply {
+                val params = layoutParams
+                params.height = scrollHeight - binding.descriptionTitle.height - dp(8 + 16)
+                layoutParams = params
+            }
+
+            binding.transcriptionCv.apply {
+                val params = binding.transcriptionCv.layoutParams
+                params.height = scrollHeight -
+                        getDistanceBetweenViews(binding.sbProgress, binding.transcription) -
+                        dp(8 + 16)
+                layoutParams = params
+            }
         }
 
         return binding.root
+    }
+
+    // https://stackoverflow.com/a/50774474/11385657
+    private fun getDistanceBetweenViews(firstView: View, secondView: View): Int {
+        val firstPosition = IntArray(2)
+        val secondPosition = IntArray(2)
+        firstView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        firstView.getLocationOnScreen(firstPosition)
+        secondView.getLocationOnScreen(secondPosition)
+        val b = firstView.measuredHeight + firstPosition[1]
+        val t = secondPosition[1]
+        return abs(b - t)
     }
 
     override fun onResume() {

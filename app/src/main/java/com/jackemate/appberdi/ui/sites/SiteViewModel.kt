@@ -36,4 +36,6 @@ class SiteViewModel(application: Application) : AndroidViewModel(application) {
     fun setVisited(idSite: String) {
         localInfo.setDataLong(idSite, Date().time)
     }
+
+    fun getName() = localInfo.getUserName()
 }

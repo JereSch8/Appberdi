@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.activityViewModels
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.SiteSummaryFragmentBinding
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.ui.shared.contents.ContentPageFragment
 import com.jackemate.appberdi.ui.sites.SiteViewModel
 import com.jackemate.appberdi.utils.TAG
+import com.jackemate.appberdi.utils.invisible
 import com.jackemate.appberdi.utils.visible
 
 class SiteSummaryFragment : ContentPageFragment() {
@@ -39,6 +41,7 @@ class SiteSummaryFragment : ContentPageFragment() {
     }
 
     private fun initSummary(content: Content.Summary) {
+        binding.btnShare.invisible(true)
         binding.btnShare.setOnClickListener {
 //            share(content.title, content.href)
         }
@@ -107,5 +110,7 @@ class SiteSummaryFragment : ContentPageFragment() {
                 title.text = it.title
             }
         }
+
+        binding.thanks.text = getString(R.string.gracias_por_tu_visita, viewModel.getName())
     }
 }

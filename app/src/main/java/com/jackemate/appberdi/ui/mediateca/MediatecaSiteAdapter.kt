@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ItemMediatecaSiteBinding
 import com.jackemate.appberdi.entities.Content
@@ -58,21 +60,14 @@ class MediatecaSiteAdapter(
                     is Content.Gif -> R.raw.video
                     is Content.Image -> R.raw.image
                     is Content.Text -> R.raw.text
-                    else -> R.raw.problem
+                    else -> {
+                        Firebase.crashlytics.recordException(
+                            Exception("Invalid content type for animation preview: $item")
+                        )
+                        R.raw.text
+                    }
                 }
             )
-
-            /* White color
-            binding.typeData.addValueCallback(
-                KeyPath("**"),
-                LottieProperty.COLOR,
-                { ContextCompat.getColor(context, R.color.white) }
-            )
-            binding.typeData.addValueCallback(
-                KeyPath("**"),
-                LottieProperty.STROKE_COLOR,
-                { ContextCompat.getColor(context, R.color.white) }
-            )*/
 
             // Play animation on startup
             binding.typeData.playAnimation()

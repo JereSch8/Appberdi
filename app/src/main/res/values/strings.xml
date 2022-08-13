@@ -158,7 +158,7 @@
     <string name="transcripci_n">Transcripción</string>
     <string name="descripci_n">Descripción</string>
     <string name="resumen_de_lo_vivido">¡Eso es todo por ahora! Mirá un resumen de lo que viviste:</string>
-    <string name="gracias_por_tu_visita">¡Gracias por tu visita!</string>
+    <string name="gracias_por_tu_visita">¡Gracias por tu visita %1$s!</string>
     <string name="play_al_video">Comenzar el video</string>
     <string name="desarrollada_por">
         Una app desarrollada por estudiantes de la Universidad Nacional de Córdoba
@@ -289,7 +289,7 @@
     </string-array>
 
     <string-array name="sitio10">
-        <item>Sitio|Hospital de Clínicas</item>
+        <item>Sitio|Hospital Nacional de Clínicas</item>
         <item>Narradora|Silvia Pérez Ruiz</item>
         <item>Entrevistado|Armando Rios</item>
         <item>Fragmento musical|“Time” (soundcloud.com)</item>

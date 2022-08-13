@@ -68,7 +68,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
             chip.isClickable = true
             chip.isCheckable = true
             binding.filters.addView(chip)
-            chip.setOnClickListener { _ -> updateUI() }
+            chip.setOnClickListener { updateUI() }
         }
     }
 
@@ -80,7 +80,7 @@ class MediatecaSiteActivity : AppCompatActivity() {
         changeAnimation("Loading")
         val listToShow = if (getCheckedTags().isEmpty()) listContents
         else listContents.filter {
-            getCheckedTags().contains(it.type)
+            getCheckedTags().contains(it.tab)
         }
 
         if (listToShow.isNullOrEmpty())
@@ -96,9 +96,8 @@ class MediatecaSiteActivity : AppCompatActivity() {
         binding.animation.visibility = View.VISIBLE
         binding.animation.setAnimation(R.raw.loading)
         when (change) {
-            in "Loading" -> binding.animation.setAnimation(R.raw.loading)
-            in "Problem" -> binding.animation.setAnimation(R.raw.problem)
-            in "Empty" -> binding.animation.setAnimation(R.raw.empty)
+            "Loading" -> binding.animation.setAnimation(R.raw.loading)
+            "Empty" -> binding.animation.setAnimation(R.raw.empty)
             else -> binding.animation.visibility = View.INVISIBLE
         }
         binding.animation.playAnimation()
@@ -116,14 +115,14 @@ class MediatecaSiteActivity : AppCompatActivity() {
                 "Es un gif ${multimedia.site}",
                 Toast.LENGTH_LONG
             ).show()
-            is Content.Video -> {
-                val intent = Intent(this, VideoActivity::class.java)
-                intent.putExtra(IntentName.TITLE, multimedia.title)
-                intent.putExtra(IntentName.DESCRIPTION, multimedia.description)
-                intent.putExtra(IntentName.HREF, multimedia.href)
-                intent.putExtra(IntentName.DURATION, multimedia.duration)
-                startActivity(intent)
-            }
+            is Content.Video -> startActivity(
+                Intent(this, VideoActivity::class.java).apply {
+                    putExtra(IntentName.TITLE, multimedia.title)
+                    putExtra(IntentName.DESCRIPTION, multimedia.description)
+                    putExtra(IntentName.HREF, multimedia.href)
+                    putExtra(IntentName.DURATION, multimedia.duration)
+                }
+            )
             is Content.Text -> startActivity(
                 Intent(this, TextActivity::class.java).apply {
                     putExtra(ARG_CONTENT, multimedia)
