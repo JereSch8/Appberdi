@@ -6,7 +6,7 @@
 - Seleccionar un sitio y ver información sobre el mismo;
 - Obtener listado de sitios y visualizarlos en el mapa;
 
-# AppBerdi
+# Appberdi
 
 ![](https://instagram.fcor11-1.fna.fbcdn.net/v/t51.2885-19/s320x320/163925808_1912100895637818_3727461534330314760_n.jpg?tp=1&_nc_ht=instagram.fcor11-1.fna.fbcdn.net&_nc_ohc=WdiT-05rrmsAX_eC6fT&edm=ABfd0MgAAAAA&ccb=7-4&oh=6105047f2e4fb810cf9c627046c3286e&oe=608A372E&_nc_sid=7bff83)
 
