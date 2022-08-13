@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.setPadding
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.utils.dp
 
@@ -15,8 +14,8 @@ class InstitutionView : LinearLayout {
     constructor(context: Context) : super(context, null)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         orientation = VERTICAL
-        gravity = Gravity.CENTER
-        setPadding(dp(16))
+        gravity = Gravity.START
+        setPadding(dp(16), dp(8), dp(16), dp(16))
 
         context.theme.obtainStyledAttributes(
             attrs,
@@ -47,14 +46,14 @@ class InstitutionView : LinearLayout {
                     } else {
                         val valueTV = TextView(context)
                         valueTV.text = value
-                        valueTV.gravity = Gravity.CENTER
+//                        valueTV.gravity = Gravity.CENTER
                         valueTV.typeface = textFont
                         valueTV.setTextIsSelectable(true)
 
                         when (key) {
                             "people" -> addView(valueTV)
                             "site" -> {
-                                valueTV.textAlignment = TEXT_ALIGNMENT_CENTER
+//                                valueTV.textAlignment = TEXT_ALIGNMENT_CENTER
                                 valueTV.typeface = subtitleFont
                                 valueTV.setPadding(0, dp(4), 0, 0)
                                 addView(valueTV)
@@ -62,7 +61,7 @@ class InstitutionView : LinearLayout {
                             else -> {
                                 val subtitle = TextView(context)
                                 subtitle.typeface = subtitleFont
-                                subtitle.gravity = Gravity.CENTER
+//                                subtitle.gravity = Gravity.CENTER
                                 subtitle.setTextIsSelectable(true)
                                 subtitle.setPadding(0, dp(6), 0, 0)
                                 subtitle.text = key

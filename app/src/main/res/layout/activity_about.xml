@@ -102,7 +102,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="8dp"
             custom:title="Voces" />
 
         <com.jackemate.appberdi.ui.about.VocesView
@@ -232,7 +231,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
             custom:title="Instituciones" />
 
         <com.jackemate.appberdi.ui.about.InstitutionView
@@ -265,6 +263,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:scaleType="fitStart"
             android:src="@drawable/ic_unc_logo"
             tools:ignore="ContentDescription" />
 
@@ -273,16 +273,11 @@
             android:layout_height="wrap_content"
             android:entries="@array/unc_people" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="16dp" />
-
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
             custom:title="Programa Puntos de Extensión (SEU-UNC)" />
 
         <com.jackemate.appberdi.ui.about.InstitutionView
@@ -290,16 +285,11 @@
             android:layout_height="wrap_content"
             android:entries="@array/extension_people" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="16dp" />
-
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
             custom:title="Facultad de Ciencias Exactas, Físicas y Naturales (UNC)" />
 
         <com.jackemate.appberdi.ui.about.InstitutionView
@@ -307,16 +297,11 @@
             android:layout_height="wrap_content"
             android:entries="@array/fcefyn_people" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="16dp" />
-
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
             custom:title="Docentes tutores" />
 
         <com.jackemate.appberdi.ui.about.InstitutionView
@@ -324,16 +309,11 @@
             android:layout_height="wrap_content"
             android:entries="@array/tutores_people" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="16dp" />
-
         <com.jackemate.appberdi.ui.shared.TitleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
             custom:title="Jurado de evaluación" />
 
         <com.jackemate.appberdi.ui.about.InstitutionView
@@ -348,16 +328,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:fontFamily="@font/lobstertwo_bolditalic"
                 android:text="@string/y_albi"
                 android:textAlignment="center"
-                android:layout_marginHorizontal="8dp"
                 android:textSize="20sp" />
 
             <com.google.android.material.button.MaterialButton

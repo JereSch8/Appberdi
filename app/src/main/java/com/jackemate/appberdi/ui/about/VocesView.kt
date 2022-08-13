@@ -33,7 +33,7 @@ class VocesView : LinearLayout {
 
                     val titleTV = TextView(context)
                     titleTV.text = title
-                    titleTV.gravity = Gravity.CENTER
+//                    titleTV.gravity = Gravity.CENTER
                     titleTV.typeface = titleFont
                     titleTV.setTextIsSelectable(true)
                     titleTV.setPadding(0, dp(6), 0, 0)
@@ -41,7 +41,7 @@ class VocesView : LinearLayout {
 
                     val valueTV = TextView(context)
                     valueTV.text = value
-                    valueTV.gravity = Gravity.CENTER
+//                    valueTV.gravity = Gravity.CENTER
                     valueTV.typeface = textFont
                     valueTV.setTextIsSelectable(true)
                     addView(valueTV)
