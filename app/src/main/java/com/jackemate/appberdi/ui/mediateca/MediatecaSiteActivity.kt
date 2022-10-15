@@ -17,6 +17,8 @@ import com.jackemate.appberdi.ui.shared.contents.activities.ImageActivity
 import com.jackemate.appberdi.ui.shared.contents.activities.TextActivity
 import com.jackemate.appberdi.ui.shared.contents.activities.VideoActivity
 import com.jackemate.appberdi.utils.IntentName
+import com.jackemate.appberdi.utils.finishWithToast
+import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.transparentStatusBar
 
 class MediatecaSiteActivity : AppCompatActivity() {
@@ -34,15 +36,15 @@ class MediatecaSiteActivity : AppCompatActivity() {
 
         setupRecyclerView()
 
-        viewModel.contents.observe(this) {
-            listContents = it
+        val nameSite = intent.getStringExtra("title")!!
+        binding.header.title.text = nameSite
+        observe(viewModel.getContents(nameSite)) { list ->
+            if (list == null) return@observe finishWithToast()
+            listContents = list
             setupChips()
             updateUI()
         }
 
-        val nameSite = intent.getStringExtra("title")!!
-        binding.header.title.text = nameSite
-        viewModel.getContents(nameSite)
     }
 
     private fun setupRecyclerView() {

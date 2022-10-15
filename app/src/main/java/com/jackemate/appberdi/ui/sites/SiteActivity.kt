@@ -42,10 +42,13 @@ class SiteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val idSite: String = intent.getStringExtra("idSite")!!
+        Log.i(TAG, "Site selected: $idSite")
         Firebase.crashlytics.log("Site selected: $idSite")
 
         binding.loading.visible(true)
         observe(viewModel.getSite(idSite)) { contentSite ->
+            if (contentSite == null) return@observe finishWithToast()
+
             binding.loading.visible(false)
             site = contentSite
             binding.siteName.text = contentSite.name

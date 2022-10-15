@@ -145,11 +145,6 @@ class AudioService : LifecycleService() {
 
     fun actionForce() = broadcast()
 
-    override fun onLowMemory() {
-        super.onLowMemory()
-        release()
-    }
-
     override fun onDestroy() {
         release()
         stopSelf()
@@ -180,7 +175,13 @@ class AudioService : LifecycleService() {
         sendBroadcast(broadcast)
     }
 
-    private fun playingOrPaused() = if (mediaPlayer.isPlaying) PLAYING else PAUSED
+    private fun playingOrPaused() = if (isPlaying()) PLAYING else PAUSED
+
+    private fun isPlaying() = try {
+        mediaPlayer.isPlaying
+    } catch (e: IllegalStateException) {
+        false
+    }
 
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {

@@ -19,10 +19,6 @@ open class RequesterPermissionsActivity : AppCompatActivity() {
         Manifest.permission.ACCESS_BACKGROUND_LOCATION to R.string.permission_background_required
     )
 
-    fun withPermission(permission: String, callback: () -> Unit) {
-        withPermissions(arrayOf(permission), callback)
-    }
-
     fun withPermissions(permissions: Array<String>, callback: () -> Unit) {
         if (permissions.none { needPermission(it) }) {
             // Los permisos ya fueron otorgados, así que ejecutamos el callback inmediatamente.

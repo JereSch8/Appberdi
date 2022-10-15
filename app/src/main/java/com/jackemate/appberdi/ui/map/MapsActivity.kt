@@ -134,6 +134,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.i(TAG, "initPolyline Ready!")
 
         observe(viewModel.sites) { sitesMarkers ->
+            if (sitesMarkers == null) return@observe finishWithToast()
             Log.i(TAG, "sitesMarkers: ${sitesMarkers.size}")
             rebuildMarkers(sitesMarkers)
             viewModel.triggerModeUpdate()
@@ -161,6 +162,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun moveCameraByBounds(sites: List<SiteMarker>) {
+        if (sites.isEmpty()) {
+            return
+        }
+
         val bounds = getBoundsBy(sites)
         Log.d(TAG, "moveCamera: map size: ${binding.map.width}x${binding.map.height}")
 

@@ -219,6 +219,7 @@
     <string name="opciones_virtual_off_desc">¡Vistar los lugares presencialmente es una experiencia completamente distinta!</string>
     <string name="opciones_stop">Detener el recorrido</string>
     <string name="opciones_stop_desc">Suficiente por hoy, detener el recorrido (se guardará los sitios que ya visitaste)</string>
+    <string name="error_happend">Algo malo pasó, reintentá</string>
 
     <string-array name="albi_voces">
         <item>Albi:|Carla Dogliani</item>
