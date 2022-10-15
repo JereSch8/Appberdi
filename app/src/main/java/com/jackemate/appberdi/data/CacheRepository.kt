@@ -14,10 +14,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 
 class CacheRepository(private val context: Context) {
-    private val client = OkHttpClient()
+    private val client = OkHttpClient().apply {
+        setConnectTimeout(60, TimeUnit.SECONDS)
+        setReadTimeout(60, TimeUnit.SECONDS)
+        setWriteTimeout(60, TimeUnit.SECONDS)
+    }
 
     private fun getCacheDirFor(directory: String): File {
         val file = File(context.cacheDir, directory)
@@ -34,13 +40,6 @@ class CacheRepository(private val context: Context) {
         return File(getCacheDirFor(content), filename)
     }
 
-    private fun persist(content: Content.Cacheable): File {
-        val out = getCacheFileFor(content)
-        Log.d(TAG, "Persisting $content into ${out.absolutePath}")
-        download(content.href, out)
-        return out
-    }
-
     fun get(content: Content.Cacheable) = liveData(Dispatchers.IO) {
         val diskCache = getCacheFileFor(content)
 //        delay(5000)
@@ -48,8 +47,19 @@ class CacheRepository(private val context: Context) {
             Log.i(TAG, "Returning ${content.type} from disk cache")
             emit(diskCache)
         } else {
-            val persisted = persist(content)
-            emit(persisted)
+            persist(content)?.also { emit(it) }
+        }
+    }
+
+    private fun persist(content: Content.Cacheable): File? {
+        val out = getCacheFileFor(content)
+        Log.d(TAG, "Persisting $content into ${out.absolutePath}")
+
+        return try {
+            download(content.href, out)
+            out
+        } catch (e: IOException) {
+            null
         }
     }
 

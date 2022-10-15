@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaStartBinding
 import com.jackemate.appberdi.entities.ContentMediateca
+import com.jackemate.appberdi.utils.finishWithToast
+import com.jackemate.appberdi.utils.observe
 import com.jackemate.appberdi.utils.transparentStatusBar
 
 class MediatecaStart : AppCompatActivity() {
@@ -24,10 +26,10 @@ class MediatecaStart : AppCompatActivity() {
         binding.header.back.setOnClickListener { finish() }
         binding.contents.layoutManager = GridLayoutManager(this, 2)
 
-        viewModel.contents.observe(this) { listContents ->
-            binding.contents.adapter = MediatecaStartAdapter(listContents, this::onSelected)
+        observe(viewModel.getItems()) {
+            if (it == null) return@observe finishWithToast()
+            binding.contents.adapter = MediatecaStartAdapter(it, this::onSelected)
         }
-        viewModel.getContents()
     }
 
     private fun onSelected(item: ContentMediateca) {

@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.SearchView
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.GeoPoint
+import com.jackemate.appberdi.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -144,6 +146,11 @@ fun FragmentActivity.showDialogFragment(
     }
     fragment.arguments = bundleOf(*pairs)
     fragment.show(supportFragmentManager, tag)
+}
+
+fun Activity.finishWithToast() {
+    Toast.makeText(this, R.string.error_happend, Toast.LENGTH_LONG).show()
+    finish()
 }
 
 fun Context.share(subject: String, text: String) {

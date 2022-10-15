@@ -8,15 +8,16 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import com.google.android.gms.location.Geofence
-import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.databinding.ActivityMainBinding
 import com.jackemate.appberdi.entities.Site
-import com.jackemate.appberdi.services.GeofenceBroadcastReceiver
+import com.jackemate.appberdi.services.GeofenceReceiver
 import com.jackemate.appberdi.services.TrackingService
 import com.jackemate.appberdi.ui.about.AboutActivity
 import com.jackemate.appberdi.ui.cultural.CulturalActivity
@@ -26,18 +27,14 @@ import com.jackemate.appberdi.ui.preferences.PreferencesActivity
 import com.jackemate.appberdi.ui.shared.RequesterPermissionsActivity
 import com.jackemate.appberdi.ui.welcome.WelcomeActivity
 import com.jackemate.appberdi.utils.*
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : RequesterPermissionsActivity() {
     private val viewModel: MainViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var geofencingClient: GeofencingClient
     private val preferenceRepo by lazy { PreferenceRepository(applicationContext) }
-    private val geofencePendingIntent: PendingIntent by lazy {
-        val intent = Intent(this, GeofenceBroadcastReceiver::class.java)
-        PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
@@ -53,8 +50,6 @@ class MainActivity : RequesterPermissionsActivity() {
         // Indispensable para el RequesterPermissionsActivity
         root = binding.root
 
-        geofencingClient = LocationServices.getGeofencingClient(this)
-
         val name: String = preferenceRepo.getUserName()
         binding.msgWelcome.text = getString(R.string.welcome, name)
 
@@ -62,8 +57,8 @@ class MainActivity : RequesterPermissionsActivity() {
         withPermissions(gpsPermissions()) {
             Log.i(TAG, "onCreate: Traer sitios")
             observe(viewModel.getSites()) {
-                Log.i(TAG, "onCreate: setupGeofence")
-                setupGeofence(it)
+                Log.i(TAG, "onCreate: setupGeofence: ${it?.size}")
+                it?.let { setupGeofence(it) }
             }
         }
 
@@ -97,49 +92,59 @@ class MainActivity : RequesterPermissionsActivity() {
         )
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "UnspecifiedImmutableFlag")
     private fun setupGeofence(sites: List<Site>) {
-        if (!hasPermission(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            )
-        ) {
+        if (!hasPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
             return
         }
 
-        val geofenceList = sites.map {
-            val geoPoint: GeoPoint = it.pos as GeoPoint
-            Geofence.Builder()
-                // Set the request ID of the geofence. This is a string to identify this geofence.
-                .setRequestId(it.id)
-                // Set the circular region of this geofence.
-                .setCircularRegion(
-                    geoPoint.latitude,
-                    geoPoint.longitude,
-                    Constants.GEOFENCE_RADIUS_IN_METERS
-                )
+        val request = GeofencingRequest
+            .Builder()
+            .addGeofences(sites.map { geofence(it) })
+            .build()
 
-                // Set the expiration duration of the geofence.
-                .setExpirationDuration(Constants.GEOFENCE_EXPIRATION_IN_MILLISECONDS)
-
-                // Set the transition types of interest.
-                .setTransitionTypes(
-                    Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT
-                )
-                .build()
-        }
+        val intent = PendingIntent.getBroadcast(
+            this,
+            0,
+            Intent(this, GeofenceReceiver::class.java),
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
         Log.i(TAG, "setupGeofence: Adding Geofences")
-        geofencingClient.addGeofences(getGeofencingRequest(geofenceList), geofencePendingIntent)
+        LocationServices
+            .getGeofencingClient(this)
+            .addGeofences(request, intent)
             .run {
                 addOnSuccessListener {
                     Log.i(TAG, "setupGeofence: Geofences added")
                 }
                 addOnFailureListener {
-                    it.printStackTrace()
-                    Log.e(TAG, "setupGeofence: Geofences NO")
+                    Log.e(TAG, "setupGeofence: Geofences NO", it)
+                    Firebase.crashlytics.recordException(it)
                 }
             }
+    }
+
+    private fun geofence(site: Site): Geofence {
+        val geoPoint: GeoPoint = site.pos as GeoPoint
+        return Geofence.Builder()
+
+            // Set the request ID of the geofence. This is a string to identify this geofence.
+            .setRequestId(site.id)
+
+            // Set the circular region of this geofence.
+            .setCircularRegion(
+                geoPoint.latitude,
+                geoPoint.longitude,
+                500f // radius in meters
+            )
+
+            // Set the expiration duration of the geofence.
+            .setExpirationDuration(TimeUnit.DAYS.toMillis(30))
+
+            // Set the transition types of interest.
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+            .build()
     }
 
     private fun goWelcome() {
@@ -153,14 +158,8 @@ class MainActivity : RequesterPermissionsActivity() {
         finish()
     }
 
-    private fun getGeofencingRequest(list: List<Geofence>): GeofencingRequest {
-        return GeofencingRequest.Builder().apply {
-            addGeofences(list)
-        }.build()
-    }
-
     private fun gpsPermissions(): Array<String> = listOfNotNull(
         Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION
+        Manifest.permission.ACCESS_FINE_LOCATION,
     ).toTypedArray()
 }
