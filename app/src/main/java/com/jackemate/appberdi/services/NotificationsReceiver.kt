@@ -1,14 +1,19 @@
 package com.jackemate.appberdi.services
 
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat.PRIORITY_MAX
+import com.jackemate.appberdi.BuildConfig
+import com.jackemate.appberdi.R
 import com.jackemate.appberdi.data.NotifyRepository
 import com.jackemate.appberdi.entities.AudioStatus
 import com.jackemate.appberdi.entities.Content
 import com.jackemate.appberdi.entities.TourMode
+import com.jackemate.appberdi.services.TrackingService.Companion.TRACKING_STOP
 import com.jackemate.appberdi.ui.map.MapsActivity
 import com.jackemate.appberdi.ui.shared.contents.ARG_CONTENT
 import com.jackemate.appberdi.ui.shared.contents.activities.AudioActivity
@@ -76,6 +81,21 @@ class NotificationsReceiver : BroadcastReceiver() {
                 setContentIntent(
                     Intent(context, MapsActivity::class.java)
                         .toPendingIntent(context)
+                )
+
+                addAction(
+                    R.drawable.ic_close,
+                    context.getString(R.string.opciones_stop),
+                    PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        Intent(TRACKING_STOP).apply {
+                            setPackage(BuildConfig.APPLICATION_ID)
+                        },
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                            PendingIntent.FLAG_IMMUTABLE
+                        else 0
+                    )
                 )
 
                 when (mode) {

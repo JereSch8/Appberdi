@@ -11,6 +11,7 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.ktx.toObject
 import com.google.maps.android.SphericalUtil
+import com.jackemate.appberdi.BuildConfig
 import com.jackemate.appberdi.data.NotifyRepository
 import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.data.SiteRepository
@@ -205,7 +206,7 @@ class TrackingService : Service() {
         broadcast.action = TRACKING_UPDATES
         broadcast.putExtra(EXTRA_UPDATE_POS, currentPos)
         broadcast.putExtra(EXTRA_UPDATE_MODE, currentMode)
-        broadcast.setPackage("com.jackemate.appberdi")
+        broadcast.setPackage(BuildConfig.APPLICATION_ID)
         sendBroadcast(broadcast)
     }
 
@@ -234,6 +235,7 @@ class TrackingService : Service() {
     }
 
     companion object {
+        const val TRACKING_STOP = "com.jackemate.appberdi.tracking.stop"
         const val TRACKING_UPDATES = "com.jackemate.appberdi.tracking.broadcast"
         const val EXTRA_UPDATE_POS = "pos"
         const val EXTRA_UPDATE_MODE = "mode"

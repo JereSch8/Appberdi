@@ -26,6 +26,11 @@
             android:value="AIzaSyAMoZ4t6dtiy1oaVAwl7GOFAs6B5gFebBc" />
 
         <receiver android:name=".services.GeofenceReceiver" />
+        <receiver android:name=".services.StopTrackerReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="com.jackemate.appberdi.tracking.stop" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".services.NotificationsReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="com.jackemate.appberdi.tracking.broadcast" />
@@ -35,7 +40,8 @@
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/AppTheme.Splash">
+            android:theme="@style/AppTheme.Splash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
