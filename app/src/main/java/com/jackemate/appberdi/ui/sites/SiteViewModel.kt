@@ -4,6 +4,10 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.liveData
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.data.ContentRepository
 import com.jackemate.appberdi.data.PreferenceRepository
 import com.jackemate.appberdi.data.SiteRepository
@@ -30,6 +34,10 @@ class SiteViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setVisited(idSite: String) {
         localInfo.setDataLong(idSite, Date().time)
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.LEVEL_END) {
+            param(FirebaseAnalytics.Param.LEVEL_NAME, idSite)
+            param(FirebaseAnalytics.Param.SUCCESS, "true")
+        }
     }
 
     fun getName() = localInfo.getUserName()

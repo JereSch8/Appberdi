@@ -39,13 +39,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var markers = emptyMap<String, Marker>()
     private var lastPos: LatLng? = null
 
-    private val receiver = TrackingBroadcastReceiver()
-
     private val markerIconDefault by lazy { BitmapDescriptorFactory.defaultMarker(210f) }
     private val markerIconVisited by lazy { BitmapDescriptorFactory.defaultMarker(59f) }
 
-    inner class TrackingBroadcastReceiver : BroadcastReceiver() {
-
+    private val trackingReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log.i(TAG, intent.pretty())
 
@@ -53,6 +50,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val mode = intent.getSerializableExtra("mode") as TourMode
 
             viewModel.setMode(mode)
+        }
+    }
+
+    private val stopReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            finish()
         }
     }
 
@@ -107,7 +110,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun startTracking() {
-        registerReceiver(receiver, IntentFilter(TrackingService.TRACKING_UPDATES))
+        registerReceiver(trackingReceiver, IntentFilter(TrackingService.TRACKING_UPDATES))
+        registerReceiver(stopReceiver, IntentFilter(TrackingService.TRACKING_STOP))
 
         ContextCompat.startForegroundService(this,
             Intent(this, TrackingService::class.java)
@@ -119,7 +123,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onPause()
         Log.d(TAG, "onPause")
         try {
-            unregisterReceiver(receiver)
+            unregisterReceiver(trackingReceiver)
+            unregisterReceiver(stopReceiver)
         } catch (_: Exception) {
         }
 

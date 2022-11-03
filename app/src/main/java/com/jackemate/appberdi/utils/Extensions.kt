@@ -29,8 +29,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -155,6 +159,10 @@ fun Activity.finishWithToast() {
 
 fun Context.share(subject: String, text: String) {
     try {
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SHARE) {
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, subject)
+            param(FirebaseAnalytics.Param.ITEM_ID, text)
+        }
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
