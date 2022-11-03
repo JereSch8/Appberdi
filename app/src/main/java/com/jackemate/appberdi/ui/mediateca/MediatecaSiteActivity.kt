@@ -8,6 +8,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaSiteBinding
 import com.jackemate.appberdi.entities.Content
@@ -106,6 +110,12 @@ class MediatecaSiteActivity : AppCompatActivity() {
     }
 
     private fun onMultimediaClick(multimedia: Content) {
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, multimedia.type)
+            param(FirebaseAnalytics.Param.ITEM_ID, multimedia.id)
+            param(FirebaseAnalytics.Param.ITEM_NAME, multimedia.title)
+            param(FirebaseAnalytics.Param.ITEM_CATEGORY, multimedia.site)
+        }
         when (multimedia) {
             is Content.Image -> startActivity(
                 Intent(this, ImageActivity::class.java).apply {

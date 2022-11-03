@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.R
@@ -32,6 +35,7 @@ class SiteActivity : AppCompatActivity() {
     private val viewModel: SiteViewModel by viewModels()
     private lateinit var binding: ActivitySiteBinding
     private lateinit var site: ContentSite
+    private lateinit var idSite: String
 
     private lateinit var viewPager: ViewPager2
 
@@ -41,9 +45,12 @@ class SiteActivity : AppCompatActivity() {
         binding = ActivitySiteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val idSite: String = intent.getStringExtra("idSite")!!
+        idSite = intent.getStringExtra("idSite")!!
         Log.i(TAG, "Site selected: $idSite")
         Firebase.crashlytics.log("Site selected: $idSite")
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.LEVEL_START) {
+            param(FirebaseAnalytics.Param.LEVEL_NAME, idSite)
+        }
 
         binding.loading.visible(true)
         observe(viewModel.getSite(idSite)) { contentSite ->
@@ -94,6 +101,10 @@ class SiteActivity : AppCompatActivity() {
             .setButtonText(getString(R.string.salir))
             .setButtonListener { dialog ->
                 stopService(Intent(this, AudioService::class.java))
+                Firebase.analytics.logEvent(FirebaseAnalytics.Event.LEVEL_END) {
+                    param(FirebaseAnalytics.Param.LEVEL_NAME, idSite)
+                    param(FirebaseAnalytics.Param.SUCCESS, "false")
+                }
                 dialog.dismiss()
                 finish()
             }.show()

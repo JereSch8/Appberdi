@@ -5,6 +5,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.jackemate.appberdi.R
 import com.jackemate.appberdi.databinding.ActivityMediatecaStartBinding
 import com.jackemate.appberdi.entities.ContentMediateca
@@ -33,9 +37,14 @@ class MediatecaStart : AppCompatActivity() {
     }
 
     private fun onSelected(item: ContentMediateca) {
-        val intent = Intent(this, MediatecaSiteActivity::class.java)
-        intent.putExtra("title", item.title)
-        startActivity(intent)
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "mediateca")
+            param(FirebaseAnalytics.Param.ITEM_ID, item.title)
+        }
+
+        startActivity(Intent(this, MediatecaSiteActivity::class.java).apply {
+            putExtra("title", item.title)
+        })
     }
 
 }
