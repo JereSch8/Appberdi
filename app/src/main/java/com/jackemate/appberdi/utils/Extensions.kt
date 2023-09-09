@@ -97,7 +97,7 @@ fun Intent.toPendingIntent(context: Context): PendingIntent {
         context,
         System.currentTimeMillis().toInt(),
         this,
-        0
+        PendingIntent.FLAG_IMMUTABLE
     )
 }
 
