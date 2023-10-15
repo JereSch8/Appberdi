@@ -2,9 +2,9 @@ name: mobsfscan
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ master, feature/implement-sast-into-pipeline ]
   pull_request:
-    branches: [ master, main ]
+    branches: [ master, feature/implement-sast-into-pipeline ]
 
 jobs:
   build:
