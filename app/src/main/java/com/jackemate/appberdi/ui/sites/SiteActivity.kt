@@ -90,6 +90,7 @@ class SiteActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         createDialogExit()
     }
