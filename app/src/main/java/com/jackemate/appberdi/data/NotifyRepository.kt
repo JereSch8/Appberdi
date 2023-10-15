@@ -11,11 +11,11 @@ import com.jackemate.appberdi.R
 
 class NotifyRepository(val context: Context) {
 
-    fun remove(id: Int) {
-        with(NotificationManagerCompat.from(context)) {
-            cancel(id)
-        }
-    }
+//    fun remove(id: Int) {
+//        with(NotificationManagerCompat.from(context)) {
+//            cancel(id)
+//        }
+//    }
 
     fun update(notification: Notification, id: Int = DEFAULT_ID) {
         with(NotificationManagerCompat.from(context)) {
@@ -33,7 +33,7 @@ class NotifyRepository(val context: Context) {
     fun build(block: NotificationCompat.Builder.() -> Unit): Notification {
         val builder = NotificationCompat.Builder(context, CHANNEL_BACKGROUND_ID)
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.mipmap.ic_launcher_foreground)
 
         block(builder)
 

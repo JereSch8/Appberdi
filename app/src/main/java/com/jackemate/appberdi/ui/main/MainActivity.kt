@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import com.google.android.gms.location.Geofence
-import com.google.android.gms.location.GeofencingRequest
+import com.google.android.gms.location.GeofencingRequest.Builder
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.firestore.GeoPoint
@@ -98,8 +98,7 @@ class MainActivity : RequesterPermissionsActivity() {
             return
         }
 
-        val request = GeofencingRequest
-            .Builder()
+        val request = Builder()
             .addGeofences(sites.map { geofence(it) })
             .build()
 
