@@ -35,8 +35,8 @@ class TrackingService : Service() {
     private var currentMode: TourMode = TourMode.Thinking
 
     private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult?) {
-            val loc = locationResult?.locations?.firstOrNull() ?: return
+        override fun onLocationResult(locationResult: LocationResult) {
+            val loc = locationResult.locations.firstOrNull() ?: return
             currentPos = LatLng(loc.latitude, loc.longitude)
             doUpdate()
         }
@@ -80,6 +80,7 @@ class TrackingService : Service() {
         stopLocationUpdates()
     }
 
+    @Suppress("DEPRECATION")
     override fun onDestroy() {
         stopSelf()
         stopLocationUpdates()

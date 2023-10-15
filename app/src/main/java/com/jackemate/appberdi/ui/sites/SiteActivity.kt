@@ -91,6 +91,7 @@ class SiteActivity : AppCompatActivity() {
     }
 
     @Deprecated("Deprecated in Java")
+    @Suppress("MissingSuperCall")
     override fun onBackPressed() {
         createDialogExit()
     }
