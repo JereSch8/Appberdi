@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -31,6 +32,11 @@ import java.util.concurrent.TimeUnit
 
 
 class MainActivity : RequesterPermissionsActivity() {
+
+    companion object{
+        val POST_NOTIFICATION_PERMISSION = 1001
+    }
+
     private val viewModel: MainViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
@@ -60,6 +66,10 @@ class MainActivity : RequesterPermissionsActivity() {
                 Log.i(TAG, "onCreate: setupGeofence: ${it?.size}")
                 it?.let { setupGeofence(it) }
             }
+        }
+
+        withPermissions(notificationPermissions()){
+            Log.i(TAG, "onCreate: Permissions granted" )
         }
 
         binding.launchTour.setOnClickListener {
@@ -161,4 +171,12 @@ class MainActivity : RequesterPermissionsActivity() {
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_FINE_LOCATION,
     ).toTypedArray()
+    private fun notificationPermissions(): Array<String> =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        listOfNotNull(
+            Manifest.permission.POST_NOTIFICATIONS
+        ).toTypedArray()
+    } else {
+        emptyArray()
+    }
 }
