@@ -62,12 +62,12 @@ jobs:
 
     # Restore jks
     - name: Restore playstore.keystore.jks
-      run: echo $KEYSTORE_FILE | base64 -d > /main/playstore.keystore.jks
+      run: echo ${{ secrets.SIGNING_KEY }} | base64 -d > playstore.keystore.jks
 
     # Build Release AAB
     - name: Build Release AAB
       run: ./gradlew
-        -PKEYSTORE_FILE="../${{ /main/playstore.keystore.jks }}"
+        -PKEYSTORE_FILE="../${{ playstore.keystore.jks }}"
         -PKEYSTORE_PASSWORD=${{ secrets.KEY_STORE_PASSWORD }}
         -PSIGNING_KEY_ALIAS=${{ secrets.ALIAS }}
         -PSIGNING_KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}
