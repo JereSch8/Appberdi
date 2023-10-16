@@ -1,6 +1,6 @@
 name: Tests and Linter
 
-on: [push]
+on: [pull_request]
 
 jobs:
   unit_tests:
