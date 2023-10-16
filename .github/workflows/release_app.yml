@@ -10,7 +10,6 @@ jobs:
 ### BUILD ###
   build:
     runs-on: ubuntu-latest
-    needs: unit_tests
     steps:
     - name: Fetch Sources
       uses: actions/checkout@v3
