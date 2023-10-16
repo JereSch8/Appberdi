@@ -67,7 +67,7 @@ jobs:
     # Build Release AAB
     - name: Build Release AAB
       run: ./gradlew
-        -PKEYSTORE_FILE="../${{ playstore.keystore.jks }}"
+        -PKEYSTORE_FILE=playstore.keystore.jks
         -PKEYSTORE_PASSWORD=${{ secrets.KEY_STORE_PASSWORD }}
         -PSIGNING_KEY_ALIAS=${{ secrets.ALIAS }}
         -PSIGNING_KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}
