@@ -40,12 +40,14 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
+    - name: Build with Gradle
+      run: ./gradlew build
+
 ### UNIT_TESTS ###
   unit_tests:
     runs-on: [ubuntu-latest]
     needs: build # The report job will run after build job
     steps:
-    - run: build
     - name: Unit Test
       run: ./gradlew testDebugUnitTest
 
