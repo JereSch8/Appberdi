@@ -42,37 +42,37 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build with Gradle
-      run: ./gradlew assemble
+      run: ./gradlew build
 
-### UNIT_TESTS ###
-  unit_tests:
-    runs-on: [ubuntu-latest]
-    needs: build # The report job will run after build job
-    steps:
-    - name: Unit Test
-      run: | 
-        cd ${{ runner.workspace }}
-        ./gradlew testDebugUnitTest
-
-    - name: Upload Test Reports Folder
-      uses: actions/upload-artifact@v3
-      if: ${{ always() }} # IMPORTANT: Upload reports regardless of status
-      with:
-        name: reports
-        path: app/build/test-results # path to where the xml test results are stored
+#### UNIT_TESTS ###
+#  unit_tests:
+#    runs-on: [ubuntu-latest]
+#    needs: build # The report job will run after build job
+#    steps:
+#    - name: Unit Test
+#      run: |
+#        cd ${{ runner.workspace }}
+#        ./gradlew testDebugUnitTest
+#
+#    - name: Upload Test Reports Folder
+#      uses: actions/upload-artifact@v3
+#      if: ${{ always() }} # IMPORTANT: Upload reports regardless of status
+#      with:
+#        name: reports
+#        path: app/build/test-results # path to where the xml test results are stored
 ### REPORTS ###
-  report:
-    runs-on: ubuntu-latest
-    needs: unit_tests # The report job will run after test job
-    if: ${{ always() }} # IMPORTANT: Execute report job regardless of status
-    steps:
-    - name: Download Test Reports Folder
-      uses: actions/download-artifact@v3
-      with:
-        name: reports
-
-    - name: Android Test Report
-      uses: asadmansr/android-test-report-action@v1.2.0
+#  report:
+#    runs-on: ubuntu-latest
+#    needs: unit_tests # The report job will run after test job
+#    if: ${{ always() }} # IMPORTANT: Execute report job regardless of status
+#    steps:
+#    - name: Download Test Reports Folder
+#      uses: actions/download-artifact@v3
+#      with:
+#        name: reports
+#
+#    - name: Android Test Report
+#      uses: asadmansr/android-test-report-action@v1.2.0
 
 ### GENERATE_APK ###
   generate_bundle:
