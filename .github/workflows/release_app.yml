@@ -49,7 +49,9 @@ jobs:
     needs: build # The report job will run after build job
     steps:
     - name: Unit Test
-      run: ./gradlew testDebugUnitTest
+      run: | 
+        cd ${{ runner.workspace }}
+        ./gradlew testDebugUnitTest
 
     - name: Upload Test Reports Folder
       uses: actions/upload-artifact@v3
