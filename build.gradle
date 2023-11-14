@@ -15,13 +15,15 @@ buildscript {
 
 
 plugins {
-    id 'org.jacoco.build-gradle-plugin' version '0.9.1'
+    id "jacoco"
     id "org.sonarqube" version "3.5.0.2730"
 }
  
-jacocoTestReport {
-    reports {
-        xml.required = true
+tasks.withType(Test) {
+    jacocoTestReport {
+        reports {
+            xml.required = true
+        }
     }
 }
 
