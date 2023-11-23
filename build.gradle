@@ -30,7 +30,12 @@ sonar {
   }
 }
 
-task jacocoTestReport {
+jacoco {
+    toolVersion = "0.8.9"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+jacocoTestReport {
         reports {
             xml.required = true
         }
