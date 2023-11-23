@@ -147,6 +147,11 @@ jobs:
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: results.sarif
+    - name: Upload SAST Reports Folder
+      uses: actions/upload-artifact@v3
+      with:
+        name: Mobsfscan_report
+        path: results.sarif
 
 ### BUILD RELEASE###
   build_release:
