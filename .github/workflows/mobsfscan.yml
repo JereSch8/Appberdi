@@ -21,3 +21,14 @@ jobs:
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: results.sarif
+     # Upload Bundle
+    - name: Upload Bundle Reports Folder
+      uses: actions/upload-artifact@v3
+      with:
+        name: result_mobsfcan
+        path: results.sarif
+        
+    - name: Download SAST Reports Folder
+      uses: actions/download-artifact@v3
+      with:
+        name: result_mobsfcan
