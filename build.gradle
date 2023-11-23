@@ -27,11 +27,9 @@ sonar {
   }
 }
  
-tasks.withType(Test) {
-    jacocoTestReport {
-        reports {
-            xml.required = true
-        }
+jacocoTestReport {
+    reports {
+        xml.required = true
     }
 }
 
