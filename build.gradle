@@ -35,18 +35,7 @@ jacoco {
     reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
-tasks.withType(Test::class) {
-    jacoco.destinationDir = file("$buildDir/reports/jacoco")
-    jacoco.reportsDir = file("$buildDir/reports/jacoco/html")
-}
 
-task jacocoTestReport(type: JacocoReportTask) {
-    dependsOn test
-    reports {
-        html.enabled = true
-        xml.enabled = true
-    }
-}
 
 
 
