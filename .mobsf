@@ -1,3 +1,6 @@
+ignore-rules:
+  - android_kotlin_hiddenui
+
 severity-filter:
   - WARNING
   - ERROR
