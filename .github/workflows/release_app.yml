@@ -63,7 +63,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: always() # IMPORTANT: Upload reports regardless of status
       with:
-        name: reports
+        name: unitTest_report
         path: app/build/test-results
 
 ### BUILD ###
@@ -130,12 +130,29 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew test
+      
+### SAST ###
+  mobsfscan:
+    runs-on: ubuntu-latest
+    needs: build_debug
+    name: SAST - Mobsfscan
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+    - name: mobsfscan
+      uses: MobSF/mobsfscan@main
+      with:
+        args: '. --sarif --output results.sarif || true'
+    - name: Mobsfscan_report
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: results.sarif
 
 ### BUILD RELEASE###
   build_release:
     name: Build AAB Signed
     runs-on: ubuntu-latest
-    needs: build_debug
+    needs: mobsfscan
     steps:
     - name: Fetch Sources
       uses: actions/checkout@v3
@@ -197,7 +214,7 @@ jobs:
     - name: Upload Bundle Reports Folder
       uses: actions/upload-artifact@v3
       with:
-        name: release
+        name: release_bundle_signed
         path: app/build/outputs/bundle/release
 
 ### REPORTS ###
@@ -209,7 +226,17 @@ jobs:
     - name: Download Test Reports Folder
       uses: actions/download-artifact@v3
       with:
-        name: unitTest reports
+        name: unitTest_report
+
+  report_sast:
+    runs-on: ubuntu-latest
+    needs: mobsfscan # The report job will run after test job
+    if: always() # IMPORTANT: Execute report job regardless of status
+    steps:
+    - name: Download Test Reports Folder
+      uses: actions/download-artifact@v3
+      with:
+        name: Mobsfscan_report
 
   report_bundle:
     runs-on: ubuntu-latest
@@ -223,4 +250,4 @@ jobs:
     - name: Download Bundle
       uses: actions/download-artifact@v3
       with:
-        name: release bundle signed
+        name: release_bundle_signed
